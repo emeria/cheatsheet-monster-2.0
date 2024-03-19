@@ -1,0 +1,19 @@
+{
+  "name": "cheatsheet-monster-2.0",
+  "version": "0.0.1",
+  "description": "A collection of resources for video games",
+  "main": "index.js",
+  "authors": {
+    "name": "emeria",
+    "email": "felemeria@gmail.com"
+  },
+  "repository": "https://github.com/emeria/cheatsheet-monster-2.0/cheatsheet-monster-2.0",
+  "scripts": {
+    "dev": "vuepress dev src",
+    "build": "vuepress build src"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "vuepress": "^1.5.3"
+  }
+}
