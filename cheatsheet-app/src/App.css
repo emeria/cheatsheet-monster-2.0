@@ -47,6 +47,19 @@ footer {
   color: white;
 }
 
+.theme-buttons {
+  display: flex;
+  justify-content: space-evenly; /* Distribute items evenly with equal space between them and around them */
+  max-width: 400px; /* Set the maximum width */
+  
+  margin: 0 auto; /* Center the container horizontally */
+}
+
+.theme-button {
+  /* Your button styles */
+}
+
+
 /**
 Image Gallery
 */
@@ -65,4 +78,19 @@ Image Gallery
 #overlay img {
   max-height: 80%;
   max-width: 90%;
+}
+
+/**
+* tabbed cheatsheet section
+*/
+.tabs button {
+  padding: 10px;
+  margin-right: 5px;
+  background-color: #f0f0f0;
+  border: none;
+  cursor: pointer;
+}
+
+.tabs button.active {
+  background-color: #ddd;
 }

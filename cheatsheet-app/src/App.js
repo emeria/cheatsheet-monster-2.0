@@ -2,7 +2,8 @@ import React from 'react';
 import './App.css';
 import Header from './components/Header';
 import ThemeSwitcher from './components/ThemeSwitcher';
-import ClickableImage from './components/ClickableImage';
+// import ClickableImage from './components/ClickableImage';
+import CheatsheetComponent from './components/Cheatsheet';
 
 function App() {  
   return (
@@ -11,11 +12,11 @@ function App() {
         <ThemeSwitcher />
       <main>
         <section>
-          <h2>Welcome to the Cheatsheet App</h2>
-          <p>This is a simple React app demonstrating theme switching.</p>
       <h3>Gallery One</h3>   
-      <ClickableImage tag="VendorRecipeCheatsheetV1" />
-      <ClickableImage tag="323Betrayal" />
+      {/* <ClickableImage tag="VendorRecipeCheatsheetV1" />
+      <ClickableImage tag="323Betrayal" /> */}
+       <CheatsheetComponent id="vendor_recipes" />
+       <CheatsheetComponent id="betrayal" />
           {/* You can add more content here */}
         </section>
       </main>
