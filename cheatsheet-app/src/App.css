@@ -1,0 +1,68 @@
+/**
+Default styles for the App component
+
+*/
+.App {
+  text-align: center;
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 10vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+main {
+  margin: 1em;
+}
+
+footer {
+  margin-top: 2em;
+  padding: 1em;
+  background-color: #282c34;
+  color: white;
+  text-align: center;
+}
+
+/**
+* Theme Switcher
+*/
+.lightTheme {
+  background-color: white;
+  color: black;
+}
+
+.normalTheme {
+  background-color: #f0f0f0;
+  color: #333;
+}
+
+.darkTheme {
+  background-color: #333;
+  color: white;
+}
+
+/**
+Image Gallery
+*/
+#overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#overlay img {
+  max-height: 80%;
+  max-width: 90%;
+}
