@@ -2,9 +2,10 @@ import React from 'react';
 import './App.css';
 import Header from './components/Header';
 import ThemeSwitcher from './components/ThemeSwitcher';
-// import ClickableImage from './components/ClickableImage';
 import CheatsheetComponent from './components/Cheatsheet';
 import Navbar from './components/Navbar';
+import BackToTopButton from './components/BackToTopButton';
+import Footer from './components/Footer';
 
 function App() {  
   return (
@@ -13,11 +14,10 @@ function App() {
         <ThemeSwitcher />
         <br></br>
         <Navbar />
+        <BackToTopButton />
       <main>
         <section>
-      <h3>Cheatsheets</h3>   
-      {/* <ClickableImage tag="VendorRecipeCheatsheetV1" />
-      <ClickableImage tag="323Betrayal" /> */}
+      <h3>Cheatsheets</h3>
        <CheatsheetComponent id="leveling" />
        <CheatsheetComponent id="vendor_recipes" />
        <CheatsheetComponent id="betrayal" />
@@ -29,9 +29,7 @@ function App() {
        <CheatsheetComponent id="flasks" />
         </section>
       </main>
-      <footer>
-        <p>Footer content goes here.</p>
-      </footer>
+      <Footer />
     </div>
   );
 }

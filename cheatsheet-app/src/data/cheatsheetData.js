@@ -19,7 +19,7 @@ const cheatsheets = [
       name: "Betrayal",
       figcaptionHref:"",
       imageTags: {
-        "323Betrayal": "Betrayal 3.24",
+        "ElrincondelexiliadocomSyndicateCheatsheet323": "Betrayal 3.24",
       },
     },
     {

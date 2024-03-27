@@ -99,17 +99,19 @@ Image Gallery
 * Navbar
 */
 .navbar {
+  /* display: flex; */
+  flex-wrap: wrap;
   width: 100%;
   background-color: #333;
   padding: 10px 0;
 }
 
-.container {
+.expand-button-container {
   max-width: 600px;
   margin: 0 auto;
   display: flex;
   flex-wrap: wrap; /* Allow buttons to wrap */
-  justify-content: space-around; /* Distribute space between buttons */
+  justify-content: space-evenly; /* Distribute space between buttons */
 }
 
 .nav-button {
@@ -125,4 +127,39 @@ Image Gallery
 
 .nav-button:hover {
   background-color: #0056b3;
+}
+
+.cheatsheet-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 auto;
+  min-width: 600px;
+  max-width: 1000px;
+  justify-content: space-evenly; /* Distribute space between buttons */
+}
+
+/**
+* Back to Top Button
+*/
+
+.back-to-top-button {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  padding: 10px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: opacity 0.3s;
+}
+
+.back-to-top-button.hidden {
+  opacity: 0;
+  pointer-events: none; /* Disable clicks when hidden */
+}
+
+.back-to-top-button.visible {
+  opacity: 1;
 }
