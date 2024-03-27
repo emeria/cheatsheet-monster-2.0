@@ -7,7 +7,7 @@ const ThemeSwitcher = () => {
   };
 
   return (
-    <div class="theme-buttons">
+    <div className="theme-buttons">
       <button className="styled-button" onClick={() => switchTheme('lightTheme')}>
       😇 Light Theme
       </button>

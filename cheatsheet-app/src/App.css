@@ -94,3 +94,35 @@ Image Gallery
 .tabs button.active {
   background-color: #ddd;
 }
+
+/**
+* Navbar
+*/
+.navbar {
+  width: 100%;
+  background-color: #333;
+  padding: 10px 0;
+}
+
+.container {
+  max-width: 600px;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap; /* Allow buttons to wrap */
+  justify-content: space-around; /* Distribute space between buttons */
+}
+
+.nav-button {
+  padding: 8px 16px;
+  margin: 5px;
+  font-size: 16px;
+  color: #fff;
+  background-color: #007bff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.nav-button:hover {
+  background-color: #0056b3;
+}
