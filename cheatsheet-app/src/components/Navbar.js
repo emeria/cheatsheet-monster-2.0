@@ -39,7 +39,7 @@ function Navbar() {
     <nav className="navbar">
       <div className="expand-button-container">
         {/* Button to collapse all cheatsheet components */}
-        <button onClick={handleCollapseAll} className="nav-button">
+        <button onClick={handleCollapseAll} className="collapse-expand-button">
           Collapse All
         </button>
 
@@ -55,7 +55,7 @@ function Navbar() {
           <button
             key={cheatsheet.id}
             onClick={() => handleButtonClick(cheatsheet.id)}
-            className="nav-button"
+            className={"nav-button nav-button-"+ cheatsheet.id}
           >
             {cheatsheet.name}
           </button>

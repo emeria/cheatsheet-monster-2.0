@@ -1,23 +1,11 @@
 /**
 Default styles for the App component
 */
-.App {
-  text-align: center;
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 10vh;
+.PathofExilePage{
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-main {
-  margin: 1em;
+  height: 100%;
+  text-align: center;
 }
 
 footer {
@@ -113,7 +101,7 @@ Image Gallery
 }
 
 .nav-button {
-  padding: 8px 16px;
+  padding: 6px 12px;
   margin: 5px;
   font-size: 16px;
   color: #fff;
@@ -127,11 +115,26 @@ Image Gallery
   background-color: #0056b3;
 }
 
+.nav-button-leveling {
+  background-color: #28a745;
+}
+
+.collapse-expand-button {
+  padding: 8px 16px;
+  margin: 5px;
+  font-size: 16px;
+  color: #fff;
+  background-color: #007bff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
 .cheatsheet-buttons {
   display: flex;
   flex-wrap: wrap;
   margin: 0 auto;
-  min-width: 600px;
+  min-width: 400px;
   max-width: 1000px;
   justify-content: space-evenly; /* Distribute space between buttons */
 }
