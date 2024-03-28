@@ -1,5 +1,9 @@
-body {
+body,
+html {
+  height: 100%;
   margin: 0;
+  display: flex;
+  flex-direction: column;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
@@ -7,7 +11,19 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+#root { /* Adjust if your root element has a different id */
+  min-height: 100%;
+  /* Other styles for the root element */
+}
+
+
+@media (max-width: 768px) {
+  body, html {
+    flex-direction: column;
+  }
 }

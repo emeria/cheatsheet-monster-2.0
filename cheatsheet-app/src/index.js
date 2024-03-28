@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import LastEpochPage from './pages/LastEpochPage';
 import PathOfExilePage from './pages/PathofExilePage';
 import HomePage from './pages/HomePage';
+import './index.css'; // Make sure to create a CSS file for styling
 
 // Get a reference to the root DOM element
 const rootElement = document.getElementById('root');

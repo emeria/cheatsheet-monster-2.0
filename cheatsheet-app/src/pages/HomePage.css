@@ -1,10 +1,7 @@
-body,
-html {
-  height: 100%;
-  margin: 0;
-  display: flex;
-  flex-direction: column;
-  font-family: Arial, sans-serif;
+.HomePage{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
 }
 
 .content {
@@ -21,6 +18,7 @@ html {
   padding: 1rem;
   vertical-align: middle;
   align-items: center;
+  flex-direction: row;
 }
 
 .game-links a {
@@ -54,10 +52,23 @@ transform: translateY(-50%); /* Aligns icons vertically in the center */
 }
 
 .header-icons a img {
-height: 60px; /* Set the height of the image */
+height: 40px; /* Set the height of the image */
 }
 
 h4 {
 font-size: 0.9em;
 margin-top: 0.5em; /* Spacing after the title */
 }
+
+@media (max-width: 768px) {
+    .game-links {
+      flex-direction: column;
+    }
+
+    .header-icons{
+        position: relative;
+        top: 0;
+        transform: none;
+        margin-top: 1rem;
+    }
+  }
