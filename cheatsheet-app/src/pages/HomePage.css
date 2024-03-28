@@ -1,0 +1,63 @@
+body,
+html {
+  height: 100%;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  font-family: Arial, sans-serif;
+}
+
+.content {
+  flex: 1 0 auto; /* The 1 will allow the content to expand */
+  text-align: center;
+  padding: 1rem;
+  background-color: #1a1a1a; /* Dark background color */
+  color: white; /* Ensuring text is visible on the dark background */
+}
+
+.game-links {
+  display: flex;
+  justify-content: center;
+  padding: 1rem;
+  vertical-align: middle;
+  align-items: center;
+}
+
+.game-links a {
+  margin: 0 1rem;
+  text-decoration: none;
+}
+
+.game-links img {
+  width: 300px; /* Adjust the width as needed */
+  height: auto;
+  border: 1px solid #000; /* For demonstration */
+}
+
+header {
+background-color: #333;
+color: white;
+padding: 1rem;
+position: relative; /* Allows absolute positioning relative to the header */
+text-align: center;
+}
+
+h1 {
+margin: 0; /* Centers the title with equal space on both sides */
+}
+
+.header-icons {
+position: absolute; /* Positions icons absolutely within the header */
+right: 1rem; /* Positions the icons to the right */
+top: 50%;
+transform: translateY(-50%); /* Aligns icons vertically in the center */
+}
+
+.header-icons a img {
+height: 60px; /* Set the height of the image */
+}
+
+h4 {
+font-size: 0.9em;
+margin-top: 0.5em; /* Spacing after the title */
+}

@@ -65,7 +65,7 @@ function Footer() {
         <span className="ios-visible">iOS-visible</span>
         {' '}
         <span style={{ fontSize: '12px' }}>
-          Version 1.00, Last Updated Sun, Feb, 18, 2024.
+          Version 1.00, Last Updated Wed, Mar 27, 2024
         </span>
         {' '}
         <span style={{ fontSize: '12px' }}>
