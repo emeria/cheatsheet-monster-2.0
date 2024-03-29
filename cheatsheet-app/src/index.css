@@ -22,8 +22,16 @@ code {
 }
 
 
-@media (max-width: 768px) {
-  body, html {
-    flex-direction: column;
+header {
+  background-color: #333;
+  color: white;
+  padding: 1rem;
+  position: relative; /* Allows absolute positioning relative to the header */
+  text-align: center;
   }
-}
+
+  @media (max-width: 768px) {
+    body, html {
+      flex-direction: column;
+    }
+  }

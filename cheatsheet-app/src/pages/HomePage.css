@@ -32,13 +32,6 @@
   border: 1px solid #000; /* For demonstration */
 }
 
-header {
-background-color: #333;
-color: white;
-padding: 1rem;
-position: relative; /* Allows absolute positioning relative to the header */
-text-align: center;
-}
 
 h1 {
 margin: 0; /* Centers the title with equal space on both sides */

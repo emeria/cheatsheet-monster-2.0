@@ -12,7 +12,6 @@ function LastEpochPage() {
     <div className="LastEpochPage">
       <Header />
       <ThemeSwitcher />
-      <br></br>
       <Navbar />
       <BackToTopButton />
       <main>

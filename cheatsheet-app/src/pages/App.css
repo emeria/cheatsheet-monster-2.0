@@ -1,3 +1,52 @@
+/* Define default theme colors */
+:root {
+  --primary-color: #0f0; /* Example primary color */
+  --secondary-color: #e52a01; /* Example secondary color */
+  --background-color: #000; /* Example background color */
+  --text-color: #fff; /* Example text color */
+  --link-visited-color: #e52a01;
+  --link-color: #0f0;
+  --button-bg-color: #ccc;
+  --button-hover-bg-color: #ddd;
+  --button-active-bg-color: #ccc;
+  --table-header-bg-color: #5d3b8e;
+  --table-row-odd-bg-color: #412b58;
+  --table-row-even-bg-color: #1a1a1a;
+  --table-row-hover-bg-color: #302244;
+  --accordion-bg-color: #777;
+  --accordion-hover-bg-color: #555;
+  --accordion-content-bg-color: #050505;
+  --debug-border-color: cyan;
+  --ruler-bg-color: #222;
+  --ruler-border-color: skyblue;
+  --overlay-bg-color: rgba(0, 0, 0, 0.5);
+  --tab-bg-color: #f1f1f1;
+  --tab-border-color: #ccc;
+  --tab-content-border-color: #ccc;
+  --top-btn-bg-color: red;
+  --top-btn-hover-bg-color: #555;
+  --collapsible-bg-color: #777;
+  --collapsible-hover-bg-color: #555;
+  --content-bg-color: #050505;
+  --table-bg-color: #1a1a1a;
+  --th-bg-color: #5d3b8e;
+  --tr-odd-bg-color: #412b58;
+  --tr-even-bg-color: #1a1a1a;
+  --tr-hover-bg-color: #302244;
+  --td-border-color: #333;
+  --reward-icon-size: 20px;
+  --styled-button-bg-color: #302244;
+  --styled-button-hover-bg-color: #45a049;
+  --styled-button-font-size: 16px;
+  --theme-button-bg-color: #302244;
+  --theme-button-hover-bg-color: #45a049;
+  --theme-button-font-size: 16px;
+  --dungeon-bg-color: #f1f1f1;
+  --header: #ff8;
+  --focus-image-text-color: #fff;
+}
+
+
 /**
 Default styles for the App component
 */
@@ -18,6 +67,15 @@ footer {
 /**
 * Theme Switcher
 */
+.theme-switcher {
+  display: flex;
+  flex-direction: column; /* Stack children vertically */
+  justify-content: center; /* Center children vertically */
+  align-items: center; /* Center children horizontally */
+  background-color: #282c34;
+
+}
+
 .lightTheme {
   background-color: white;
   color: black;
@@ -35,14 +93,26 @@ footer {
 
 .theme-buttons {
   display: flex;
-  justify-content: space-evenly; /* Distribute items evenly with equal space between them and around them */
-  max-width: 400px; /* Set the maximum width */
-  
-  margin: 0 auto; /* Center the container horizontally */
+  justify-content: space-evenly;
+  max-width: 400px;
+  margin: 0 auto;
 }
 
 .theme-button {
-  /* Your button styles */
+  background-color: var(--styled-button-bg-color);
+  border: none;
+  color: var(--styled-button-text-color); /* Variable for text color */
+  height: 30px;
+  width: 150px;
+  /* padding: 15px 32px; */
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: var(--theme-button-font-size); /* Variable for font size */
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 8px; /* Rounded corners */
+  transition: background-color 0.3s, box-shadow 0.3s; /* Smooth transition for hover effect */
 }
 
 

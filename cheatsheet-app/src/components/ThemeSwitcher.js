@@ -7,17 +7,22 @@ const ThemeSwitcher = () => {
   };
 
   return (
+    <>
+    <div className="theme-switcher">
     <div className="theme-buttons">
-      <button className="styled-button" onClick={() => switchTheme('lightTheme')}>
-      😇 Light Theme
+      <span>Theme</span>
+      <button className="theme-button" onClick={() => switchTheme('lightTheme')}>
+      😇 Light
       </button>
-      <button className="styled-button" onClick={() => switchTheme('normalTheme')}>
-      🧌 Normal Theme
+      <button className="theme-button" onClick={() => switchTheme('normalTheme')}>
+      🧌 Neutral
       </button>
-      <button className="styled-button" onClick={() => switchTheme('darkTheme')}>
-      👿 Dark Theme
+      <button className="theme-button" onClick={() => switchTheme('darkTheme')}>
+      👿 Dark
       </button>
     </div>
+    </div>
+    </>
   );
 };
 

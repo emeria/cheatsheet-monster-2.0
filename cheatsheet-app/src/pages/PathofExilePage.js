@@ -12,7 +12,6 @@ function PathofExilePage() {
     <div className="PathofExilePage">
       <Header />
       <ThemeSwitcher />
-      <br></br>
       <Navbar />
       <BackToTopButton />
       <main>
