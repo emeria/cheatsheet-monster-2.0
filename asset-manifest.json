@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/cheetsheet-monster-2.0/static/css/main.72f6cdd8.css",
+    "main.js": "/cheetsheet-monster-2.0/static/js/main.f9efe45a.js",
+    "index.html": "/cheetsheet-monster-2.0/index.html",
+    "main.72f6cdd8.css.map": "/cheetsheet-monster-2.0/static/css/main.72f6cdd8.css.map",
+    "main.f9efe45a.js.map": "/cheetsheet-monster-2.0/static/js/main.f9efe45a.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.72f6cdd8.css",
+    "static/js/main.f9efe45a.js"
+  ]
+}
