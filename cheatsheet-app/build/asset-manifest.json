@@ -1,15 +1,13 @@
 {
   "files": {
-    "main.css": "/cheetsheet-monster-2.0/static/css/main.f53aeee9.css",
-    "main.js": "/cheetsheet-monster-2.0/static/js/main.33071a51.js",
-    "static/js/845.694fbf93.chunk.js": "/cheetsheet-monster-2.0/static/js/845.694fbf93.chunk.js",
+    "main.css": "/cheetsheet-monster-2.0/static/css/main.72f6cdd8.css",
+    "main.js": "/cheetsheet-monster-2.0/static/js/main.f9efe45a.js",
     "index.html": "/cheetsheet-monster-2.0/index.html",
-    "main.f53aeee9.css.map": "/cheetsheet-monster-2.0/static/css/main.f53aeee9.css.map",
-    "main.33071a51.js.map": "/cheetsheet-monster-2.0/static/js/main.33071a51.js.map",
-    "845.694fbf93.chunk.js.map": "/cheetsheet-monster-2.0/static/js/845.694fbf93.chunk.js.map"
+    "main.72f6cdd8.css.map": "/cheetsheet-monster-2.0/static/css/main.72f6cdd8.css.map",
+    "main.f9efe45a.js.map": "/cheetsheet-monster-2.0/static/js/main.f9efe45a.js.map"
   },
   "entrypoints": [
-    "static/css/main.f53aeee9.css",
-    "static/js/main.33071a51.js"
+    "static/css/main.72f6cdd8.css",
+    "static/js/main.f9efe45a.js"
   ]
 }

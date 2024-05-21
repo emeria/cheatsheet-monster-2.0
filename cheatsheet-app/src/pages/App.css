@@ -136,6 +136,40 @@ Image Gallery
   max-width: 90%;
 }
 
+
+/**
+* Cheatsheet collapsibles
+*/
+.collapsible {
+  background-color: var(--collapsible-bg-color);
+  color: var(--text-color);
+  cursor: pointer;
+  padding: 18px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  border: none;
+  text-align: left;
+  outline: none;
+  font-size: 15px;
+}
+
+.active,
+.collapsible:hover {
+  background-color: var(--collapsible-hover-bg-color);
+}
+
+.colored-summary-leveling {
+  background-image: linear-gradient(
+    to bottom,
+    rgb(140, 61, 49),
+    rgb(73, 49, 3) 20%,
+    transparent 20%
+  );
+  color: inherit;
+}
+
 /**
 * tabbed cheatsheet section
 */

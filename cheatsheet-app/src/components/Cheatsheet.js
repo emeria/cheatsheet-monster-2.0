@@ -21,7 +21,7 @@ function CheatsheetComponent({ id }) {
 
   return (
     <><details>
-          <summary className="collapsible" id={id}>
+          <summary className={`collapsible colored-summary-${id}`} id={id}>
               {name}
           </summary>
           <div className="tabs">
