@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "https://emeria.github.io/cheatsheet-monster-2.0/static/css/main.72f6cdd8.css",
-    "main.js": "https://emeria.github.io/cheatsheet-monster-2.0/static/js/main.9e39a233.js",
+    "main.js": "https://emeria.github.io/cheatsheet-monster-2.0/static/js/main.a1b3ddda.js",
     "index.html": "https://emeria.github.io/cheatsheet-monster-2.0/index.html",
     "main.72f6cdd8.css.map": "https://emeria.github.io/cheatsheet-monster-2.0/static/css/main.72f6cdd8.css.map",
-    "main.9e39a233.js.map": "https://emeria.github.io/cheatsheet-monster-2.0/static/js/main.9e39a233.js.map"
+    "main.a1b3ddda.js.map": "https://emeria.github.io/cheatsheet-monster-2.0/static/js/main.a1b3ddda.js.map"
   },
   "entrypoints": [
     "static/css/main.72f6cdd8.css",
-    "static/js/main.9e39a233.js"
+    "static/js/main.a1b3ddda.js"
   ]
 }
