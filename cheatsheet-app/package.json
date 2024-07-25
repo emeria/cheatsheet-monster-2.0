@@ -2,7 +2,6 @@
   "name": "cheatsheet-app",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://emeria.github.io/cheetsheet-monster-2.0",
   "dependencies": {
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
@@ -19,7 +18,8 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "deploy": "gh-pages -d build",
+    "prebuild": "react-scripts build && echo 'REACT_APP_HOMEPAGE=/cheatsheet-monster-2.0' >> .env.production"
   },
   "eslintConfig": {
     "extends": [
