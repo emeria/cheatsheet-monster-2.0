@@ -72,8 +72,10 @@ test('a Path of the X node opens that class start as a root instead of linking a
 
 test('sections, groups, pools and URL index tables', () => {
   expect(tree.sections.map((s) => s.id)).toEqual(['main', 'ascendant', 'juggernaut', 'bloodline-king-in-the-mists']);
-  expect(tree.sections[1]).toMatchObject({ pool: 'ascendancy', active: { group: 'ascendancy' }, req: { start: '10' }, ports: ['10'] });
+  // The port is the ascendancy's own start (30), not the class start (10).
+  expect(tree.sections[1]).toMatchObject({ pool: 'ascendancy', active: { group: 'ascendancy' }, req: { start: '10' }, ports: ['30'] });
   expect(tree.sections[2].req).toEqual({ start: '20' });
+  expect(tree.sections[2].ports).toBeUndefined(); // no Juggernaut nodes in this export
   expect(tree.sections[3].req).toBeUndefined();
   expect(tree.groups).toEqual([
     { id: 'ascendancy', pick: { max: 1 }, members: { sections: ['ascendant', 'juggernaut'] } },

@@ -61,6 +61,8 @@ test('keeps released nodes only; masteries, anoint-only, unreleased and override
   expect(tree.nodes.map((n) => n.id)).toEqual(['10', '11', '12', '14', '15', '16', '20', '21', '30', '31']);
   expect(tree.sections.map((s) => s.id)).toEqual(['main', 'titan', 'lich']);
   expect(tree.sections.slice(1).map((s) => s.req)).toEqual([{ start: '10' }, { start: '20' }]);
+  // The port is the ascendancy's own start, not the class start; Lich has no nodes here, so no port.
+  expect(tree.sections.slice(1).map((s) => s.ports)).toEqual([['30'], undefined]);
   expect(tree.sections[0].pool).toEqual(['passive', 'ws1', 'ws2']);
   expect(tree.ext.poe2.classes).toEqual([
     { name: 'Warrior', start: '10', ascendancies: ['titan'], ascendancyIds: ['Warrior1'] },

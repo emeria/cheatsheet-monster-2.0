@@ -48,8 +48,10 @@ function convert(data, pin) {
   const sectionOf = new Map(); // ascendancyId -> section id
 
   const starts = new Map(); // class index -> start node id
+  const ascStart = new Map(); // ascendancyId -> its start node id
   for (const [id, n] of Object.entries(data.nodes)) {
     for (const i of [].concat(n.classStartIndex ?? [])) starts.set(i, id);
+    if (n.isAscendancyStart && n.ascendancyId && n.x !== undefined) ascStart.set(n.ascendancyId, id);
   }
   const poeClasses = data.classes.map((c, i) => {
     const asc = (c.ascendancies || [])
@@ -57,8 +59,11 @@ function convert(data, pin) {
       .map((a) => {
         const id = slug(a.name);
         sectionOf.set(a.id, id);
-        // Only a class whose start this is can pick the ascendancy.
-        sections.push({ id, name: a.name, kind: 'ascendancy', pool: 'ascendancy', connectivity: 'path', active: { group: 'ascendancy' }, req: { start: starts.get(i) }, ports: [starts.get(i)] });
+        // Only a class whose start this is can pick the ascendancy. The port is the ascendancy's
+        // own start: the kit (viaOf) only honours a port that sits inside the section.
+        const section = { id, name: a.name, kind: 'ascendancy', pool: 'ascendancy', connectivity: 'path', active: { group: 'ascendancy' }, req: { start: starts.get(i) } };
+        if (ascStart.has(a.id)) section.ports = [ascStart.get(a.id)];
+        sections.push(section);
         return { id, source: a.id };
       });
     return { name: c.name, start: starts.get(i), ascendancies: asc.map((a) => a.id), ascendancyIds: asc.map((a) => a.source) };

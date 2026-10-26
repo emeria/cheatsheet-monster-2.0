@@ -48,7 +48,7 @@ socketables, rule plugins), is in the `lmg-tree-kit` spec.
 | `connectivity` | | `path` (PoE: must touch an allocated node or a start), `prereq` (arrows and tier gates: WoW, D2, LE), `free` |
 | `active` | `always` | Or `{ "group": id }` for a section that's active when picked (PoE ascendancies) |
 | `tiers` | | `{ "gate": [...] }`: points needed in this section for each tier, so nodes don't each carry a requirement |
-| `ports` | | Node ids where the section attaches to another (an ascendancy's class start) |
+| `ports` | | Node ids inside this section where it attaches to another (an ascendancy's own start node) |
 
 ### Nodes
 

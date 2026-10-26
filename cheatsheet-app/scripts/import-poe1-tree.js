@@ -69,16 +69,21 @@ function convert(data, pin) {
   const sectionOf = new Map(); // ascendancyName -> section id
   const sections = [{ id: 'main', name: 'Passive tree', kind: 'tree', pool: 'passive', connectivity: 'path', active: 'always' }];
   const classStart = new Map(); // classStartIndex -> node id
+  const ascStart = new Map(); // ascendancyName -> its start node id
   for (const [id, n] of Object.entries(data.nodes)) {
     if (n.classStartIndex !== undefined) classStart.set(n.classStartIndex, id);
+    if (n.isAscendancyStart && n.ascendancyName && onTree(id, n)) ascStart.set(n.ascendancyName, id);
   }
 
   const poeClasses = data.classes.map((c, i) => {
     const asc = c.ascendancies.map((a) => {
       const id = slug(a.id);
       sectionOf.set(a.id, id);
-      // Only the class whose start this is can pick the ascendancy.
-      sections.push({ id, name: a.name, kind: 'ascendancy', pool: 'ascendancy', connectivity: 'path', active: { group: 'ascendancy' }, req: { start: classStart.get(i) }, ports: [classStart.get(i)] });
+      // Only the class whose start this is can pick the ascendancy. The port is the ascendancy's
+      // own start: the kit (viaOf) only honours a port that sits inside the section.
+      const section = { id, name: a.name, kind: 'ascendancy', pool: 'ascendancy', connectivity: 'path', active: { group: 'ascendancy' }, req: { start: classStart.get(i) } };
+      if (ascStart.has(a.id)) section.ports = [ascStart.get(a.id)];
+      sections.push(section);
       return id;
     });
     return { name: c.name, start: classStart.get(i), ascendancies: asc };
