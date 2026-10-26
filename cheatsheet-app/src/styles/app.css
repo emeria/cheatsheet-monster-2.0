@@ -1,0 +1,430 @@
+/* ----- Page ----- */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: Verdana, Arial, Helvetica, sans-serif;
+  font-size: 16px;
+  -webkit-text-size-adjust: 100%;
+}
+
+.app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex: 1 0 auto;
+  width: 100%;
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 1rem 16px;
+  text-align: center;
+}
+
+a:link {
+  color: var(--link);
+  font-weight: bold;
+}
+
+a:visited {
+  color: var(--link-visited);
+}
+
+hr {
+  border: 0;
+  border-top: 1px solid var(--td-border);
+  margin: 1.5rem 0;
+}
+
+.hint,
+.credit,
+.feedback {
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.error {
+  color: var(--link-visited);
+}
+
+/* ----- Header, theme switcher, footer ----- */
+.site-header {
+  position: relative;
+  padding: 1rem;
+  background: var(--chrome-bg);
+  color: var(--chrome-text);
+  text-align: center;
+}
+
+.site-header h1 {
+  margin: 0;
+}
+
+.site-header h1 a,
+.site-header h1 a:visited {
+  color: inherit;
+  text-decoration: none;
+}
+
+.site-header h4 {
+  margin: 0.5em 0 0;
+  font-size: 0.9em;
+}
+
+.header-icons {
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.header-icons img {
+  height: 40px;
+  display: block;
+}
+
+.theme-switcher {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: center;
+  align-items: center;
+  padding: 0.5rem 16px;
+  background: var(--chrome-bg);
+  color: var(--chrome-text);
+}
+
+.theme-button[aria-pressed='true'] {
+  outline: 2px solid var(--button-hover-bg);
+}
+
+.site-footer {
+  padding: 1rem 16px;
+  background: var(--chrome-bg);
+  color: var(--chrome-text);
+  font-size: 12px;
+  text-align: center;
+}
+
+/* ----- Buttons ----- */
+.styled-button,
+.theme-button,
+.tabs button {
+  background: var(--button-bg);
+  color: var(--button-text);
+  border: none;
+  border-radius: 8px;
+  padding: 8px 16px;
+  margin: 4px 2px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+.styled-button:hover,
+.theme-button:hover,
+.tabs button:hover,
+.tabs button.active,
+.styled-button[aria-pressed='true'] {
+  background: var(--button-hover-bg);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.expand-buttons {
+  margin: 0.5rem 0 1rem;
+}
+
+.back-to-top-button {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 10;
+  padding: 12px;
+  background: var(--top-btn-bg);
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: opacity 0.3s;
+}
+
+.back-to-top-button.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* ----- Home ----- */
+.game-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem 2rem;
+  padding: 1rem 0;
+}
+
+.game-links img {
+  width: 300px;
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* ----- Game page ----- */
+.subtitle {
+  font-size: 18px;
+  margin: 0.5rem 0;
+}
+
+.byline {
+  font-size: 14px;
+}
+
+.page-nav,
+.sheet-nav {
+  line-height: 1.8;
+}
+
+h2 {
+  scroll-margin-top: 1rem;
+}
+
+/* ----- Sections ----- */
+.section {
+  margin: 0 0 1rem;
+  text-align: left;
+  scroll-margin-top: 1rem;
+}
+
+.section .section {
+  margin-top: 1rem;
+}
+
+.collapsible {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  padding: 18px;
+  background-color: var(--collapsible-bg);
+  color: var(--text);
+  font-size: 15px;
+  cursor: pointer;
+  list-style: none;
+}
+
+.collapsible::-webkit-details-marker {
+  display: none;
+}
+
+.collapsible::before {
+  content: '▸';
+  margin-right: 0.5rem;
+}
+
+details[open] > .collapsible::before {
+  content: '▾';
+}
+
+.collapsible:hover {
+  background-color: var(--collapsible-hover-bg);
+}
+
+.section-body {
+  padding: 0.75rem 0;
+}
+
+.intro {
+  font-weight: bold;
+}
+
+.resistances {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-left: auto;
+}
+
+/* Coloured band across the top of a section header. Add `accent: '<name>'` in a content file. */
+.collapsible[class*='accent-'] {
+  background-image: linear-gradient(to bottom, var(--accent-top), var(--accent-bottom) 20%, transparent 20%);
+}
+.accent-leveling { --accent-top: rgb(140, 61, 49); --accent-bottom: rgb(73, 49, 3); }
+.accent-betrayal { --accent-top: rgb(107, 255, 197); --accent-bottom: rgb(16, 46, 29); }
+.accent-heist { --accent-top: #a6a6f6; --accent-bottom: #0c0d18; }
+.accent-incursion { --accent-top: #facf66; --accent-bottom: #2d0105; }
+.accent-essences { --accent-top: #37aed7; --accent-bottom: blue; }
+.accent-strongbox { --accent-top: rgb(212, 206, 198); --accent-bottom: #705b48; }
+.accent-flask { --accent-top: #dcba4f; --accent-bottom: #333; }
+.accent-monolith { --accent-top: purple; --accent-bottom: rgb(70, 4, 70); }
+.accent-exiledmages { --accent-top: #a6a6f6; --accent-bottom: #0c0d18; }
+.accent-dungeons { --accent-top: green; --accent-bottom: rgb(2, 63, 2); }
+.accent-factions { --accent-top: rgb(140, 61, 49); --accent-bottom: blue; }
+
+/* ----- Images ----- */
+figure {
+  margin: 0;
+  text-align: center;
+}
+
+figcaption {
+  margin-top: 0.25rem;
+}
+
+.zoomable {
+  max-width: 100%;
+  height: auto;
+  cursor: zoom-in;
+}
+
+.zoom-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: var(--overlay-bg);
+  cursor: zoom-out;
+}
+
+.zoom-overlay img {
+  max-width: 95vw;
+  max-height: 95vh;
+}
+
+.tabs {
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 0.5rem;
+}
+
+/* ----- Links ----- */
+.link-groups {
+  text-align: center;
+}
+
+.link-group ul,
+.link-group ol {
+  display: inline-block;
+  text-align: left;
+  margin-top: 0;
+}
+
+.link-group li {
+  margin: 0.2rem 0;
+}
+
+/* ----- Tables ----- */
+.table-wrap {
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  color: var(--text);
+  text-align: left;
+}
+
+th {
+  background: var(--th-bg);
+  padding: 8px;
+}
+
+td {
+  padding: 4px 8px;
+  border-bottom: 1px solid var(--td-border);
+}
+
+tr:nth-child(odd) {
+  background: var(--tr-odd-bg);
+}
+
+tr:nth-child(even) {
+  background: var(--tr-even-bg);
+}
+
+tr:hover {
+  background: var(--tr-hover-bg);
+}
+
+tr.selected {
+  background: var(--selected-bg);
+}
+
+tr.clickable {
+  cursor: pointer;
+}
+
+.reward-icon {
+  width: 20px;
+  height: 20px;
+  vertical-align: middle;
+}
+
+.reward-count {
+  margin-left: 2px;
+}
+
+.toggle {
+  display: inline-block;
+  margin-bottom: 0.5rem;
+}
+
+.search {
+  width: 100%;
+  max-width: 400px;
+  padding: 8px;
+  margin-bottom: 0.5rem;
+  font-size: 16px;
+}
+
+.total {
+  font-size: 1.2em;
+  font-weight: bold;
+}
+
+/* ----- Calculators ----- */
+.calculator h3 {
+  text-align: center;
+}
+
+.form-grid {
+  display: grid;
+  gap: 0.5rem;
+  max-width: 520px;
+}
+
+.form-grid input[type='number'],
+.form-grid select {
+  width: 6rem;
+  margin-left: 0.25rem;
+}
+
+.results details {
+  margin: 0.25rem 0;
+}
+
+/* ----- Phones ----- */
+@media (max-width: 768px) {
+  .header-icons {
+    position: static;
+    transform: none;
+    justify-content: center;
+    margin-top: 0.75rem;
+  }
+
+  .collapsible {
+    padding: 14px 12px;
+  }
+}

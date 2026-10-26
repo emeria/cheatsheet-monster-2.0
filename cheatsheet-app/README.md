@@ -1,70 +1,55 @@
-# Getting Started with Create React App
+# Cheatsheet Monster 2.0
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+React rewrite of [cheatsheet.monster](https://cheatsheet.monster) (the original static site lives in the `cheatsheet_monster` repo).
 
-## Available Scripts
+```
+npm start     # dev server at http://localhost:3000/cheatsheet-monster-2.0
+npm test      # content + widget tests
+npm run build # production build in build/
+npm run sync  # pull images and CSVs from ../../cheatsheet_monster
+```
 
-In the project directory, you can run:
+## Updating content
 
-### `npm start`
+Everything you normally edit is data, not page code:
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+| To change | Edit |
+| --- | --- |
+| Header, footer, social links | `src/content/site.js` |
+| A game's cheat sheets and links | `src/content/<game>.js` (`poe`, `poe2`, `lastepoch`, `wow`) |
+| Images | drop them in `public/assets/<game>/pics/` |
+| Table data (leveling, blessings, dungeons, PoE 2 rewards) | the CSV in `public/assets/<game>/data/` — no script to run, the page reads it directly |
+| Add a game | new file in `src/content/`, add it to `src/content/games.js` |
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Paths in content files are relative to `public/assets`, e.g. `'poe/pics/heist.jpg'`.
 
-### `npm test`
+If you keep updating the original site, `npm run sync` copies its new or changed images and CSVs here.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Section shapes
 
-### `npm run build`
+Each game file has `cheatsheets` (the main list, shown in the cheat sheet nav) and `resources` (link sections, shown in the top nav). Every section has an `id` (used for `#links`) and a `title`, plus optional `open: true`, `navLabel`, `intro` and `accent` (coloured header band, defined in `src/styles/app.css`). The body is one of:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```js
+// An image cheat sheet. Two or more images show as tabs, labelled with `label`.
+{ id: 'heist', title: 'Heist', accent: 'heist', open: true,
+  images: [{ src: 'poe/pics/heist.jpg', source: 'https://reddit.com/...' }] }
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+// Link lists. An item is: text <label as link> — note (extra | extra). All fields optional.
+{ id: 'MiscLinks', title: 'Misc. Links',
+  links: [{ heading: 'Wiki', ordered: false, intro: '...',
+            items: [{ label: 'PoE Wiki', url: 'https://...', note: 'The updated wiki' }] }] }
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+// Nested sections.
+{ id: 'monolith', title: 'Monolith', children: [ /* sections */ ] }
 
-### `npm run eject`
+// An interactive table or calculator from src/widgets (see src/widgets/index.js).
+{ id: 'rewards', title: 'Campaign Rewards', widget: 'poe2Rewards', props: { csv: 'poe2/data/rewards.csv' } }
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+Widgets: `leveling` (chapter/act maps + step tables, TLDR, campaign skip), `blessings`, `dungeons` (daily rotation; tune `cycle`/`start` in `lastepoch.js`), `supporterPacks`, `poe2Rewards`, `aldorScryer`, `cenarion`.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Deploying
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+Pushing to `main` runs `.github/workflows/static.yml`, which tests, builds and deploys to GitHub Pages. For that to be what the site serves, set **Settings → Pages → Source** to **GitHub Actions**. Until then the site is served from the `gh-pages` branch, which `npm run deploy` updates.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Deep links like `/cheatsheet-monster-2.0/poe#heist` work through `public/404.html`, which hands the path back to the app.

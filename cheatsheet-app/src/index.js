@@ -1,22 +1,17 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import LastEpochPage from './pages/LastEpochPage';
-import PathOfExilePage from './pages/PathofExilePage';
-import HomePage from './pages/HomePage';
-import './index.css';
+import { BrowserRouter } from 'react-router-dom';
+import App from './App';
+import { applyTheme, savedTheme } from './components/ThemeSwitcher';
+import './styles/theme.css';
+import './styles/app.css';
 
-const rootElement = document.getElementById('root');
-const root = createRoot(rootElement);
+applyTheme(savedTheme());
 
-root.render(
+createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <Router basename="/cheatsheet-monster-2.0">
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/poe" element={<PathOfExilePage />} />
-        <Route path="/lastepoch" element={<LastEpochPage />} />
-      </Routes>
-    </Router>
+    <BrowserRouter basename={process.env.PUBLIC_URL || '/'}>
+      <App />
+    </BrowserRouter>
   </React.StrictMode>
 );

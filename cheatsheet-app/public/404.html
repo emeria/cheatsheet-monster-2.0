@@ -1,7 +1,19 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
-    <meta http-equiv="refresh" content="0; URL=/cheatsheet-monster-2.0/" />
+    <meta charset="utf-8" />
+    <title>Cheatsheet Monster</title>
+    <script>
+      // GitHub Pages serves this file for any path it can't find, e.g. a deep link to /poe.
+      // Send the visitor to the app with the path in ?p= so index.html can restore it.
+      // On <user>.github.io/<repo>/ the first path segment is the repo; on a custom domain there is none.
+      (function () {
+        var l = window.location;
+        var base = l.hostname.endsWith('github.io') ? '/' + l.pathname.split('/')[1] : '';
+        var path = l.pathname.slice(base.length) + l.search + l.hash;
+        l.replace(base + '/?p=' + encodeURIComponent(path));
+      })();
+    </script>
   </head>
   <body></body>
 </html>

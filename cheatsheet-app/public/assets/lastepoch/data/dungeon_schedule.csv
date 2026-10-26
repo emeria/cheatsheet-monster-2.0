@@ -1,0 +1,108 @@
+﻿dungeon,tier,reward,mod,reward increase,day
+Lightless Arbor,4,enemies drop substantially more exalted amulets,"+100% increased Damage, +90% increased Health",Increased Chance: 7%,8
+Lightless Arbor,4,enemies drop substantially more exalted helmets,"+90% increased Damage, +100% increased Health",Increased Chance: 7%,9
+Lightless Arbor,4,enemies drop substantially more exalted relics,"+90% increased Damage, +100% increased Health",Increased Chance: 7%,1
+Lightless Arbor,4,enemies drop substantially more exalted rings,"+100% increased Damage, +90% increased Health",Increased Chance: 7%,2
+Lightless Arbor,4,enemies drop substantially more exalted weapons,"+110% increased Damage, +90% increased Health",Increased Chance: 7%,3
+Lightless Arbor,4,the dungeon boss drops a Unique Weapon,"+110% increased Damage, +110% increased Health",Drop Count: 1,4
+Lightless Arbor,4,enemies drop substantially more glyphs,"+90% increased Damage, +60% increased Health",Increased Chance: 7%,5
+Lightless Arbor,4,enemies drop substantially more runes,"+60% increased Damage, +90% increased Health",Increased Chance: 7%,6
+Lightless Arbor,4,the dungeon boss drops a horde of Idols,"+90% increased Damage, +100% increased Health",Drop Count: 7-8,7
+Lightless Arbor,3,enemies drop more exalted amulets,"+40% increased Damage, +40% increased Health",Increased Chance: 5%,3
+Lightless Arbor,3,enemies drop more exalted helmets,"+40% increased Damage, +40% increased Health",Increased Chance: 5%,4
+Lightless Arbor,3,enemies drop more exalted relics,"+40% increased Damage, +40% increased Health",Increased Chance: 5%,5
+Lightless Arbor,3,enemies drop more exalted rings,"+40% increased Damage, +40% increased Health",Increased Chance: 5%,6
+Lightless Arbor,3,enemies drop more exalted weapons,"+40% increased Damage, +40% increased Health",Increased Chance: 5%,7
+Lightless Arbor,3,enemies drop more glyphs,+40% increased Damage,Increased Chance: 5%,8
+Lightless Arbor,3,enemies drop more runes,+40% increased Health,Increased Chance: 5%,9
+Lightless Arbor,3,the dungeon boss drops a Unique Item,"+50% increased Damage, +50% increased Health",Drop Count: 1,1
+Lightless Arbor,3,the dungeon boss drops many Idols,"+30% increased Damage, +30% increased Health",Drop Count: 5-6,2
+Lightless Arbor,2,the dungeon boss drops Exalted Jewelry,"+20% increased Damage, +30% increased Health",Drop Count: 3,6
+Lightless Arbor,2,the dungeon boss drops additional Exalted Items,"+30% increased Damage, +30% increased Health",Drop Count: 3,7
+Lightless Arbor,2,the dungeon boss drops additional Exalted Weapons,"+30% increased Damage, +20% increased Health",Drop Count: 3,8
+Lightless Arbor,2,the dungeon boss drops additional Glyphs,"+25% increased Damage, +15% increased Health",Drop Count: 3-4,9
+Lightless Arbor,2,the dungeon boss drops additional Idols,"+20% increased Damage, +20% increased Health",Drop Count: 3-4,1
+Lightless Arbor,2,the dungeon boss drops additional Runes,"+15% increased Damage, +25% increased Health",Drop Count: 3-4,2
+Lightless Arbor,2,the dungeon boss drops a Set Item,"+30% increased Damage, +30% increased Health",Drop Count: 1,3
+Lightless Arbor,2,the dungeon boss drops a Set Item,"+30% increased Damage, +30% increased Health",Drop Count: 1,4
+Lightless Arbor,2,the dungeon boss drops additional Idols,"+20% increased Damage, +20% increased Health",Drop Count: 3-4,5
+Lightless Arbor,1,"the dungeon boss drops a unique item","35% less Damage, 25% less Health",,1
+Soulfire Bastion,4,The Soul Gambler's inventory contains 4 additional axes,"+180% increased Damage, +180% increased Health",,1
+Soulfire Bastion,4,The Soul Gambler's inventory contains 4 additional belts,"+180% increased Damage, +180% increased Health",,2
+Soulfire Bastion,4,The Soul Gambler's inventory contains 4 additional body armours,"+180% increased Damage, +180% increased Health",,3
+Soulfire Bastion,4,The Soul Gambler's inventory contains 4 additional pairs of boots,"+180% increased Damage, +180% increased Health",,4
+Soulfire Bastion,4,The Soul Gambler's inventory contains 4 additional bows,"+180% increased Damage, +180% increased Health",,5
+Soulfire Bastion,4,The Soul Gambler's inventory contains 4 additional catalysts,"+180% increased Damage, +180% increased Health",,6
+Soulfire Bastion,4,The Soul Gambler's inventory contains 4 additional pairs of gloves,"+180% increased Damage, +180% increased Health",,7
+Soulfire Bastion,4,The Soul Gambler's inventory contains 4 additional helmets,"+180% increased Damage, +180% increased Health",,8
+Soulfire Bastion,4,The Soul Gambler's inventory contains 4 additional maces,"+180% increased Damage, +180% increased Health",,9
+Soulfire Bastion,4,The Soul Gambler's inventory contains 4 additional sceptres,"+180% increased Damage, +180% increased Health",,10
+Soulfire Bastion,4,The Soul Gambler's inventory contains 4 additional shields,"+180% increased Damage, +180% increased Health",,11
+Soulfire Bastion,4,The Soul Gambler's inventory contains 4 additional staves,"+180% increased Damage, +180% increased Health",,12
+Soulfire Bastion,4,The Soul Gambler's inventory contains 4 additional swords,"+180% increased Damage, +180% increased Health",,13
+Soulfire Bastion,3,The Soul Gambler's inventory contains 3 additional axes,"+80% increased Damage, +80% increased Health",,1
+Soulfire Bastion,3,The Soul Gambler's inventory contains 3 additional belts,"+80% increased Damage, +80% increased Health",,2
+Soulfire Bastion,3,The Soul Gambler's inventory contains 3 additional body armours,"+80% increased Damage, +80% increased Health",,3
+Soulfire Bastion,3,The Soul Gambler's inventory contains 3 additional pairs of boots,"+80% increased Damage, +80% increased Health",,4
+Soulfire Bastion,3,The Soul Gambler's inventory contains 3 additional bows,"+80% increased Damage, +80% increased Health",,5
+Soulfire Bastion,3,The Soul Gambler's inventory contains 3 additional catalysts,"+80% increased Damage, +80% increased Health",,6
+Soulfire Bastion,3,The Soul Gambler's inventory contains 3 additional pairs of gloves,"+80% increased Damage, +80% increased Health",,7
+Soulfire Bastion,3,The Soul Gambler's inventory contains 3 additional helmets,"+80% increased Damage, +80% increased Health",,8
+Soulfire Bastion,3,The Soul Gambler's inventory contains 3 additional maces,"+80% increased Damage, +80% increased Health",,9
+Soulfire Bastion,3,The Soul Gambler's inventory contains 3 additional sceptres,"+80% increased Damage, +80% increased Health",,10
+Soulfire Bastion,3,The Soul Gambler's inventory contains 3 additional shields,"+80% increased Damage, +80% increased Health",,11
+Soulfire Bastion,3,The Soul Gambler's inventory contains 3 additional staves,"+80% increased Damage, +80% increased Health",,12
+Soulfire Bastion,3,The Soul Gambler's inventory contains 3 additional swords,"+80% increased Damage, +80% increased Health",,13
+Soulfire Bastion,2,The Soul Gambler's inventory contains 2 additional axes,"+50% increased Damage, +50% increased Health",,1
+Soulfire Bastion,2,The Soul Gambler's inventory contains 2 additional belts,"+50% increased Damage, +50% increased Health",,2
+Soulfire Bastion,2,The Soul Gambler's inventory contains 2 additional body armours,"+50% increased Damage, +50% increased Health",,3
+Soulfire Bastion,2,The Soul Gambler's inventory contains 2 additional pairs of boots,"+50% increased Damage, +50% increased Health",,4
+Soulfire Bastion,2,The Soul Gambler's inventory contains 2 additional bows,"+50% increased Damage, +50% increased Health",,5
+Soulfire Bastion,2,The Soul Gambler's inventory contains 2 additional catalysts,"+50% increased Damage, +50% increased Health",,6
+Soulfire Bastion,2,The Soul Gambler's inventory contains 2 additional pairs of gloves,"+50% increased Damage, +50% increased Health",,7
+Soulfire Bastion,2,The Soul Gambler's inventory contains 2 additional helmets,"+50% increased Damage, +50% increased Health",,8
+Soulfire Bastion,2,The Soul Gambler's inventory contains 2 additional maces,"+50% increased Damage, +50% increased Health",,9
+Soulfire Bastion,2,The Soul Gambler's inventory contains 2 additional sceptres,"+50% increased Damage, +50% increased Health",,10
+Soulfire Bastion,2,The Soul Gambler's inventory contains 2 additional shields,"+50% increased Damage, +50% increased Health",,11
+Soulfire Bastion,2,The Soul Gambler's inventory contains 2 additional staves,"+50% increased Damage, +50% increased Health",,12
+Soulfire Bastion,2,The Soul Gambler's inventory contains 2 additional swords,"+50% increased Damage, +50% increased Health",,13
+Soulfire Bastion,1,"the dungeon boss drops a unique item","35% less Damage, 25% less Health",,1
+Temporal Sanctum,4,the dungeon boss drops a horde of Exalted Jewelry,"+90% increased Damage, +120% increased Health",Drop Count: 6-7,1
+Temporal Sanctum,4,enemies drop substantially more exalted relics,"+90% increased Damage, +100% increased Health",Increased Chance: 7%,2
+Temporal Sanctum,4,the dungeon boss drops a horde of Exalted Weapons,"+120% increased Damage, +90% increased Health",Drop Count: 6-7,3
+Temporal Sanctum,4,the dungeon boss drops a horde of Runes,"+80% increased Damage, +110% increased Health",Drop Count: 7-8,4
+Temporal Sanctum,4,enemies drop substantially more exalted amulets,"+100% increased Damage, +90% increased Health",Increased Chance: 7%,5
+Temporal Sanctum,4,the dungeon boss drops a Glyph of Despair,"+120% increased Damage, +120% increased Health",Drop Count: 1,6
+Temporal Sanctum,4,the dungeon boss drops a Unique Weapon,"+110% increased Damage, +110% increased Health",Drop Count: 1,7
+Temporal Sanctum,4,enemies drop substantially more glyphs,"+90% increased Damage, +60% increased Health",Increased Chance: 7%,8
+Temporal Sanctum,4,the dungeon boss drops 2 Unique Items,"+140% increased Damage, +140% increased Health",Drop Count: 2,9
+Temporal Sanctum,4,enemies drop substantially more exalted helmets,"+90% increased Damage, +100% increased Health",Increased Chance: 7%,10
+Temporal Sanctum,4,the dungeon boss drops a horde of Idols,"+90% increased Damage, +100% increased Health",Drop Count: 7-8,11
+Temporal Sanctum,4,the dungeon boss drops a horde of Exalted Items,"+120% increased Damage, +120% increased Health",Drop Count: 6-7,12
+Temporal Sanctum,4,enemies drop substantially more exalted rings,"+100% increased Damage, +90% increased Health",Increased Chance: 7%,13
+Temporal Sanctum,4,the dungeon boss drops a horde of Glyphs,"+110% increased Damage, +80% increased Health",Drop Count: 6-7,14
+Temporal Sanctum,4,enemies drop substantially more exalted weapons,"+110% increased Damage, +90% increased Health",Increased Chance: 7%,15
+Temporal Sanctum,4,enemies drop substantially more runes,"+60% increased Damage, +90% increased Health",Increased Chance: 7%,16
+Temporal Sanctum,3,the dungeon boss drops much Exalted Jewelry,"+30% increased Damage, +50% increased Health",Drop Count: 4-5,1
+Temporal Sanctum,3,enemies drop more glyphs,+40% increased Damage,Increased Chance: 5%,2
+Temporal Sanctum,3,enemies drop more exalted relics,"+40% increased Damage, +40% increased Health",Increased Chance: 5%,3
+Temporal Sanctum,3,the dungeon boss drops many Idols,"+30% increased Damage, +30% increased Health",Drop Count: 5-6,4
+Temporal Sanctum,3,enemies drop more exalted amulets,"+40% increased Damage, +40% increased Health",Increased Chance: 5%,5
+Temporal Sanctum,3,the dungeon boss drops many Exalted Weapons,"+50% increased Damage, +30% increased Health",Drop Count: 4-5,6
+Temporal Sanctum,3,enemies drop more exalted helmets,"+40% increased Damage, +40% increased Health",Increased Chance: 5%,7
+Temporal Sanctum,3,the dungeon boss drops a Unique Item,"+50% increased Damage, +50% increased Health",Drop Count: 1,8
+Temporal Sanctum,3,enemies drop more exalted rings,"+40% increased Damage, +40% increased Health",Increased Chance: 5%,9
+Temporal Sanctum,3,enemies drop more exalted weapons,"+40% increased Damage, +40% increased Health",Increased Chance: 5%,10
+Temporal Sanctum,3,enemies drop more runes,+40% increased Health,Increased Chance: 5%,11
+Temporal Sanctum,2,the dungeon boss drops Exalted Jewelry,"+20% increased Damage, +30% increased Health",Drop Count: 3,1
+Temporal Sanctum,2,enemies drop slightly more glyphs,+20% increased Damage,Increased Chance: 3%,2
+Temporal Sanctum,2,enemies drop slightly more exalted relics,"+20% increased Damage, +20% increased Health",Increased Chance: 3%,3
+Temporal Sanctum,2,the dungeon boss drops additional Idols,"+20% increased Damage, +20% increased Health",Drop Count: 3-4,4
+Temporal Sanctum,2,enemies drop slightly more exalted amulets,"+20% increased Damage, +20% increased Health",Increased Chance: 3%,5
+Temporal Sanctum,2,the dungeon boss drops additional Exalted Weapons,"+30% increased Damage, +20% increased Health",Drop Count: 3,6
+Temporal Sanctum,2,enemies drop slightly more exalted helmets,"+20% increased Damage, +20% increased Health",Increased Chance: 3%,7
+Temporal Sanctum,2,the dungeon boss drops a Set Item,"+30% increased Damage, +30% increased Health",Drop Count: 1,8
+Temporal Sanctum,2,enemies drop slightly more exalted rings,"+20% increased Damage, +20% increased Health",Increased Chance: 3%,9
+Temporal Sanctum,2,enemies drop slightly more exalted weapons,"+10% increased Damage, +20% increased Health",Increased Chance: 3%,10
+Temporal Sanctum,2,enemies drop slightly more runes,+20% increased Health,Increased Chance: 3%,11
+Temporal Sanctum,1,"the dungeon boss drops a unique item","35% less Damage, 25% less Health",,Current Modifier

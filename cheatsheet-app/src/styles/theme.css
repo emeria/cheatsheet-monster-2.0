@@ -1,0 +1,73 @@
+/* Theme colours. ThemeSwitcher sets <html data-theme="dark|normal|light">; dark is the default. */
+:root,
+[data-theme='dark'] {
+  --bg: #000;
+  --text: #fff;
+  --muted: #bbb;
+  --link: #0f0;
+  --link-visited: #e52a01;
+  --chrome-bg: #333;
+  --chrome-text: #fff;
+  --collapsible-bg: #777;
+  --collapsible-hover-bg: #555;
+  --th-bg: #5d3b8e;
+  --tr-odd-bg: #412b58;
+  --tr-even-bg: #1a1a1a;
+  --tr-hover-bg: #302244;
+  --td-border: #333;
+  --selected-bg: #1f5f3a;
+  --button-bg: #302244;
+  --button-hover-bg: #45a049;
+  --button-text: #fff;
+  --overlay-bg: rgba(0, 0, 0, 0.85);
+  --top-btn-bg: red;
+  color-scheme: dark;
+}
+
+[data-theme='normal'] {
+  --bg: #d6d6d6;
+  --text: #333;
+  --muted: #555;
+  --link: #1a0dab;
+  --link-visited: #6a3ab2;
+  --chrome-bg: #333;
+  --chrome-text: #fff;
+  --collapsible-bg: #999;
+  --collapsible-hover-bg: #808080;
+  --th-bg: #b8a0d1;
+  --tr-odd-bg: #f7f7f7;
+  --tr-even-bg: #fff;
+  --tr-hover-bg: #efefef;
+  --td-border: #d4d4d4;
+  --selected-bg: #d3f4ff;
+  --button-bg: #b8a0d1;
+  --button-hover-bg: #a4c2a8;
+  --button-text: #000;
+  --overlay-bg: rgba(240, 240, 240, 0.9);
+  --top-btn-bg: #cc4c4c;
+  color-scheme: light;
+}
+
+[data-theme='light'] {
+  --bg: #f0f0f0;
+  --text: #000;
+  --muted: #444;
+  --link: #0000ee;
+  --link-visited: #551a8b;
+  --chrome-bg: #333;
+  --chrome-text: #fff;
+  --collapsible-bg: #777;
+  --collapsible-hover-bg: #555;
+  --th-bg: #c3a5ec;
+  --tr-odd-bg: #f7f7f7;
+  --tr-even-bg: #fff;
+  --tr-hover-bg: #efefef;
+  --td-border: #ddd;
+  --selected-bg: #d3f4ff;
+  --button-bg: #c3a5ec;
+  --button-hover-bg: #aae0ac;
+  --button-text: #000;
+  --overlay-bg: rgba(255, 255, 255, 0.9);
+  --top-btn-bg: red;
+  color-scheme: light;
+}

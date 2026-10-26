@@ -1,0 +1,34 @@
+Chapter,Step,Task,Reward
+Chapter 0,1,"Acquire 3 Keys: Lightless Arbor, Soulfire Bastion, and Temporal Sanctum","Start"
+Chapter 1,1,"'The Keepers' @ The Keepers Camp","Experience,Gold,Passive"
+Chapter 1,2,"'The Keepers Vault' @ The Keepers Vault","Experience,Gold,Passive"
+Chapter 1,3,"'Storeroom Sabotuers' @ The Storerooms","Experience,Gold,Passive"
+Chapter 2,1,"'The Void Assault' @ Last Refuge Outskirts","Experience,Gold,Idol"
+Chapter 2,2,"'Evacuation' @ Last Refuge Outskirts","Experience,Gold,Passive"
+Chapter 2,3,"'Erza's Ledger' @ The Council Chambers (Artem or Erza)","Experience,Gold,Passive,Unique"
+Chapter 2,4,"'Finding Pannion' @ The Council Chambers","Experience,Gold,Passive"
+Chapter 2,5,"'The Power of Mastery' @ The Council Chambers","Experience,Passive,Mastery"
+Chapter 2,6,"'The Upper District' @ The Upper District","Experience,Gold,Passive"
+Chapter 3,1,"'The Lesser Refuge' @ The Council Chambers","Experience,Gold,Passive"
+Chapter 3,2,"'An Ancient Hunt' @ The Council Chambers","Experience,Gold,Idol"
+Chapter 3,3,"Go to 'The Surface' @ Ruined Era",
+Chapter 3,4,"Go north to 'The Shrouded Ridge', north to 'The Lightless Arbor'",
+Chapter 3,5,"Complete dungeon, go to the 'Corrupted Lake'",
+Chapter 4,1,"'The Corrupted Lake' @ The Corrupted Lake","Experience,Passive,Idol"
+Chapter 4,2,"Switch to 'Imperial Era' @ The Risen Lake",
+Chapter 4,3,"Go to 'The Outcast Camp'",
+Chapter 4,4,"'A Study in Time' @ The Outcast Camp","Experience,Passive"
+Chapter 4,5,"Go back to 'The Risen Lake'",
+Chapter 4,6,"'The Admiral's Dreadnought' @ The Admiral's Dreadnought","Experience,Gold,Idol"
+Chapter 4,7,"Go to 'The Shining Cove', get waypoint",
+Chapter 4,8,"Go to 'The Risen Lake'",
+Chapter 4,9,"Go to 'The Fellwood', and then 'The Soulfire Bastion'",
+Chapter 4,10,"Complete dungeon, go to the 'The Shining Cove'",
+Chapter 5,1,"'The Oracle's Aid' @ The Shining Cove","Experience,Gold,Passive"
+Chapter 5,2,"'Hidden Gems' @ The Majasan Desert","Experience,Gold,Passive"
+Chapter 5,3,"'The Sapphire Tablet' @ The Oracle's Abode","Experience,Passive,Idol"
+Chapter 5,4,"In 'Ruined Era', complete the 'Temporal Sanctum Dungeon'",
+Chapter 9 ,16,"'Desert Treasure' @ The Radiant Dunes","Experience,Passive,Idol"
+Chapter 9 ,16,"'Arjani, the Ruby Commander' @ Maj'Elka Upper District","Experience,Gold,Idol"
+Chapter 9 ,16,"'Too Greedily, Too Deep' @ The Oasis","Experience,Passive,Idol"
+Chapter 9 ,16,"Bonus: 'Apophis And Majasa @ Chamber of Vessel","Experience,Passive,Attributes"

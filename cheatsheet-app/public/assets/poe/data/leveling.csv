@@ -1,0 +1,19 @@
+Act,Step,Task,Reward
+Act 1,1,Enemy at the Gate (Twilight Strand) -> Kill Hillock,"Gems"
+Act 1,2,The Coast -> Waypoint,
+Act 1,3,Breaking Some Eggs (Mud Flats) -> Find the Glyphs,"Gems"
+Act 1,4,The Submerged Passage -> Waypoint,
+Act 1,5,The Ledge -> Waypoint,
+Act 1,6,Take Waypoint to the Submerged Passage -> Find the Flooded Depths,
+Act 1,7,The Dweller of the Deep (Flooded Depths)-> Kill The Dweller of the Deep and go to town,"Book of Skill"
+Act 1,8,Take Waypoint to The Ledge -> Find the Climb,
+Act 1,9,The Climb -> Waypoint,
+Act 1,10,The Lower Prison -> Waypoint,
+Act 1,11,The Lower Prison -> Do the Trial,
+Act 1,12,The Upper Prison -> Find the Warden's Quarters,
+Act 1,13,The Caged Brute (The Wardens Quarters) -> Kill Brutus and log out,"Gems"
+Act 1,14,Take The Prisoner's Gate Waypoint,
+Act 1,15,The Ship Graveyard -> Waypoint,
+Act 1,16,The Marooned Mariner (The Ship Graveyard Cave) -> Get the AllFlame and log out,"Book of Skill"
+Act 1,17,Find the Cavern of Wrath -> Waypoint,
+Act 1,18,The Siren's Cadence (The Cavern of Anger) -> Kill Merveil -> Act 2,"Gems"
