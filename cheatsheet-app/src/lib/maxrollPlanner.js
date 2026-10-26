@@ -6,7 +6,7 @@
 // Passive variants hold `history`: node ids in the order taken, with respecs as { add, remove }.
 // One kit build per variant, with `steps` from the replayed history.
 //   PoE2: data.profiles[], each with ascendancy (export id, e.g. Druid2), level and
-//         passives.variants[] (attributes: node -> 0 str, 1 dex, 2 int).
+//         passives.variants[] (attributes: node -> 0 str, 1 dex, 2 int, for hand-set nodes only).
 //   PoE1: data.embeds[] of types; "passives" has charClass (Str, DexInt, ...) and variants[]
 //         (masteries: node -> position in that mastery's effect list); "ascendancy" has the
 //         ascendancy name and steps[], the last being the final allocation.
@@ -90,9 +90,11 @@ function parsePoe2(data, tree) {
       const options = {};
       for (const [id, a] of Object.entries(variant.attributes || {})) if (build.ranks[id] && ATTRIBUTE[a]) options[id] = ATTRIBUTE[a];
       if (Object.keys(options).length) build.options = options;
-      // Maxroll's attribute map often misses taken nodes (seen on live planners); say so rather than guess.
+      // The map holds only nodes the author set by hand, and it isn't trimmed on respec. Across six
+      // live guide planners (2026-10-26) it covered 0-95% of taken attribute nodes; the rest show
+      // Maxroll's default, which the profile doesn't record. Ask rather than guess it.
       const unpicked = nodes.filter((id) => byId.get(id).kind === 'attribute' && !options[id]).length;
-      if (unpicked) warnings.push(`${unpicked} attribute nodes have no attribute chosen in this planner; pick them here.`);
+      if (unpicked) warnings.push(`${unpicked} attribute nodes use Maxroll's default, which the planner doesn't save; pick them here.`);
       if (nodes.length) build.steps = nodes.map((node) => ({ node }));
       jewelWarning(variant, warnings);
       builds.push({ build, warnings });
