@@ -106,6 +106,9 @@ class Tree {
     }
     this.sectionNodes = new Map();
     for (const n of json.nodes) push(this.sectionNodes, n.section, n.id);
+    // Node order in the file: results that list nodes keep it, however they were found.
+    this.order = new Map(json.nodes.map((n, i) => [n.id, i]));
+    this.grantedIds = json.nodes.filter((n) => n.granted).map((n) => n.id);
     this.nodePools = new Map(json.nodes.map((n) => [n.id, poolList(n.pool ?? this.sections.get(n.section)?.pool)]));
 
     // What each node needs for its first rank, besides arrows: its req, its
@@ -157,22 +160,87 @@ export function load(json) {
   return tree;
 }
 
+// The groups wholly inside a template: node groups whose members are all in
+// it, and options groups on one of its nodes. Each instance gets its own copy.
+const groupsInside = (tree, ids) => (tree.json.groups || []).filter((g) => (g.members.nodes
+  ? g.members.nodes.length && g.members.nodes.every((id) => ids.has(id))
+  : g.members.options !== undefined && ids.has(g.members.options)));
+
+// A requirement copied into an instance: ids that point inside the template
+// (its nodes, its own section id, its groups) get the instance's names.
+function renameReq(req, I) {
+  if (!req || typeof req !== 'object') return req;
+  const out = { ...req };
+  for (const k of ['all', 'any']) if (req[k]) out[k] = req[k].map((r) => renameReq(r, I));
+  if (req.not) out.not = renameReq(req.not, I);
+  if (req.rank !== undefined) out.rank = I.node(req.rank);
+  for (const k of ['spent', 'spentExcept']) if (req[k]?.section !== undefined) out[k] = { ...req[k], section: I.section(req[k].section) };
+  if (req.active !== undefined) out.active = I.section(req.active);
+  if (req.group !== undefined && I.groups.has(req.group)) {
+    out.group = `${I.as}/${req.group}`;
+    if (I.groups.get(req.group).members.nodes) out.picked = I.node(req.picked);
+  }
+  return out;
+}
+
+const NO_ATTACH = { use: [], bad: [] };
+
+// The build's attaches the engine can use, and the ones it ignores: an `as`
+// already used by an earlier attach, or whose section, node or group ids
+// would clash with ids the tree has. Those are `attach` problems.
+function attaches(tree, build) {
+  if (!build.attach?.length) return NO_ATTACH;
+  const out = { use: [], bad: [] };
+  const seen = new Set();
+  for (const a of build.attach) {
+    if (a.as && tree.sections.has(a.section)) {
+      const ids = new Set(tree.sectionNodes.get(a.section) || []);
+      const clash = seen.has(a.as) || tree.sections.has(a.as)
+        || [...ids].some((id) => tree.nodes.has(`${a.as}/${id}`))
+        || groupsInside(tree, ids).some((g) => tree.groups.has(`${a.as}/${g.id}`));
+      seen.add(a.as);
+      if (clash) {
+        out.bad.push(a);
+        continue;
+      }
+    }
+    out.use.push(a);
+  }
+  return out;
+}
+
 // A template attached with `as` becomes a section of that id whose nodes are
 // `<as>/<nodeId>`. The instanced tree is cached per set of instances.
 function effective(tree, build) {
-  const inst = (build.attach || []).filter((a) => a.as && tree.sections.has(a.section));
+  const inst = attaches(tree, build).use.filter((a) => a.as && tree.sections.has(a.section));
   if (!inst.length) return tree;
   const key = JSON.stringify(inst.map((a) => [a.as, a.section]));
   let out = tree.instances.get(key);
   if (out) return out;
-  const json = { ...tree.json, sections: [...tree.json.sections], nodes: [...tree.json.nodes], edges: [...(tree.json.edges || [])] };
+  const json = { ...tree.json, sections: [...tree.json.sections], nodes: [...tree.json.nodes], edges: [...(tree.json.edges || [])], groups: [...(tree.json.groups || [])] };
   for (const a of inst) {
     const ids = new Set(tree.sectionNodes.get(a.section) || []);
-    const re = (id) => (ids.has(id) ? `${a.as}/${id}` : id);
+    const I = {
+      as: a.as,
+      node: (id) => (ids.has(id) ? `${a.as}/${id}` : id),
+      section: (id) => (id === a.section ? a.as : id),
+      groups: new Map(groupsInside(tree, ids).map((g) => [g.id, g])),
+    };
     const s = tree.sections.get(a.section);
-    json.sections.push({ ...s, id: a.as, template: false, ...(s.ports && { ports: s.ports.map(re) }) });
-    for (const n of tree.json.nodes) if (ids.has(n.id)) json.nodes.push({ ...n, id: re(n.id), section: a.as });
-    for (const e of tree.json.edges || []) if (ids.has(e.from) && ids.has(e.to)) json.edges.push({ ...e, from: re(e.from), to: re(e.to) });
+    json.sections.push({ ...s, id: a.as, template: false, ...(s.ports && { ports: s.ports.map(I.node) }), ...(s.req && { req: renameReq(s.req, I) }) });
+    for (const n of tree.json.nodes) {
+      if (!ids.has(n.id)) continue;
+      const copy = { ...n, id: I.node(n.id), section: a.as };
+      if (n.req) copy.req = renameReq(n.req, I);
+      if (n.options) copy.options = n.options.map((o) => (o.req ? { ...o, req: renameReq(o.req, I) } : o));
+      if (n.synergy) copy.synergy = n.synergy.map((x) => ({ ...x, from: I.node(x.from) }));
+      json.nodes.push(copy);
+    }
+    for (const e of tree.json.edges || []) if (ids.has(e.from) && ids.has(e.to)) json.edges.push({ ...e, from: I.node(e.from), to: I.node(e.to) });
+    for (const g of I.groups.values()) {
+      const m = g.members;
+      json.groups.push({ ...g, id: `${a.as}/${g.id}`, members: m.nodes ? { nodes: m.nodes.map(I.node) } : { options: I.node(m.options) }, ...(g.unlock && { unlock: renameReq(g.unlock, I) }) });
+    }
   }
   tree.instances.set(key, (out = new Tree(json)));
   return out;
@@ -194,9 +262,10 @@ function state(tree, build) {
     attached: new Map(),
     active: new Map(),
     slotted: new Set(),
+    filled: [],
     taken: new Map(),
   };
-  for (const a of build.attach || []) {
+  for (const a of attaches(base, build).use) {
     const sid = a.as ?? a.section;
     const s = T.sections.get(sid);
     if (!s?.active?.port || !T.nodes.has(a.at)) continue;
@@ -212,6 +281,7 @@ function state(tree, build) {
   for (const slot of T.json.slots || []) {
     (build.slots?.[slot.id] || []).forEach((e, i) => {
       if (e === null || i >= (slot.count ?? 1) || !T.accepts(slot, e) || !holds(slot.unlock?.[i], S)) return;
+      S.filled.push([slot.id, i, e]);
       if (slot.accepts.sections) {
         if (T.sections.get(e).active?.slot === slot.id) S.active.set(e, true);
       } else S.slotted.add(e);
@@ -231,12 +301,18 @@ function viaOf(T, a) {
 // Hard ranks of every node that counts as taken: listed ranks, granted nodes,
 // the build's start and slotted nodes, in active sections only.
 function fillTaken(S) {
+  const { T } = S;
   S.taken.clear();
-  for (const n of S.T.json.nodes) {
+  // Only these can be taken, so a big tree with a small build stays cheap. File order is kept.
+  const ids = new Set([...T.grantedIds, ...Object.keys(S.ranks), ...S.slotted]);
+  if (S.build.start !== undefined) ids.add(S.build.start);
+  const known = [...ids].filter((id) => T.order.has(id)).sort((a, b) => T.order.get(a) - T.order.get(b));
+  for (const id of known) {
+    const n = T.nodes.get(id);
     if (!S.active.get(n.section)) continue;
     let r;
     if (n.granted || n.id === S.build.start || S.slotted.has(n.id)) r = 1;
-    else r = S.T.slotOf.has(n.id) ? 0 : S.ranks[n.id] ?? 0;
+    else r = T.slotOf.has(n.id) ? 0 : S.ranks[n.id] ?? 0;
     if (r > 0) S.taken.set(n.id, r);
   }
   // What each taken node pays, worked out once: spend checks read it per node.
@@ -251,7 +327,13 @@ function fillTaken(S) {
 const rank = (S, id) => S.taken.get(id) ?? 0;
 const free = (S, n) => !!(n.granted || n.id === S.build.start || S.slotted.has(n.id));
 const isPath = (S, n) => S.T.sections.get(n.section)?.connectivity === 'path';
-const neighbours = (S, id) => [...(S.T.links.get(id) || []), ...(S.extra.get(id) || [])];
+const NONE = [];
+// Links, plus the port links of attached sections. Callers only read the list.
+function neighbours(S, id) {
+  const links = S.T.links.get(id) || NONE;
+  const extra = S.extra.get(id);
+  return extra ? [...links, ...extra] : links;
+}
 
 function reach(S) {
   const { T } = S;
@@ -413,6 +495,8 @@ function allocCodes(S, id) {
   if (!n) return ['unknown-id'];
   if (T.slotOf.has(id)) return ['slot'];
   if (!S.active.get(n.section)) return ['inactive'];
+  // Granted nodes and the start are rank 1 whatever their ranks, and take no more.
+  if (free(S, n)) return ['granted'];
   const r = rank(S, id);
   if (r >= (n.ranks ?? 1)) return ['rank'];
   const codes = new Set();
@@ -449,13 +533,13 @@ export function allocate(tree, build, nodeId) {
   return { ok: true, codes: [], build: out };
 }
 
-// Taken nodes (listed in ranks) that fail an arrow, gate, req, unlock,
-// section req or path, with the codes they fail.
+// Taken nodes (listed in ranks, or slotted) that fail an arrow, gate, req,
+// unlock, section req or path, with the codes they fail.
 function broken(S) {
   const out = new Map();
   for (const id of S.taken.keys()) {
     const n = S.T.nodes.get(id);
-    if (free(S, n)) continue;
+    if (free(S, n) && !S.slotted.has(id)) continue;
     const codes = new Set();
     if (!firstRankHolds(S, n) || !sectionHolds(S, n.section)) codes.add('requirement');
     if (isPath(S, n) && !S.reached.has(id)) codes.add('connectivity');
@@ -464,54 +548,79 @@ function broken(S) {
   return out;
 }
 
+// What one rank off would break. Besides `{ ok, codes, cascade }` it returns
+// `next`, the build with the rank and the cascade taken off, or null when the
+// refund is refused outright.
 function refundCheck(tree, build, nodeId) {
   const S = state(tree, build);
   const n = S.T.nodes.get(nodeId);
-  if (!n) return { ok: false, codes: ['unknown-id'], cascade: [] };
-  if ((n.granted && S.taken.has(nodeId)) || nodeId === build.start) return { ok: false, codes: ['granted'], cascade: [] };
-  if (S.slotted.has(nodeId)) return { ok: false, codes: ['slot'], cascade: [] };
-  if (!S.ranks[nodeId]) return { ok: false, codes: ['rank'], cascade: [] };
+  const refuse = (code) => ({ ok: false, codes: [code], cascade: [], next: null });
+  if (!n) return refuse('unknown-id');
+  if ((n.granted && S.taken.has(nodeId)) || nodeId === build.start) return refuse('granted');
+  if (S.slotted.has(nodeId)) return refuse('slot');
+  if (!S.ranks[nodeId]) return refuse('rank');
   const before = broken(S);
-  const ranks = { ...S.ranks, [nodeId]: S.ranks[nodeId] - 1 };
-  if (!ranks[nodeId]) delete ranks[nodeId];
-  // Whatever breaks is taken off too, until nothing else does.
+  const next = clone(build);
+  next.ranks[nodeId] -= 1;
+  if (!next.ranks[nodeId]) delete next.ranks[nodeId];
+  const slotKey = (slot, i) => `${slot}#${i}`;
+  const filled = new Set(S.filled.map(([slot, i]) => slotKey(slot, i)));
+  const empty = (slot, i) => {
+    next.slots[slot][i] = null;
+    filled.delete(slotKey(slot, i));
+  };
+  // Whatever breaks is taken off too, until nothing else does: nodes failing
+  // their requirements, slot indexes whose unlock stops holding (with the node
+  // slotted there), and nodes left in a section that is no longer active.
   const cascade = new Map();
+  let locked = false;
   for (;;) {
-    const fresh = [...broken(state(S.base, { ...build, ranks }))]
-      .filter(([id]) => id !== nodeId && !before.has(id) && !cascade.has(id));
-    if (!fresh.length) break;
+    const after = state(S.base, next);
+    const fresh = new Map([...broken(after)].filter(([id]) => id !== nodeId && !before.has(id) && !cascade.has(id)));
+    const still = new Set(after.filled.map(([slot, i]) => slotKey(slot, i)));
+    const lost = S.filled.filter(([slot, i]) => filled.has(slotKey(slot, i)) && !still.has(slotKey(slot, i)));
+    for (const [slot, i, e] of lost) {
+      empty(slot, i);
+      locked = true;
+      if (S.slotted.has(e) && !cascade.has(e)) fresh.set(e, new Set(['slot']));
+    }
+    for (const id of S.taken.keys()) {
+      if (id !== nodeId && next.ranks[id] && !after.taken.has(id) && !before.has(id) && !cascade.has(id) && !fresh.has(id)) fresh.set(id, new Set(['inactive']));
+    }
+    if (!fresh.size && !lost.length) break;
     for (const [id, codes] of fresh) {
       cascade.set(id, codes);
-      delete ranks[id];
+      if (S.slotted.has(id)) {
+        for (const [slot, i, e] of S.filled) if (e === id && filled.has(slotKey(slot, i))) empty(slot, i);
+      } else delete next.ranks[id];
+      if (next.options) delete next.options[id];
+      if (next.paidFrom) delete next.paidFrom[id];
     }
   }
-  const codes = [...new Set([...cascade.values()].flatMap((c) => [...c]))];
-  return { ok: !cascade.size, codes, cascade: [...cascade.keys()] };
+  const codes = new Set([...cascade.values()].flatMap((c) => [...c]));
+  if (locked) codes.add('slot');
+  if (!next.ranks[nodeId]) {
+    if (next.options) delete next.options[nodeId];
+    if (next.paidFrom) delete next.paidFrom[nodeId];
+  }
+  return { ok: !cascade.size && !locked, codes: [...codes], cascade: [...cascade.keys()], next };
 }
 
 /** Can one rank come off? `{ ok, codes, cascade }`: cascade is every other node that would break. */
 export function canRefund(tree, build, nodeId) {
-  return refundCheck(tree, build, nodeId);
+  const { next, ...res } = refundCheck(tree, build, nodeId);
+  return res;
 }
 
 /**
  * Take one rank off. `{ ok, codes, cascade, build }`. With `{ cascade: true }`
- * a refund that breaks other nodes takes them off too (PoE); without it, it's refused (WoW).
+ * a refund that breaks other nodes or slot indexes takes them off too (PoE);
+ * without it, it's refused (WoW).
  */
 export function refund(tree, build, nodeId, { cascade: apply = false } = {}) {
-  const res = refundCheck(tree, build, nodeId);
-  const cascades = res.cascade.length && res.codes.every((c) => c === 'requirement' || c === 'connectivity');
-  if (!res.ok && !(apply && cascades)) return { ...res, build };
-  const out = clone(build);
-  const drop = (id) => {
-    delete out.ranks[id];
-    if (out.options) delete out.options[id];
-    if (out.paidFrom) delete out.paidFrom[id];
-  };
-  out.ranks[nodeId] -= 1;
-  if (!out.ranks[nodeId]) drop(nodeId);
-  res.cascade.forEach(drop);
-  return { ...res, ok: true, build: out };
+  const { next, ...res } = refundCheck(tree, build, nodeId);
+  if (!next || (!res.ok && !apply)) return { ...res, build };
+  return { ...res, ok: true, build: next };
 }
 
 /**
@@ -559,7 +668,16 @@ export function spent(tree, build, target) {
 /** Every node that can take one more rank now. */
 export function frontier(tree, build) {
   const S = state(tree, build);
-  return S.T.json.nodes.map((n) => n.id).filter((id) => !allocCodes(S, id).length);
+  const { T } = S;
+  // In a path section an untaken node needs a conducting neighbour, so only those, the nodes of
+  // other sections and taken nodes with ranks left can pass. Same result as checking every node.
+  const candidates = new Set();
+  for (const n of T.json.nodes) if (S.active.get(n.section) && !isPath(S, n)) candidates.add(n.id);
+  for (const id of S.taken.keys()) candidates.add(id);
+  for (const id of S.reached) if (conducts(S, id)) for (const v of neighbours(S, id)) candidates.add(v);
+  return [...candidates]
+    .filter((id) => !allocCodes(S, id).length)
+    .sort((a, b) => T.order.get(a) - T.order.get(b));
 }
 
 /**
@@ -612,6 +730,9 @@ export function pathTo(tree, build, nodeId) {
   return { path: path.reverse(), cost: best.get(nodeId).cost };
 }
 
+// A problem's identity: its code and the ids it names, never its message.
+const problemKey = (p) => [p.code, ...ID_KEYS.map((k) => p[k] ?? '')].join('|');
+
 class Problems {
   constructor() {
     this.list = [];
@@ -619,7 +740,7 @@ class Problems {
   }
 
   add(code, ids = {}, message = code) {
-    const key = [code, ...ID_KEYS.map((k) => ids[k] ?? '')].join('|');
+    const key = problemKey({ code, ...ids });
     if (this.keys.has(key)) return;
     this.keys.add(key);
     this.list.push({ code, ...ids, message });
@@ -650,7 +771,8 @@ function unknownIds(S, out) {
     if (n && !poolsOf(S, n).includes(p)) unknown(p, `pool for ${id}`);
   }
   for (const s of Object.keys(build.slots || {})) if (!T.slots.has(s)) unknown(s, 'slot');
-  for (const a of build.attach || []) {
+  for (const a of attaches(S.base, build).bad) out.add('attach', { id: a.as }, `${a.as} clashes with an earlier attach or a tree id, so this attach is ignored`);
+  for (const a of attaches(S.base, build).use) {
     if (!T.sections.has(a.section)) unknown(a.section, 'section');
     else if (a.via !== undefined && !viaOf(T, a)) unknown(a.via, 'port node');
     if (!T.nodes.has(a.at)) unknown(a.at, 'node');
@@ -679,8 +801,11 @@ function errorsOf(S) {
       out.add('slot', { slot: T.slotOf.get(id).id }, `${id} is taken by slotting it`);
       continue;
     }
+    if (free(S, n) && !S.slotted.has(id)) {
+      out.add('granted', { node: id }, `${id} is granted, so it isn't listed in ranks`);
+      continue;
+    }
     if ((S.ranks[id] ?? 0) > (n.ranks ?? 1)) out.add('rank', { node: id }, `${id} has at most ${n.ranks ?? 1} ranks`);
-    if (free(S, n) && !S.slotted.has(id)) continue;
     sections.add(n.section);
     if (!firstRankHolds(S, n)) out.add('requirement', { node: id }, `${id}'s requirements aren't met`);
     if (isPath(S, n) && !S.reached.has(id)) out.add('connectivity', { node: id }, `${id} isn't connected to a start`);
@@ -692,6 +817,14 @@ function errorsOf(S) {
   }
   for (const sid of sections) if (!sectionHolds(S, sid)) out.add('requirement', { section: sid }, `${sid}'s requirements aren't met`);
 
+  // Taken nodes by the id an options group names: the node itself, or `<as>/<id>` in an instance.
+  // Built once, so trees with hundreds of unique groups (PoE masteries) don't rescan per group.
+  const takenAs = new Map();
+  for (const id of S.taken.keys()) {
+    push(takenAs, id, id);
+    for (let i = id.indexOf('/'); i >= 0; i = id.indexOf('/', i + 1)) push(takenAs, id.slice(i + 1), id);
+  }
+
   for (const g of T.json.groups || []) {
     const m = g.members;
     if (m.nodes && g.pick?.max !== undefined && m.nodes.filter((id) => rank(S, id) > 0).length > g.pick.max) {
@@ -699,8 +832,7 @@ function errorsOf(S) {
     }
     if (m.options && g.unique) {
       const seen = new Set();
-      for (const id of S.taken.keys()) {
-        if (id !== m.options && !id.endsWith(`/${m.options}`)) continue;
+      for (const id of takenAs.get(m.options) || NONE) {
         const choice = build.options?.[id];
         if (choice !== undefined && seen.has(choice)) out.add('option', { node: id }, `${choice} is already picked`);
         seen.add(choice);
@@ -735,13 +867,15 @@ function errorsOf(S) {
 export function validate(tree, build) {
   const S = state(tree, build);
   const errors = errorsOf(S);
+  // A step is early only for errors the whole build doesn't have.
+  const known = new Set(errors.map(problemKey));
   const warnings = new Problems();
   const ranks = {};
   for (const st of build.steps || []) {
     if (!S.T.nodes.has(st.node)) continue;
     ranks[st.node] = st.rank ?? (ranks[st.node] ?? 0) + 1;
     const prefix = { ...build, ranks: { ...ranks }, steps: undefined, context: { ...build.context, level: st.level ?? S.level } };
-    if (errorsOf(state(S.base, prefix)).length) warnings.add('order', { node: st.node }, `${st.node} is taken too early`);
+    if (errorsOf(state(S.base, prefix)).some((p) => !known.has(problemKey(p)))) warnings.add('order', { node: st.node }, `${st.node} is taken too early`);
   }
   return { ok: !errors.length, errors, warnings: warnings.list };
 }
