@@ -13,7 +13,7 @@ const chapters = [
 ].map(([title, resistances], i) => ({
   title,
   resistances,
-  image: `lastepoch/pics/LastEpochLvlingCheatsheetChapter${i + 1}.png`,
+  image: `lastepoch/pics/LastEpochLvlingCheatsheetChapter${i + 1}.webp`,
 }));
 
 // Each tier rotates through its rows in dungeon_schedule.csv, one row per day, starting
@@ -77,7 +77,8 @@ const streamers = [
 const lastepoch = {
   id: 'lastepoch',
   name: 'Last Epoch',
-  tile: 'home/last-epoch-placeholder.png',
+  publisher: 'Eleventh Hour Games',
+  tile: 'home/last-epoch-placeholder.webp',
   lastUpdated: 'Sun, Feb 18, 2024',
   feedbackUrl:
     'https://www.reddit.com/r/LastEpoch/comments/1aug5ov/cheatsheet_monster_last_epoch_cheatsheet_of_sheets/',
@@ -94,7 +95,7 @@ const lastepoch = {
         unit: 'Chapter',
         csv: 'lastepoch/data/leveling.csv',
         iconDir: 'lastepoch/pics',
-        legend: 'lastepoch/pics/LastEpochLvlingCheatsheetLegend.png',
+        legend: 'lastepoch/pics/LastEpochLvlingCheatsheetLegend.webp',
         tldr: true,
         skipCsv: 'lastepoch/data/campaign-skip.csv',
         chapters,
@@ -110,12 +111,12 @@ const lastepoch = {
           id: 'monolithItems',
           title: 'Monolith Items',
           open: true,
-          images: [{ src: 'lastepoch/pics/Monolith-items.png' }],
+          images: [{ src: 'lastepoch/pics/Monolith-items.webp' }],
         },
         {
           id: 'blessings',
           title: 'Monolith Blessings',
-          images: [{ src: 'lastepoch/pics/Monolith-blessings.png' }],
+          images: [{ src: 'lastepoch/pics/Monolith-blessings.webp' }],
         },
         {
           id: 'blessings-table',
@@ -137,13 +138,13 @@ const lastepoch = {
       id: 'exiledMages',
       title: 'Exiled Mages',
       accent: 'exiledmages',
-      images: [{ src: 'lastepoch/pics/exiled-mage-drops.png', alt: 'Exiled Mages Drops' }],
+      images: [{ src: 'lastepoch/pics/exiled-mage-drops.webp', alt: 'Exiled Mages Drops' }],
     },
     {
       id: 'factions',
       title: 'Factions',
       accent: 'factions',
-      images: [{ src: 'lastepoch/pics/circle-of-fortune-cheatsheet.png', alt: 'Circle of Fortune' }],
+      images: [{ src: 'lastepoch/pics/circle-of-fortune-cheatsheet.webp', alt: 'Circle of Fortune' }],
     },
   ],
 

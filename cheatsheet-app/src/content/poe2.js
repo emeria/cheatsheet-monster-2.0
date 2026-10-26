@@ -8,8 +8,9 @@ const craftingSource = {
 const poe2 = {
   id: 'poe2',
   name: 'Path of Exile 2',
+  publisher: 'Grinding Gear Games',
   shortName: 'PoE 2',
-  tile: 'home/poe-2-atlas-map.png',
+  tile: 'home/poe-2-atlas-map.webp',
   lastUpdated: 'Sun, Feb 18, 2024',
   feedbackUrl:
     'https://www.reddit.com/r/pathofexile/comments/sjx6wi/poe_cheat_sheet_collection_of_links_and_cheat/',

@@ -6,16 +6,16 @@ import { MemoryRouter } from 'react-router-dom';
 import App from './App';
 import games from './content/games';
 
-const assetsDir = path.join(__dirname, '..', 'public', 'assets');
+const assetsDir = path.join(import.meta.dirname, '..', 'public', 'assets');
 
 // Serve CSVs straight from public/assets so pages render with their real data.
 beforeEach(() => {
-  global.fetch = jest.fn((url) => {
+  global.fetch = vi.fn((url) => {
     const file = path.join(assetsDir, url.split('/assets/')[1]);
     const ok = fs.existsSync(file);
     return Promise.resolve({ ok, status: ok ? 200 : 404, text: () => Promise.resolve(ok ? fs.readFileSync(file, 'utf8') : '') });
   });
-  window.scrollTo = jest.fn();
+  window.scrollTo = vi.fn();
 });
 
 const renderAt = (url) =>
@@ -54,4 +54,14 @@ test('content files only reference assets that exist', () => {
   };
   visit(games);
   expect(missing).toEqual([]);
+});
+
+test.each([['/', games], ...games.map((g) => [`/${g.id}`, [g]])])('%s footer says the site is not affiliated with the publisher', (url, shown) => {
+  const { container } = renderAt(url);
+  const note = container.querySelector('.site-footer .affiliation').textContent;
+  for (const game of shown) {
+    expect(game.publisher).toBeTruthy();
+    expect(note).toContain(`isn't affiliated with or endorsed by`);
+    expect(note).toContain(game.publisher);
+  }
 });

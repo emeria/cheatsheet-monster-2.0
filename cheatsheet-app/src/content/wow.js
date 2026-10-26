@@ -3,6 +3,7 @@
 const wow = {
   id: 'wow',
   name: 'WoW Classic',
+  publisher: 'Blizzard Entertainment',
   lastUpdated: 'Sun, Feb 18, 2024',
 
   cheatsheets: [

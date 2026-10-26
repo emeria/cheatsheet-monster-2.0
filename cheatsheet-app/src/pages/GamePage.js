@@ -94,7 +94,7 @@ function GamePage({ game }) {
         )}
         {game.thanks && <p className="feedback">Thanks: {game.thanks}</p>}
       </main>
-      <Footer lastUpdated={game.lastUpdated} />
+      <Footer lastUpdated={game.lastUpdated} games={[game]} />
     </>
   );
 }

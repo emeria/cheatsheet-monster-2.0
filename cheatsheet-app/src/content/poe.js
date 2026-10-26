@@ -164,7 +164,8 @@ const acts = [
 const poe = {
   id: 'poe',
   name: 'Path of Exile',
-  tile: 'home/path-of-exile-necropolis.png',
+  publisher: 'Grinding Gear Games',
+  tile: 'home/path-of-exile-necropolis.webp',
   lastUpdated: 'Sun, Feb 18, 2024',
   feedbackUrl:
     'https://www.reddit.com/r/pathofexile/comments/sjx6wi/poe_cheat_sheet_collection_of_links_and_cheat/',
@@ -183,7 +184,7 @@ const poe = {
       accent: 'leveling',
       images: [
         {
-          src: 'poe/pics/vendor-recipe-cheatsheet-v1.png',
+          src: 'poe/pics/vendor-recipe-cheatsheet-v1.webp',
           source:
             'https://www.reddit.com/r/pathofexile/comments/15tomao/vendor_recipe_cheatsheet_v1_let_me_know_what_else/',
         },
@@ -209,7 +210,7 @@ const poe = {
       open: true,
       images: [
         {
-          src: 'poe/pics/heist.jpg',
+          src: 'poe/pics/heist.webp',
           source:
             'https://www.reddit.com/r/pathofexile/comments/jgec5u/heist_cheat_sheet_final_all_in_one_edition/',
         },
@@ -222,7 +223,7 @@ const poe = {
       open: true,
       images: [
         {
-          src: 'poe/pics/incursion.png',
+          src: 'poe/pics/incursion.webp',
           source: 'https://www.reddit.com/r/pathofexile/comments/lpas2z/help_me_update_this_cheat_sheet/',
         },
       ],
@@ -233,7 +234,7 @@ const poe = {
       accent: 'essences',
       images: [
         {
-          src: 'poe/pics/tattoo324.png',
+          src: 'poe/pics/tattoo324.webp',
           source: 'https://www.reddit.com/r/pathofexile/comments/1bnwxxq/list_of_tattoo_available_in_324/',
         },
       ],
@@ -244,7 +245,7 @@ const poe = {
       accent: 'essences',
       images: [
         {
-          src: 'poe/pics/essences.png',
+          src: 'poe/pics/essences.webp',
           source:
             'https://www.reddit.com/r/pathofexile/comments/52onwd/guide_a_quick_referencevisual_guide_image_for/',
         },
@@ -256,7 +257,7 @@ const poe = {
       accent: 'strongbox',
       images: [
         {
-          src: 'poe/pics/strongbox_cheatsheet_317_v2.png',
+          src: 'poe/pics/strongbox_cheatsheet_317_v2.webp',
           alt: 'Strongbox Rolling',
           source:
             'https://www.reddit.com/r/pathofexile/comments/t0v86t/made_a_new_strongbox_cheatsheet_for_myself_maybe/',
@@ -269,7 +270,7 @@ const poe = {
       accent: 'flask',
       images: [
         {
-          src: 'poe/pics/flasks_316.png',
+          src: 'poe/pics/flasks_316.webp',
           source: 'https://www.reddit.com/r/pathofexile/comments/qgb89f/316_flask_cheat_sheets/',
         },
       ],
@@ -279,7 +280,7 @@ const poe = {
       title: 'Kingsmarch',
       images: [
         {
-          src: 'poe/pics/325_kingsmarch.png',
+          src: 'poe/pics/325_kingsmarch.webp',
           source:
             'https://www.reddit.com/r/pathofexile/comments/1eshj59/kingsmarch_harbour_shipment_cheatsheet/',
         },

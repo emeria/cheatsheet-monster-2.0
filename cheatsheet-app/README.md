@@ -1,11 +1,12 @@
 # Cheatsheet Monster 2.0
 
-React rewrite of [cheatsheet.monster](https://cheatsheet.monster) (the original static site lives in the `cheatsheet_monster` repo).
+React rewrite of [cheatsheet.monster](https://cheatsheet.monster) (the original static site lives in the `cheatsheet_monster` repo). Built with Vite and tested with Vitest; needs Node 22.12 or newer.
 
 ```
-npm start     # dev server at http://localhost:3000/cheatsheet-monster-2.0
-npm test      # content + widget tests
-npm run build # production build in build/
+npm start          # dev server at http://localhost:3000/cheatsheet-monster-2.0/
+npm test           # content + widget tests (npm run test:watch to keep them running)
+npm run build      # production build in build/
+npm run preview    # serve build/ locally
 npm run sync  # pull images and CSVs from ../../cheatsheet_monster
 ```
 
@@ -21,7 +22,7 @@ Everything you normally edit is data, not page code:
 | Table data (leveling, blessings, dungeons, PoE 2 rewards) | the CSV in `public/assets/<game>/data/` — no script to run, the page reads it directly |
 | Add a game | new file in `src/content/`, add it to `src/content/games.js` |
 
-Paths in content files are relative to `public/assets`, e.g. `'poe/pics/heist.jpg'`.
+Paths in content files are relative to `public/assets`, e.g. `'poe/pics/heist.webp'`.
 
 If you keep updating the original site, `npm run sync` copies its new or changed images and CSVs here.
 
@@ -32,7 +33,7 @@ Each game file has `cheatsheets` (the main list, shown in the cheat sheet nav) a
 ```js
 // An image cheat sheet. Two or more images show as tabs, labelled with `label`.
 { id: 'heist', title: 'Heist', accent: 'heist', open: true,
-  images: [{ src: 'poe/pics/heist.jpg', source: 'https://reddit.com/...' }] }
+  images: [{ src: 'poe/pics/heist.webp', source: 'https://reddit.com/...' }] }
 
 // Link lists. An item is: text <label as link> — note (extra | extra). All fields optional.
 { id: 'MiscLinks', title: 'Misc. Links',
