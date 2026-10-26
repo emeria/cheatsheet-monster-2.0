@@ -32,7 +32,7 @@ function unevenAngles(skillsPerOrbit) {
 }
 
 // Node key order from the tree schema, so saves are stable.
-const NODE_KEYS = ['id', 'section', 'kind', 'name', 'icon', 'tags', 'stats', 'options', 'granted', 'start', 'noPath', 'socket'];
+const NODE_KEYS = ['id', 'section', 'kind', 'name', 'icon', 'tags', 'stats', 'options', 'granted', 'start', 'noPath', 'roots', 'socket'];
 
 const round = (x) => Math.round(x * 1000) / 1000;
 const byNumber = (a, b) => Number(a) - Number(b);
@@ -77,7 +77,8 @@ function convert(data, pin) {
     const asc = c.ascendancies.map((a) => {
       const id = slug(a.id);
       sectionOf.set(a.id, id);
-      sections.push({ id, name: a.name, kind: 'ascendancy', pool: 'ascendancy', connectivity: 'path', active: { group: 'ascendancy' }, ports: [classStart.get(i)] });
+      // Only the class whose start this is can pick the ascendancy.
+      sections.push({ id, name: a.name, kind: 'ascendancy', pool: 'ascendancy', connectivity: 'path', active: { group: 'ascendancy' }, req: { start: classStart.get(i) }, ports: [classStart.get(i)] });
       return id;
     });
     return { name: c.name, start: classStart.get(i), ascendancies: asc };
@@ -95,6 +96,34 @@ function convert(data, pin) {
     { id: 'ascendancy', pick: { max: 1 }, members: { sections: poeClasses.flatMap((c) => c.ascendancies) } },
   ];
   if (bloodlines.length) groups.push({ id: 'bloodline', pick: { max: 1 }, members: { sections: bloodlines } });
+
+  // Links that cross into an ascendancy are never pathed or drawn. A class start links to its
+  // ascendancy start for the game's own drawing. The Ascendant's "Path of the X" nodes link to the
+  // main-tree nodes beside X's class start: in game they let the Scion allocate from that start, so
+  // here the node opens that start as a root instead.
+  const isClassStart = (x) => x?.classStartIndex !== undefined;
+  const adjacent = new Map(); // node id -> linked node ids, read from both ends of every link
+  for (const id of ids) {
+    for (const other of [...(kept.get(id).out || []), ...(kept.get(id).in || [])]) {
+      if (!kept.has(other)) continue;
+      (adjacent.get(id) || adjacent.set(id, new Set()).get(id)).add(other);
+      (adjacent.get(other) || adjacent.set(other, new Set()).get(other)).add(id);
+    }
+  }
+  const rootsOf = new Map(); // ascendancy node id -> class start ids it opens
+  for (const id of ids) {
+    const n = kept.get(id);
+    if (!n.ascendancyName) continue;
+    for (const other of adjacent.get(id) || []) {
+      const m = kept.get(other);
+      if (m.ascendancyName === n.ascendancyName || isClassStart(m)) continue;
+      const starts = m.ascendancyName ? [] : [...(adjacent.get(other) || [])].filter((x) => isClassStart(kept.get(x)));
+      if (!starts.length) throw new Error(`Link ${id} > ${other} crosses sections, but ${other} isn't beside a class start`);
+      const set = rootsOf.get(id) || new Set();
+      for (const s of starts) set.add(s);
+      rootsOf.set(id, set);
+    }
+  }
 
   const nodes = ids.map((id) => {
     const n = kept.get(id);
@@ -120,6 +149,7 @@ function convert(data, pin) {
       node.socket = { accepts };
     } else if (n.isNotable) node.kind = 'notable';
     node.icon = n.icon;
+    if (rootsOf.has(id)) node.roots = [...rootsOf.get(id)].sort(byNumber);
 
     if (n.grantedStrength) tags.add('attr:str');
     if (n.grantedDexterity) tags.add('attr:dex');
@@ -136,8 +166,8 @@ function convert(data, pin) {
     return Object.fromEntries(NODE_KEYS.filter((k) => node[k] !== undefined).map((k) => [k, node[k]]));
   });
 
-  // Links are undirected: one edge per pair, smaller id first. Class starts link to their
-  // ascendancy start only for drawing, so links that cross into an ascendancy from a start are dropped.
+  // Links are undirected: one edge per pair, smaller id first. Links across sections are dropped
+  // (see rootsOf above).
   const pairs = new Set();
   const edges = [];
   const layoutEdges = {};
@@ -150,8 +180,7 @@ function convert(data, pin) {
       const [from, to] = [id, other].sort(byNumber);
       const key = `${from}>${to}`;
       if (pairs.has(key)) continue;
-      const crossing = (n.ascendancyName || '') !== (m.ascendancyName || '');
-      if (crossing && (n.classStartIndex !== undefined || m.classStartIndex !== undefined)) continue;
+      if ((n.ascendancyName || '') !== (m.ascendancyName || '')) continue;
       pairs.add(key);
       edges.push({ from, to, type: 'link' });
       // Mastery links count for allocation but aren't drawn in game.

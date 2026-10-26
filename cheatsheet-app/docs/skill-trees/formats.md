@@ -70,6 +70,7 @@ socketables, rule plugins), is in the `lmg-tree-kit` spec.
 | `req` | | A requirement for the first rank (below) |
 | `options` | | A choice made on the node: `[{ id, stats }]` (PoE masteries, PoE2 attributes). The build stores which one was taken |
 | `start`, `noPath`, `granted` | `false` | A path root; can't be pathed through; free |
+| `roots` | | Start nodes this node opens as roots while it's taken (PoE's Path of the Ranger). Each must be a start node |
 | `tier`, `row`, `col`, `order` | | Logical position, counting from 1. Gates and grid layouts read these. Not pixels |
 
 ### Edges
@@ -85,7 +86,8 @@ socketables, rule plugins), is in the `lmg-tree-kit` spec.
 
 JSON only, never code: `{ "level": n }`, `{ "rank": id, "gte": n }`,
 `{ "spent": { "section" | "pool" | "tag": x }, "gte": n }`, `{ "group": id, "picked": option }`,
-`{ "flag": name }`, combined with `all`, `any` and `not`.
+`{ "flag": name }`, `{ "start": id }` (the build's class start; an ascendancy section carries one, so
+only its class can pick it), combined with `all`, `any` and `not`.
 
 ### Groups
 

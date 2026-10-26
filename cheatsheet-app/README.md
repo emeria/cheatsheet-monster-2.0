@@ -5,6 +5,7 @@ React rewrite of [cheatsheet.monster](https://cheatsheet.monster) (the original 
 ```
 npm start          # dev server at http://localhost:3000/cheatsheet-monster-2.0/
 npm test           # content + widget tests (npm run test:watch to keep them running)
+npm run test:e2e   # browser smoke test: the talent trees draw (needs npx playwright install chromium once)
 npm run build      # production build in build/
 npm run preview    # serve build/ locally
 npm run sync  # pull images and CSVs from ../../cheatsheet_monster
@@ -53,6 +54,8 @@ Widgets: `leveling` (chapter/act maps + step tables, TLDR, campaign skip), `bles
 
 Talent and passive tree data lives in `src/data/trees/`. How it's stored, and how to add a tree, is
 in [docs/skill-trees](docs/skill-trees/README.md).
+The renderer is a vendored copy of lmg-tree-kit, refreshed with `npm run sync:tree-kit`. After a sync, run
+`npm run test:e2e`: it opens the wow, poe and poe2 pages in Chromium and checks each tree still draws.
 
 ## Deploying
 

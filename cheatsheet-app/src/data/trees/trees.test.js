@@ -32,6 +32,39 @@ describe('poe1-3.29.1', () => {
       for (const a of c.ascendancies) expect(tree.sections.map((s) => s.id)).toContain(a);
     }
   });
+
+  it('keeps each ascendancy to its class', () => {
+    for (const c of tree.ext.poe1.classes) {
+      for (const a of c.ascendancies) expect(tree.sections.find((s) => s.id === a).req).toEqual({ start: c.start });
+    }
+  });
+
+  it('opens class starts from the Ascendant instead of linking across the tree', () => {
+    const paths = tree.nodes.filter((n) => n.roots);
+    expect(paths.map((n) => n.name).sort()).toEqual(['Duelist', 'Marauder', 'Ranger', 'Shadow', 'Templar', 'Witch'].map((c) => `Path of the ${c}`));
+    const classStart = new Map(tree.ext.poe1.classes.map((c) => [c.name, c.start]));
+    for (const n of paths) expect(n.roots).toEqual([classStart.get(n.name.replace('Path of the ', ''))]);
+  });
+});
+
+// Shared by every PoE tree: ascendancies hang off their own granted start, never off the main tree.
+describe.each(['poe1-3.25.3d', 'poe1-3.29.1', 'poe2-0.5.2'])('%s', (id) => {
+  const tree = read(`${id}.tree.json`);
+  const byId = new Map(tree.nodes.map((n) => [n.id, n]));
+
+  it('has no link across sections', () => {
+    for (const e of tree.edges) expect(byId.get(e.from).section).toBe(byId.get(e.to).section);
+  });
+
+  it('names only class starts in roots', () => {
+    const starts = new Set(tree.nodes.filter((n) => n.start && !n.granted).map((n) => n.id));
+    const paths = tree.nodes.filter((n) => n.roots);
+    expect(paths.length).toBeGreaterThan(0);
+    for (const n of paths) {
+      expect(n.section).not.toBe('main');
+      for (const r of n.roots) expect(starts.has(r)).toBe(true);
+    }
+  });
 });
 
 describe('wow-classic-warrior', () => {

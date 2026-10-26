@@ -1,4 +1,5 @@
 import { defineConfig, transformWithOxc } from 'vite';
+import { configDefaults } from 'vitest/config';
 import react from '@vitejs/plugin-react';
 
 // Components and content keep JSX in .js files (as CRA allowed), but Vite only parses JSX in .jsx.
@@ -31,6 +32,8 @@ export default defineConfig(({ mode }) => ({
   build: { outDir: 'build', assetsDir: 'static' },
   test: {
     environment: 'jsdom',
+    // Playwright owns e2e/.
+    exclude: [...configDefaults.exclude, 'e2e/**'],
     globals: true,
     setupFiles: './src/setupTests.js',
   },
