@@ -49,6 +49,11 @@ Each game file has `cheatsheets` (the main list, shown in the cheat sheet nav) a
 
 Widgets: `leveling` (chapter/act maps + step tables, TLDR, campaign skip), `blessings`, `dungeons` (daily rotation; tune `cycle`/`start` in `lastepoch.js`), `supporterPacks`, `poe2Rewards`, `aldorScryer`, `cenarion`.
 
+## Skill trees
+
+Talent and passive tree data lives in `src/data/trees/`. How it's stored, and how to add a tree, is
+in [docs/skill-trees](docs/skill-trees/README.md).
+
 ## Deploying
 
 Pushing to `main` runs `.github/workflows/static.yml`, which tests, builds and deploys to GitHub Pages. For that to be what the site serves, set **Settings → Pages → Source** to **GitHub Actions**. Until then the site is served from the `gh-pages` branch, which `npm run deploy` updates.

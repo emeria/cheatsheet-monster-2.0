@@ -1,0 +1,1419 @@
+{
+ "app": "lmg-tree",
+ "v": 1,
+ "id": "wow-classic-warrior",
+ "name": "WoW Classic Warrior talents",
+ "game": "wow-classic",
+ "patch": "1.12.1",
+ "source": "hand-authored from the public 1.12 talent calculator",
+ "pools": [
+  {
+   "id": "talent",
+   "name": "Talent points",
+   "budget": {
+    "perLevelFrom": [
+     10,
+     1,
+     60
+    ]
+   }
+  }
+ ],
+ "sections": [
+  {
+   "id": "arms",
+   "name": "Arms",
+   "kind": "tree",
+   "pool": "talent",
+   "connectivity": "prereq",
+   "active": "always",
+   "tiers": {
+    "gate": [
+     0,
+     5,
+     10,
+     15,
+     20,
+     25,
+     30
+    ]
+   }
+  },
+  {
+   "id": "fury",
+   "name": "Fury",
+   "kind": "tree",
+   "pool": "talent",
+   "connectivity": "prereq",
+   "active": "always",
+   "tiers": {
+    "gate": [
+     0,
+     5,
+     10,
+     15,
+     20,
+     25,
+     30
+    ]
+   }
+  },
+  {
+   "id": "protection",
+   "name": "Protection",
+   "kind": "tree",
+   "pool": "talent",
+   "connectivity": "prereq",
+   "active": "always",
+   "tiers": {
+    "gate": [
+     0,
+     5,
+     10,
+     15,
+     20,
+     25,
+     30
+    ]
+   }
+  }
+ ],
+ "nodes": [
+  {
+   "id": "improved-heroic-strike",
+   "section": "arms",
+   "kind": "talent",
+   "name": "Improved Heroic Strike",
+   "ranks": 3,
+   "tier": 1,
+   "col": 1,
+   "order": 11,
+   "tags": [
+    "res:rage"
+   ],
+   "stats": [
+    {
+     "id": "talent:improved-heroic-strike",
+     "text": "Reduces the cost of Heroic Strike by {0} rage.",
+     "values": [
+      1,
+      2,
+      3
+     ]
+    }
+   ]
+  },
+  {
+   "id": "deflection",
+   "section": "arms",
+   "kind": "talent",
+   "name": "Deflection",
+   "ranks": 5,
+   "tier": 1,
+   "col": 2,
+   "order": 12,
+   "tags": [
+    "role:defence"
+   ],
+   "stats": [
+    {
+     "id": "talent:deflection",
+     "text": "Increases your chance to parry by {0}%.",
+     "values": [
+      1,
+      2,
+      3,
+      4,
+      5
+     ]
+    }
+   ]
+  },
+  {
+   "id": "improved-rend",
+   "section": "arms",
+   "kind": "talent",
+   "name": "Improved Rend",
+   "ranks": 3,
+   "tier": 1,
+   "col": 3,
+   "order": 13,
+   "tags": [
+    "dmg:bleed"
+   ],
+   "stats": [
+    {
+     "id": "talent:improved-rend",
+     "text": "Increases the bleed damage done by Rend by {0}%.",
+     "values": [
+      15,
+      25,
+      35
+     ]
+    }
+   ]
+  },
+  {
+   "id": "improved-charge",
+   "section": "arms",
+   "kind": "talent",
+   "name": "Improved Charge",
+   "ranks": 2,
+   "tier": 2,
+   "col": 1,
+   "order": 21,
+   "tags": [
+    "res:rage"
+   ],
+   "stats": [
+    {
+     "id": "talent:improved-charge",
+     "text": "Charge generates {0} more rage.",
+     "values": [
+      3,
+      6
+     ]
+    }
+   ]
+  },
+  {
+   "id": "tactical-mastery",
+   "section": "arms",
+   "kind": "talent",
+   "name": "Tactical Mastery",
+   "ranks": 5,
+   "tier": 2,
+   "col": 2,
+   "order": 22,
+   "tags": [
+    "res:rage"
+   ],
+   "stats": [
+    {
+     "id": "talent:tactical-mastery",
+     "text": "You keep up to {0} rage when you change stances.",
+     "values": [
+      5,
+      10,
+      15,
+      20,
+      25
+     ]
+    }
+   ]
+  },
+  {
+   "id": "improved-thunder-clap",
+   "section": "arms",
+   "kind": "talent",
+   "name": "Improved Thunder Clap",
+   "ranks": 3,
+   "tier": 2,
+   "col": 4,
+   "order": 24,
+   "tags": [
+    "res:rage"
+   ],
+   "stats": [
+    {
+     "id": "talent:improved-thunder-clap",
+     "text": "Reduces the cost of Thunder Clap by {0} rage.",
+     "values": [
+      1,
+      2,
+      4
+     ]
+    }
+   ]
+  },
+  {
+   "id": "improved-overpower",
+   "section": "arms",
+   "kind": "talent",
+   "name": "Improved Overpower",
+   "ranks": 2,
+   "tier": 3,
+   "col": 1,
+   "order": 31,
+   "tags": [
+    "dmg:physical",
+    "stat:crit"
+   ],
+   "stats": [
+    {
+     "id": "talent:improved-overpower",
+     "text": "Increases the critical strike chance of Overpower by {0}%.",
+     "values": [
+      25,
+      50
+     ]
+    }
+   ]
+  },
+  {
+   "id": "anger-management",
+   "section": "arms",
+   "kind": "talent",
+   "name": "Anger Management",
+   "tier": 3,
+   "col": 2,
+   "order": 32,
+   "tags": [
+    "res:rage"
+   ],
+   "stats": [
+    {
+     "id": "grant:anger-management",
+     "text": "Generates 1 rage every 3 sec."
+    }
+   ]
+  },
+  {
+   "id": "deep-wounds",
+   "section": "arms",
+   "kind": "talent",
+   "name": "Deep Wounds",
+   "ranks": 3,
+   "tier": 3,
+   "col": 3,
+   "order": 33,
+   "tags": [
+    "dmg:bleed"
+   ],
+   "stats": [
+    {
+     "id": "talent:deep-wounds",
+     "text": "Your critical strikes make the target bleed for {0}% of your weapon's average damage over 12 sec.",
+     "values": [
+      20,
+      40,
+      60
+     ]
+    }
+   ]
+  },
+  {
+   "id": "two-handed-weapon-specialization",
+   "section": "arms",
+   "kind": "talent",
+   "name": "Two-Handed Weapon Specialization",
+   "ranks": 5,
+   "tier": 4,
+   "col": 2,
+   "order": 42,
+   "tags": [
+    "dmg:physical",
+    "weapon:two-hand"
+   ],
+   "stats": [
+    {
+     "id": "talent:two-handed-weapon-specialization",
+     "text": "Increases the damage you deal with two-handed weapons by {0}%.",
+     "values": [
+      1,
+      2,
+      3,
+      4,
+      5
+     ]
+    }
+   ]
+  },
+  {
+   "id": "impale",
+   "section": "arms",
+   "kind": "talent",
+   "name": "Impale",
+   "ranks": 2,
+   "tier": 4,
+   "col": 3,
+   "order": 43,
+   "tags": [
+    "dmg:physical",
+    "stat:crit"
+   ],
+   "stats": [
+    {
+     "id": "talent:impale",
+     "text": "Increases the critical strike damage bonus of your abilities in Battle, Defensive and Berserker stance by {0}%.",
+     "values": [
+      10,
+      20
+     ]
+    }
+   ]
+  },
+  {
+   "id": "axe-specialization",
+   "section": "arms",
+   "kind": "talent",
+   "name": "Axe Specialization",
+   "ranks": 5,
+   "tier": 5,
+   "col": 1,
+   "order": 51,
+   "tags": [
+    "stat:crit",
+    "weapon:axe"
+   ],
+   "stats": [
+    {
+     "id": "talent:axe-specialization",
+     "text": "Increases your chance to get a critical strike with axes by {0}%.",
+     "values": [
+      1,
+      2,
+      3,
+      4,
+      5
+     ]
+    }
+   ]
+  },
+  {
+   "id": "sweeping-strikes",
+   "section": "arms",
+   "kind": "talent",
+   "name": "Sweeping Strikes",
+   "tier": 5,
+   "col": 2,
+   "order": 52,
+   "tags": [
+    "role:ability",
+    "dmg:physical"
+   ],
+   "stats": [
+    {
+     "id": "grant:sweeping-strikes",
+     "text": "Your next 5 melee attacks strike an additional nearby opponent."
+    }
+   ]
+  },
+  {
+   "id": "mace-specialization",
+   "section": "arms",
+   "kind": "talent",
+   "name": "Mace Specialization",
+   "ranks": 5,
+   "tier": 5,
+   "col": 3,
+   "order": 53,
+   "tags": [
+    "role:control",
+    "weapon:mace"
+   ],
+   "stats": [
+    {
+     "id": "talent:mace-specialization",
+     "text": "Gives you a {0}% chance to stun your target for 3 sec with a mace.",
+     "values": [
+      1,
+      2,
+      3,
+      4,
+      6
+     ]
+    }
+   ]
+  },
+  {
+   "id": "sword-specialization",
+   "section": "arms",
+   "kind": "talent",
+   "name": "Sword Specialization",
+   "ranks": 5,
+   "tier": 5,
+   "col": 4,
+   "order": 54,
+   "tags": [
+    "dmg:physical",
+    "weapon:sword"
+   ],
+   "stats": [
+    {
+     "id": "talent:sword-specialization",
+     "text": "Gives you a {0}% chance to get an extra attack on the same target after dealing damage with a sword.",
+     "values": [
+      1,
+      2,
+      3,
+      4,
+      5
+     ]
+    }
+   ]
+  },
+  {
+   "id": "polearm-specialization",
+   "section": "arms",
+   "kind": "talent",
+   "name": "Polearm Specialization",
+   "ranks": 5,
+   "tier": 6,
+   "col": 1,
+   "order": 61,
+   "tags": [
+    "stat:crit",
+    "weapon:polearm"
+   ],
+   "stats": [
+    {
+     "id": "talent:polearm-specialization",
+     "text": "Increases your chance to get a critical strike with polearms by {0}%.",
+     "values": [
+      1,
+      2,
+      3,
+      4,
+      5
+     ]
+    }
+   ]
+  },
+  {
+   "id": "improved-hamstring",
+   "section": "arms",
+   "kind": "talent",
+   "name": "Improved Hamstring",
+   "ranks": 3,
+   "tier": 6,
+   "col": 3,
+   "order": 63,
+   "tags": [
+    "role:control"
+   ],
+   "stats": [
+    {
+     "id": "talent:improved-hamstring",
+     "text": "Gives your Hamstring a {0}% chance to immobilize the target for 5 sec.",
+     "values": [
+      5,
+      10,
+      15
+     ]
+    }
+   ]
+  },
+  {
+   "id": "mortal-strike",
+   "section": "arms",
+   "kind": "talent",
+   "name": "Mortal Strike",
+   "tier": 7,
+   "col": 2,
+   "order": 72,
+   "tags": [
+    "role:ability",
+    "role:capstone",
+    "dmg:physical"
+   ],
+   "stats": [
+    {
+     "id": "grant:mortal-strike",
+     "text": "A vicious strike that deals weapon damage plus 85 and wounds the target, reducing the healing it receives by 50% for 10 sec."
+    }
+   ]
+  },
+  {
+   "id": "booming-voice",
+   "section": "fury",
+   "kind": "talent",
+   "name": "Booming Voice",
+   "ranks": 5,
+   "tier": 1,
+   "col": 2,
+   "order": 12,
+   "tags": [
+    "role:shout"
+   ],
+   "stats": [
+    {
+     "id": "talent:booming-voice",
+     "text": "Increases the area and duration of your Battle Shout and Demoralizing Shout by {0}%.",
+     "values": [
+      10,
+      20,
+      30,
+      40,
+      50
+     ]
+    }
+   ]
+  },
+  {
+   "id": "cruelty",
+   "section": "fury",
+   "kind": "talent",
+   "name": "Cruelty",
+   "ranks": 5,
+   "tier": 1,
+   "col": 3,
+   "order": 13,
+   "tags": [
+    "stat:crit"
+   ],
+   "stats": [
+    {
+     "id": "talent:cruelty",
+     "text": "Increases your chance to get a critical strike with melee weapons by {0}%.",
+     "values": [
+      1,
+      2,
+      3,
+      4,
+      5
+     ]
+    }
+   ]
+  },
+  {
+   "id": "improved-demoralizing-shout",
+   "section": "fury",
+   "kind": "talent",
+   "name": "Improved Demoralizing Shout",
+   "ranks": 5,
+   "tier": 2,
+   "col": 2,
+   "order": 22,
+   "tags": [
+    "role:shout",
+    "role:defence"
+   ],
+   "stats": [
+    {
+     "id": "talent:improved-demoralizing-shout",
+     "text": "Increases the melee attack power reduction of Demoralizing Shout by {0}%.",
+     "values": [
+      8,
+      16,
+      24,
+      32,
+      40
+     ]
+    }
+   ]
+  },
+  {
+   "id": "unbridled-wrath",
+   "section": "fury",
+   "kind": "talent",
+   "name": "Unbridled Wrath",
+   "ranks": 5,
+   "tier": 2,
+   "col": 3,
+   "order": 23,
+   "tags": [
+    "res:rage"
+   ],
+   "stats": [
+    {
+     "id": "talent:unbridled-wrath",
+     "text": "Gives you a {0}% chance to generate 1 rage when you deal melee damage.",
+     "values": [
+      8,
+      16,
+      24,
+      32,
+      40
+     ]
+    }
+   ]
+  },
+  {
+   "id": "improved-cleave",
+   "section": "fury",
+   "kind": "talent",
+   "name": "Improved Cleave",
+   "ranks": 3,
+   "tier": 3,
+   "col": 1,
+   "order": 31,
+   "tags": [
+    "dmg:physical"
+   ],
+   "stats": [
+    {
+     "id": "talent:improved-cleave",
+     "text": "Increases the bonus damage done by Cleave by {0}%.",
+     "values": [
+      40,
+      80,
+      120
+     ]
+    }
+   ]
+  },
+  {
+   "id": "piercing-howl",
+   "section": "fury",
+   "kind": "talent",
+   "name": "Piercing Howl",
+   "tier": 3,
+   "col": 2,
+   "order": 32,
+   "tags": [
+    "role:ability",
+    "role:control",
+    "role:shout"
+   ],
+   "stats": [
+    {
+     "id": "grant:piercing-howl",
+     "text": "Dazes all enemies within 10 yards, slowing their movement speed by 50% for 6 sec."
+    }
+   ]
+  },
+  {
+   "id": "blood-craze",
+   "section": "fury",
+   "kind": "talent",
+   "name": "Blood Craze",
+   "ranks": 3,
+   "tier": 3,
+   "col": 3,
+   "order": 33,
+   "tags": [
+    "role:defence"
+   ],
+   "stats": [
+    {
+     "id": "talent:blood-craze",
+     "text": "Regenerates {0}% of your total health over 6 sec after being critically hit.",
+     "values": [
+      1,
+      2,
+      3
+     ]
+    }
+   ]
+  },
+  {
+   "id": "improved-battle-shout",
+   "section": "fury",
+   "kind": "talent",
+   "name": "Improved Battle Shout",
+   "ranks": 5,
+   "tier": 3,
+   "col": 4,
+   "order": 34,
+   "tags": [
+    "role:shout",
+    "stat:attack-power"
+   ],
+   "stats": [
+    {
+     "id": "talent:improved-battle-shout",
+     "text": "Increases the attack power bonus of Battle Shout by {0}%.",
+     "values": [
+      5,
+      10,
+      15,
+      20,
+      25
+     ]
+    }
+   ]
+  },
+  {
+   "id": "dual-wield-specialization",
+   "section": "fury",
+   "kind": "talent",
+   "name": "Dual Wield Specialization",
+   "ranks": 5,
+   "tier": 4,
+   "col": 1,
+   "order": 41,
+   "tags": [
+    "dmg:physical",
+    "weapon:dual-wield"
+   ],
+   "stats": [
+    {
+     "id": "talent:dual-wield-specialization",
+     "text": "Increases the damage done by your off-hand weapon by {0}%.",
+     "values": [
+      5,
+      10,
+      15,
+      20,
+      25
+     ]
+    }
+   ]
+  },
+  {
+   "id": "improved-execute",
+   "section": "fury",
+   "kind": "talent",
+   "name": "Improved Execute",
+   "ranks": 2,
+   "tier": 4,
+   "col": 2,
+   "order": 42,
+   "tags": [
+    "res:rage"
+   ],
+   "stats": [
+    {
+     "id": "talent:improved-execute",
+     "text": "Reduces the cost of Execute by {0} rage.",
+     "values": [
+      2,
+      5
+     ]
+    }
+   ]
+  },
+  {
+   "id": "enrage",
+   "section": "fury",
+   "kind": "talent",
+   "name": "Enrage",
+   "ranks": 5,
+   "tier": 4,
+   "col": 3,
+   "order": 43,
+   "tags": [
+    "dmg:physical"
+   ],
+   "stats": [
+    {
+     "id": "talent:enrage",
+     "text": "After being critically hit, you deal {0}% more melee damage for 12 sec or 12 swings.",
+     "values": [
+      5,
+      10,
+      15,
+      20,
+      25
+     ]
+    }
+   ]
+  },
+  {
+   "id": "improved-slam",
+   "section": "fury",
+   "kind": "talent",
+   "name": "Improved Slam",
+   "ranks": 5,
+   "tier": 5,
+   "col": 1,
+   "order": 51,
+   "tags": [
+    "dmg:physical"
+   ],
+   "stats": [
+    {
+     "id": "talent:improved-slam",
+     "text": "Reduces the casting time of Slam by {0} sec.",
+     "values": [
+      0.1,
+      0.2,
+      0.3,
+      0.4,
+      0.5
+     ]
+    }
+   ]
+  },
+  {
+   "id": "death-wish",
+   "section": "fury",
+   "kind": "talent",
+   "name": "Death Wish",
+   "tier": 5,
+   "col": 2,
+   "order": 52,
+   "tags": [
+    "role:ability",
+    "dmg:physical"
+   ],
+   "stats": [
+    {
+     "id": "grant:death-wish",
+     "text": "For 30 sec you deal 20% more physical damage and are immune to Fear, but your armor and all resistances are lowered by 20%."
+    }
+   ]
+  },
+  {
+   "id": "improved-intercept",
+   "section": "fury",
+   "kind": "talent",
+   "name": "Improved Intercept",
+   "ranks": 2,
+   "tier": 5,
+   "col": 4,
+   "order": 54,
+   "tags": [
+    "role:control"
+   ],
+   "stats": [
+    {
+     "id": "talent:improved-intercept",
+     "text": "Reduces the cooldown of Intercept by {0} sec.",
+     "values": [
+      5,
+      10
+     ]
+    }
+   ]
+  },
+  {
+   "id": "improved-berserker-rage",
+   "section": "fury",
+   "kind": "talent",
+   "name": "Improved Berserker Rage",
+   "ranks": 2,
+   "tier": 6,
+   "col": 1,
+   "order": 61,
+   "tags": [
+    "res:rage"
+   ],
+   "stats": [
+    {
+     "id": "talent:improved-berserker-rage",
+     "text": "Berserker Rage generates {0} rage when used.",
+     "values": [
+      5,
+      10
+     ]
+    }
+   ]
+  },
+  {
+   "id": "flurry",
+   "section": "fury",
+   "kind": "talent",
+   "name": "Flurry",
+   "ranks": 5,
+   "tier": 6,
+   "col": 3,
+   "order": 63,
+   "tags": [
+    "stat:haste"
+   ],
+   "stats": [
+    {
+     "id": "talent:flurry",
+     "text": "After a critical strike, your next 3 swings are {0}% faster.",
+     "values": [
+      10,
+      15,
+      20,
+      25,
+      30
+     ]
+    }
+   ]
+  },
+  {
+   "id": "bloodthirst",
+   "section": "fury",
+   "kind": "talent",
+   "name": "Bloodthirst",
+   "tier": 7,
+   "col": 2,
+   "order": 72,
+   "tags": [
+    "role:ability",
+    "role:capstone",
+    "dmg:physical"
+   ],
+   "stats": [
+    {
+     "id": "grant:bloodthirst",
+     "text": "Instantly attack the target for damage equal to 45% of your attack power. For 8 sec, your next 5 successful melee attacks restore 10 health each."
+    }
+   ]
+  },
+  {
+   "id": "shield-specialization",
+   "section": "protection",
+   "kind": "talent",
+   "name": "Shield Specialization",
+   "ranks": 5,
+   "tier": 1,
+   "col": 2,
+   "order": 12,
+   "tags": [
+    "role:defence",
+    "res:rage"
+   ],
+   "stats": [
+    {
+     "id": "talent:shield-specialization:block",
+     "text": "Increases your chance to block attacks with a shield by {0}%.",
+     "values": [
+      1,
+      2,
+      3,
+      4,
+      5
+     ]
+    },
+    {
+     "id": "talent:shield-specialization:block-rage",
+     "text": "Gives a {0}% chance to generate 1 rage when you block.",
+     "values": [
+      20,
+      40,
+      60,
+      80,
+      100
+     ]
+    }
+   ]
+  },
+  {
+   "id": "anticipation",
+   "section": "protection",
+   "kind": "talent",
+   "name": "Anticipation",
+   "ranks": 5,
+   "tier": 1,
+   "col": 3,
+   "order": 13,
+   "tags": [
+    "role:defence"
+   ],
+   "stats": [
+    {
+     "id": "talent:anticipation",
+     "text": "Increases your Defense skill by {0}.",
+     "values": [
+      2,
+      4,
+      6,
+      8,
+      10
+     ]
+    }
+   ]
+  },
+  {
+   "id": "improved-bloodrage",
+   "section": "protection",
+   "kind": "talent",
+   "name": "Improved Bloodrage",
+   "ranks": 2,
+   "tier": 2,
+   "col": 1,
+   "order": 21,
+   "tags": [
+    "res:rage"
+   ],
+   "stats": [
+    {
+     "id": "talent:improved-bloodrage",
+     "text": "Bloodrage generates {0} more rage.",
+     "values": [
+      2,
+      5
+     ]
+    }
+   ]
+  },
+  {
+   "id": "toughness",
+   "section": "protection",
+   "kind": "talent",
+   "name": "Toughness",
+   "ranks": 5,
+   "tier": 2,
+   "col": 3,
+   "order": 23,
+   "tags": [
+    "role:defence"
+   ],
+   "stats": [
+    {
+     "id": "talent:toughness",
+     "text": "Increases the armor you get from items by {0}%.",
+     "values": [
+      2,
+      4,
+      6,
+      8,
+      10
+     ]
+    }
+   ]
+  },
+  {
+   "id": "iron-will",
+   "section": "protection",
+   "kind": "talent",
+   "name": "Iron Will",
+   "ranks": 5,
+   "tier": 2,
+   "col": 4,
+   "order": 24,
+   "tags": [
+    "role:defence"
+   ],
+   "stats": [
+    {
+     "id": "talent:iron-will",
+     "text": "Increases your chance to resist stun and charm effects by {0}%.",
+     "values": [
+      3,
+      6,
+      9,
+      12,
+      15
+     ]
+    }
+   ]
+  },
+  {
+   "id": "last-stand",
+   "section": "protection",
+   "kind": "talent",
+   "name": "Last Stand",
+   "tier": 3,
+   "col": 1,
+   "order": 31,
+   "tags": [
+    "role:ability",
+    "role:defence"
+   ],
+   "stats": [
+    {
+     "id": "grant:last-stand",
+     "text": "For 20 sec you gain 30% of your maximum health; it is lost when the effect ends."
+    }
+   ]
+  },
+  {
+   "id": "improved-shield-block",
+   "section": "protection",
+   "kind": "talent",
+   "name": "Improved Shield Block",
+   "ranks": 3,
+   "tier": 3,
+   "col": 2,
+   "order": 32,
+   "tags": [
+    "role:defence"
+   ],
+   "stats": [
+    {
+     "id": "talent:improved-shield-block",
+     "text": "Shield Block blocks 1 more attack and lasts {0} sec longer.",
+     "values": [
+      0.5,
+      1,
+      2
+     ]
+    }
+   ]
+  },
+  {
+   "id": "improved-revenge",
+   "section": "protection",
+   "kind": "talent",
+   "name": "Improved Revenge",
+   "ranks": 3,
+   "tier": 3,
+   "col": 3,
+   "order": 33,
+   "tags": [
+    "role:control"
+   ],
+   "stats": [
+    {
+     "id": "talent:improved-revenge",
+     "text": "Gives Revenge a {0}% chance to stun the target for 3 sec.",
+     "values": [
+      15,
+      30,
+      45
+     ]
+    }
+   ]
+  },
+  {
+   "id": "defiance",
+   "section": "protection",
+   "kind": "talent",
+   "name": "Defiance",
+   "ranks": 5,
+   "tier": 3,
+   "col": 4,
+   "order": 34,
+   "tags": [
+    "role:threat"
+   ],
+   "stats": [
+    {
+     "id": "talent:defiance",
+     "text": "Increases the threat you cause in Defensive Stance by {0}%.",
+     "values": [
+      3,
+      6,
+      9,
+      12,
+      15
+     ]
+    }
+   ]
+  },
+  {
+   "id": "improved-sunder-armor",
+   "section": "protection",
+   "kind": "talent",
+   "name": "Improved Sunder Armor",
+   "ranks": 3,
+   "tier": 4,
+   "col": 1,
+   "order": 41,
+   "tags": [
+    "res:rage",
+    "role:threat"
+   ],
+   "stats": [
+    {
+     "id": "talent:improved-sunder-armor",
+     "text": "Reduces the cost of Sunder Armor by {0} rage.",
+     "values": [
+      1,
+      2,
+      3
+     ]
+    }
+   ]
+  },
+  {
+   "id": "improved-disarm",
+   "section": "protection",
+   "kind": "talent",
+   "name": "Improved Disarm",
+   "ranks": 3,
+   "tier": 4,
+   "col": 2,
+   "order": 42,
+   "tags": [
+    "role:control"
+   ],
+   "stats": [
+    {
+     "id": "talent:improved-disarm",
+     "text": "Increases the duration of Disarm by {0} sec.",
+     "values": [
+      1,
+      2,
+      3
+     ]
+    }
+   ]
+  },
+  {
+   "id": "improved-taunt",
+   "section": "protection",
+   "kind": "talent",
+   "name": "Improved Taunt",
+   "ranks": 2,
+   "tier": 4,
+   "col": 3,
+   "order": 43,
+   "tags": [
+    "role:threat"
+   ],
+   "stats": [
+    {
+     "id": "talent:improved-taunt",
+     "text": "Reduces the cooldown of Taunt by {0} sec.",
+     "values": [
+      1,
+      2
+     ]
+    }
+   ]
+  },
+  {
+   "id": "improved-shield-wall",
+   "section": "protection",
+   "kind": "talent",
+   "name": "Improved Shield Wall",
+   "ranks": 2,
+   "tier": 5,
+   "col": 1,
+   "order": 51,
+   "tags": [
+    "role:defence"
+   ],
+   "stats": [
+    {
+     "id": "talent:improved-shield-wall",
+     "text": "Increases the duration of Shield Wall by {0} sec.",
+     "values": [
+      3,
+      5
+     ]
+    }
+   ]
+  },
+  {
+   "id": "concussion-blow",
+   "section": "protection",
+   "kind": "talent",
+   "name": "Concussion Blow",
+   "tier": 5,
+   "col": 2,
+   "order": 52,
+   "tags": [
+    "role:ability",
+    "role:control"
+   ],
+   "stats": [
+    {
+     "id": "grant:concussion-blow",
+     "text": "Stuns the target for 5 sec."
+    }
+   ]
+  },
+  {
+   "id": "improved-shield-bash",
+   "section": "protection",
+   "kind": "talent",
+   "name": "Improved Shield Bash",
+   "ranks": 2,
+   "tier": 5,
+   "col": 3,
+   "order": 53,
+   "tags": [
+    "role:control"
+   ],
+   "stats": [
+    {
+     "id": "talent:improved-shield-bash",
+     "text": "Gives Shield Bash a {0}% chance to silence the target for 3 sec.",
+     "values": [
+      50,
+      100
+     ]
+    }
+   ]
+  },
+  {
+   "id": "one-handed-weapon-specialization",
+   "section": "protection",
+   "kind": "talent",
+   "name": "One-Handed Weapon Specialization",
+   "ranks": 5,
+   "tier": 6,
+   "col": 3,
+   "order": 63,
+   "tags": [
+    "dmg:physical",
+    "weapon:one-hand"
+   ],
+   "stats": [
+    {
+     "id": "talent:one-handed-weapon-specialization",
+     "text": "Increases the damage you deal with one-handed melee weapons by {0}%.",
+     "values": [
+      2,
+      4,
+      6,
+      8,
+      10
+     ]
+    }
+   ]
+  },
+  {
+   "id": "shield-slam",
+   "section": "protection",
+   "kind": "talent",
+   "name": "Shield Slam",
+   "tier": 7,
+   "col": 2,
+   "order": 72,
+   "tags": [
+    "role:ability",
+    "role:capstone",
+    "role:threat"
+   ],
+   "stats": [
+    {
+     "id": "grant:shield-slam",
+     "text": "Slam the target with your shield for 225 to 235 damage plus your shield block value, with a 50% chance to dispel 1 magic effect."
+    }
+   ]
+  }
+ ],
+ "edges": [
+  {
+   "from": "tactical-mastery",
+   "to": "anger-management",
+   "type": "arrow",
+   "minRank": "max"
+  },
+  {
+   "from": "improved-rend",
+   "to": "deep-wounds",
+   "type": "arrow",
+   "minRank": "max"
+  },
+  {
+   "from": "deep-wounds",
+   "to": "impale",
+   "type": "arrow",
+   "minRank": "max"
+  },
+  {
+   "from": "sweeping-strikes",
+   "to": "mortal-strike",
+   "type": "arrow",
+   "minRank": "max"
+  },
+  {
+   "from": "enrage",
+   "to": "flurry",
+   "type": "arrow",
+   "minRank": "max"
+  },
+  {
+   "from": "death-wish",
+   "to": "bloodthirst",
+   "type": "arrow",
+   "minRank": "max"
+  },
+  {
+   "from": "improved-bloodrage",
+   "to": "last-stand",
+   "type": "arrow",
+   "minRank": "max"
+  },
+  {
+   "from": "shield-specialization",
+   "to": "improved-shield-block",
+   "type": "arrow",
+   "minRank": "max"
+  },
+  {
+   "from": "concussion-blow",
+   "to": "shield-slam",
+   "type": "arrow",
+   "minRank": "max"
+  }
+ ],
+ "context": {
+  "level": {
+   "min": 10,
+   "max": 60
+  }
+ },
+ "ext": {
+  "wowhead": {
+   "class": "warrior",
+   "trees": [
+    "arms",
+    "fury",
+    "protection"
+   ]
+  }
+ }
+}

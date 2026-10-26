@@ -1,0 +1,49 @@
+{
+ "app": "lmg-tree-layout",
+ "v": 1,
+ "tree": "wow-classic-warrior",
+ "skin": "default",
+ "space": {
+  "w": 864,
+  "h": 464,
+  "unit": "px"
+ },
+ "sections": {
+  "arms": {
+   "mode": "grid",
+   "origin": [
+    48,
+    48
+   ],
+   "cell": [
+    56,
+    56
+   ],
+   "rotate": 0
+  },
+  "fury": {
+   "mode": "grid",
+   "origin": [
+    320,
+    48
+   ],
+   "cell": [
+    56,
+    56
+   ],
+   "rotate": 0
+  },
+  "protection": {
+   "mode": "grid",
+   "origin": [
+    592,
+    48
+   ],
+   "cell": [
+    56,
+    56
+   ],
+   "rotate": 0
+  }
+ }
+}

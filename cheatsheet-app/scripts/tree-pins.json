@@ -1,0 +1,29 @@
+{
+ "poe1": {
+  "repo": "grindinggear/skilltree-export",
+  "file": "data.json",
+  "pins": [
+   {
+    "tag": "3.25.3d",
+    "commit": "d355f6a16aadfa5d73e3b9a31ca9d7346fa84673",
+    "sha256": "4fefd69254439bc049d11843afc44b4848da520f4d729a8367287d650db42ea3"
+   },
+   {
+    "tag": "3.29.1",
+    "commit": "8bd138b32ea2631455cac5935bfab089f826094f",
+    "sha256": "7e9f755e33152129ebf36c2ebdad639c527e4ad70d274b1fefb860f30ca01122"
+   }
+  ]
+ },
+ "poe2": {
+  "repo": "grindinggear/poe2-skilltree-export",
+  "file": "data.json",
+  "pins": [
+   {
+    "tag": "0.5.2",
+    "commit": "1e9eb2d8c1946398c3aaaacfbaead5c75c0d1fa6",
+    "sha256": "f83c94ce7b09f2bfc5b3b1d63523c2ab3d2582d0e964f6aeec34b8b0390abcfe"
+   }
+  ]
+ }
+}
