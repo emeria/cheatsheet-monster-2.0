@@ -58,11 +58,17 @@ function treeErrors(json) {
     pools(`/sections/${i}/pool`, s.pool);
     (s.ports || []).forEach((id, j) => node(`/sections/${i}/ports/${j}`, id));
   });
+  const starts = new Set(items('nodes').filter(([n]) => n.start === true).map(([n]) => n.id));
   items('nodes').forEach(([n, i]) => {
     if (!ids.sections.has(n.section)) bad(`/nodes/${i}/section`, `names unknown section ${n.section}`);
     pools(`/nodes/${i}/pool`, n.pool);
     // A noPath start conducts nothing, so a build could never path out of it.
     if (n.start === true && n.noPath === true) bad(`/nodes/${i}/noPath`, 'must not be set on a start node');
+    // Only a start can be opened as a root: anything else is reached by linking to it.
+    (Array.isArray(n.roots) ? n.roots : []).forEach((id, j) => {
+      if (!ids.nodes.has(id)) bad(`/nodes/${i}/roots/${j}`, `names unknown node ${id}`);
+      else if (!starts.has(id)) bad(`/nodes/${i}/roots/${j}`, `must name a start node, not ${id}`);
+    });
   });
   list('edges').forEach((e, i) => {
     if (!isObject(e)) return bad(`/edges/${i}`, 'must be an object');
@@ -174,6 +180,7 @@ function renameReq(req, I) {
   for (const k of ['all', 'any']) if (req[k]) out[k] = req[k].map((r) => renameReq(r, I));
   if (req.not) out.not = renameReq(req.not, I);
   if (req.rank !== undefined) out.rank = I.node(req.rank);
+  if (req.start !== undefined) out.start = Array.isArray(req.start) ? req.start.map(I.node) : I.node(req.start);
   for (const k of ['spent', 'spentExcept']) if (req[k]?.section !== undefined) out[k] = { ...req[k], section: I.section(req[k].section) };
   if (req.active !== undefined) out.active = I.section(req.active);
   if (req.group !== undefined && I.groups.has(req.group)) {
@@ -315,6 +322,16 @@ function fillTaken(S) {
     else r = T.slotOf.has(n.id) ? 0 : S.ranks[n.id] ?? 0;
     if (r > 0) S.taken.set(n.id, r);
   }
+  // Starts that a taken node opens through `roots` are taken too, free, like granted starts.
+  S.grantedRoots = new Set();
+  for (const id of [...S.taken.keys()]) {
+    for (const r of T.nodes.get(id).roots || []) {
+      const m = T.nodes.get(r);
+      if (!m || !S.active.get(m.section)) continue;
+      S.grantedRoots.add(r);
+      if (!S.taken.has(r)) S.taken.set(r, 1);
+    }
+  }
   // What each taken node pays, worked out once: spend checks read it per node.
   S.paid = new Map();
   for (const [id, r] of S.taken) {
@@ -325,7 +342,7 @@ function fillTaken(S) {
 }
 
 const rank = (S, id) => S.taken.get(id) ?? 0;
-const free = (S, n) => !!(n.granted || n.id === S.build.start || S.slotted.has(n.id));
+const free = (S, n) => !!(n.granted || n.id === S.build.start || S.slotted.has(n.id) || S.grantedRoots.has(n.id));
 const isPath = (S, n) => S.T.sections.get(n.section)?.connectivity === 'path';
 const NONE = [];
 // Links, plus the port links of attached sections. Callers only read the list.
@@ -345,15 +362,26 @@ function reach(S) {
     }
   }
   S.roots = new Set([...S.taken.keys()].filter((id) => id === S.build.start || (T.nodes.get(id).start && T.nodes.get(id).granted)));
-  S.reached = new Set(S.roots);
-  const queue = [...S.roots];
+  S.reached = new Set();
+  const queue = [];
+  // Reaching a node also opens the taken starts it names in `roots`, so a start opened by an
+  // unreached node conducts nothing.
+  const enter = (id) => {
+    S.reached.add(id);
+    const n = T.nodes.get(id);
+    if (!n.noPath) queue.push(id);
+    for (const r of n.roots || []) {
+      if (!S.taken.has(r) || S.reached.has(r)) continue;
+      S.roots.add(r);
+      enter(r);
+    }
+  };
+  for (const id of [...S.roots]) if (!S.reached.has(id)) enter(id);
   while (queue.length) {
     for (const v of neighbours(S, queue.pop())) {
       if (S.reached.has(v) || !S.taken.has(v)) continue;
-      const n = T.nodes.get(v);
-      if (n.start && !S.roots.has(v)) continue;
-      S.reached.add(v);
-      if (!n.noPath) queue.push(v);
+      if (T.nodes.get(v).start && !S.roots.has(v)) continue;
+      enter(v);
     }
   }
 }
@@ -468,6 +496,7 @@ function holds(req, S, exclude) {
   if (req.group !== undefined) return picked(S, req.group, req.picked);
   if (req.active !== undefined) return !!S.active.get(req.active);
   if (req.flag !== undefined) return S.flags.has(req.flag);
+  if (req.start !== undefined) return S.build.start !== undefined && [].concat(req.start).includes(S.build.start);
   return false; // An atom this engine doesn't know fails closed.
 }
 
@@ -646,8 +675,11 @@ export function pick(tree, build, id, value) {
   } else {
     const n = T.nodes.get(id);
     if (!n) return fail('unknown-id');
-    if (n.start) out.start = id;
-    else if (n.options) {
+    if (n.start) {
+      // A granted start (an ascendancy's) is allocated by its section, never chosen as the build's start.
+      if (n.granted) return fail('granted');
+      out.start = id;
+    } else if (n.options) {
       if (value != null && !n.options.some((o) => o.id === value)) return fail('option');
       set('options');
     } else return fail('option');
@@ -757,7 +789,11 @@ function unknownIds(S, out) {
   for (const f of ctx.flags || []) if (!flags.has(f)) unknown(f, 'flag');
   for (const v of Object.keys(ctx.values || {})) if (!values.has(v)) unknown(v, 'context value');
   for (const s of Object.keys(ctx.skills || {})) if (!T.sections.has(s)) unknown(s, 'section');
-  if (build.start !== undefined && !T.nodes.has(build.start)) unknown(build.start, 'node');
+  if (build.start !== undefined) {
+    const s = T.nodes.get(build.start);
+    if (!s?.start) unknown(build.start, 'start node');
+    else if (s.granted) out.add('granted', { node: build.start }, `${build.start} is a granted start, so it can't be the build's start`);
+  }
   for (const [g, s] of Object.entries(build.picks || {})) {
     const group = T.groups.get(g);
     if (!group?.members.sections) unknown(g, 'section group');
@@ -789,7 +825,9 @@ function errorsOf(S) {
   }
   unknownIds(S, out);
 
-  const sections = new Set();
+  // Section reqs are checked for every section with points in it, and for every picked section
+  // even before it has points: a pick the build's start doesn't allow is wrong on its own.
+  const sections = new Set(Object.values(S.picks).filter((sid) => T.sections.has(sid)));
   for (const id of new Set([...Object.keys(S.ranks), ...S.slotted])) {
     const n = T.nodes.get(id);
     if (!n) continue;

@@ -26,6 +26,8 @@ function shownRanks(tree, build) {
     if (r > 0) out.set(n.id, r);
   }
   for (const [id, r] of Object.entries(build?.ranks || {})) if (!out.has(id) && r > 0) out.set(id, r);
+  // Starts that a taken node opens through `roots` show as taken too.
+  for (const n of json.nodes) if (out.has(n.id)) for (const r of n.roots || []) if (!out.has(r)) out.set(r, 1);
   return out;
 }
 
