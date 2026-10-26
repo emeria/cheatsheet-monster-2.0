@@ -23,10 +23,12 @@ export default defineConfig(({ mode }) => ({
   base: '/cheatsheet-monster-2.0/',
   plugins: [jsxInJs(mode), react()],
   server: { port: 3000 },
-  // The dev server's dependency scan reads src/ without plugins, so it needs telling about JSX in .js too.
+  // The dev server's dependency scan reads src/ without the Vite plugins, so it needs the JSX
+  // compile too. moduleTypes alone isn't enough: the scanner forces any file using import.meta.glob
+  // back to plain JS, so files like widgets/TalentTree.js failed to parse and pre-bundling was skipped.
   optimizeDeps: {
     entries: ['index.html'],
-    rolldownOptions: { moduleTypes: { '.js': 'jsx' } },
+    rolldownOptions: { plugins: [jsxInJs(mode)] },
   },
   // Bundles go in static/ so they don't mix with the content files copied from public/assets.
   build: { outDir: 'build', assetsDir: 'static' },
