@@ -21,6 +21,13 @@ const wow = {
       open: true,
       widget: 'cenarion',
     },
+    {
+      id: 'warrior-talents',
+      title: 'Warrior Talents',
+      navLabel: 'Warrior Talents',
+      widget: 'talentTree',
+      props: { tree: 'wow-classic-warrior' },
+    },
   ],
   resources: [],
 };

@@ -179,6 +179,13 @@ const poe = {
       props: { unit: 'Act', csv: 'poe/data/leveling.csv', chapters: acts },
     },
     {
+      id: 'passive-tree',
+      title: 'Passive Tree',
+      accent: 'leveling',
+      widget: 'talentTree',
+      props: { tree: 'poe1', importer: 'poe' },
+    },
+    {
       id: 'vendor-recipe',
       title: 'Vendor Recipes',
       accent: 'leveling',

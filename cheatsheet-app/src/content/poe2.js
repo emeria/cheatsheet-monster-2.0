@@ -60,6 +60,12 @@ const poe2 = {
       props: { csv: 'poe2/data/rewards.csv' },
     },
     {
+      id: 'passive-tree',
+      title: 'Passive Tree',
+      widget: 'talentTree',
+      props: { tree: 'poe2', importer: 'poe' },
+    },
+    {
       id: 'crafting-options',
       title: 'Crafting',
       open: true,

@@ -27,7 +27,9 @@ export async function importPoeBuild(input, { versions, loadTree, fetchFn = fetc
     const patch = text.match(/passive-skill-tree\/(\d+\.\d+[^/]*)\//)?.[1];
     const picked = pickTree(versions, 'poe1', patch);
     const result = decodeTreeUrl(text, await loadTree(picked.id));
-    return { game: 'poe1', source: 'pathofexile.com', builds: [withWarnings(picked, result)], active: 0 };
+    // Most links carry no patch, and the latest tree is then the right guess, so only say so
+    // when a link names a patch that isn't imported.
+    return { game: 'poe1', source: 'pathofexile.com', builds: [patch ? withWarnings(picked, result) : result], active: 0 };
   }
 
   if (isPoePlannerUrl(text)) {

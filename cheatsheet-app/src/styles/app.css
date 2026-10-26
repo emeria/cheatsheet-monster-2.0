@@ -115,6 +115,55 @@ hr {
   text-align: center;
 }
 
+/* ----- Skill trees (talentTree widget) ----- */
+.talent-tree {
+  display: grid;
+  gap: 0.5rem;
+}
+
+.tree-import {
+  display: grid;
+  gap: 0.25rem;
+}
+
+.tree-import textarea {
+  width: 100%;
+  box-sizing: border-box;
+  font: inherit;
+}
+
+.tree-import-actions,
+.tree-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.tree-file input {
+  display: none;
+}
+
+.tree-warnings {
+  margin: 0;
+  font-size: 0.9em;
+}
+
+.tree-canvas {
+  width: 100%;
+  height: min(70vh, 640px);
+  display: block;
+  border-radius: 8px;
+  background: var(--chrome-bg);
+  touch-action: none;
+}
+
+.tree-summary,
+.tree-help {
+  margin: 0;
+  font-size: 0.9em;
+}
+
 .site-footer .affiliation {
   max-width: 60rem;
   margin: 0.5rem auto 0;
