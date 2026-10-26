@@ -4,19 +4,39 @@ import { inflatePobCode, parsePobXml, specToBuild } from './pobBuild';
 import { buildToPobXml, encodePobCode } from './pobCode';
 
 const tree = JSON.parse(fs.readFileSync(path.join(import.meta.dirname, '../data/trees/poe1-3.29.1.tree.json'), 'utf8'));
-// Maxroll's Boneshatter Juggernaut guide build, from https://pobb.in/4IE2ysIuCdPP/raw.
-const realCode = fs.readFileSync(path.join(import.meta.dirname, 'fixtures/pobbin-4IE2ysIuCdPP.txt'), 'utf8');
 
 const importCode = async (code) => {
   const pob = parsePobXml(await inflatePobCode(code));
   return specToBuild(pob, pob.specs[pob.activeSpec], tree);
 };
 
-test('a real pobb.in build survives export and re-import', async () => {
-  const { build } = await importCode(realCode);
-  expect(build.picks.ascendancy).toBe('juggernaut');
-  expect(Object.keys(build.ranks).length).toBeGreaterThan(80);
-  expect(build.options['64128']).toBe('34383');
+// A full-size Juggernaut: 89 main-tree nodes outward from the Marauder start, one mastery with
+// its first effect, and the ascendancy. Real builds are checked by link in liveBuilds.
+function juggernaut() {
+  const cls = tree.ext.poe1.classes.find((c) => c.name === 'Marauder');
+  const byId = new Map(tree.nodes.map((n) => [n.id, n]));
+  const taken = [cls.start];
+  for (let i = 0; taken.length <= 90 && i < taken.length; i++) {
+    for (const e of tree.edges) {
+      const other = e.from === taken[i] ? e.to : e.to === taken[i] ? e.from : null;
+      if (other && !taken.includes(other) && byId.get(other).section === 'main' && !byId.get(other).start) taken.push(other);
+    }
+  }
+  const nodes = taken.slice(1, 90);
+  // Masteries sit off the path, so take the first one beside a taken notable.
+  const near = new Set(nodes);
+  const mastery = tree.edges
+    .map((e) => (near.has(e.from) ? e.to : near.has(e.to) ? e.from : null))
+    .find((id) => id && byId.get(id).kind === 'mastery');
+  nodes.push(mastery);
+  const options = { [mastery]: byId.get(mastery).options[0].id };
+  return { start: cls.start, picks: { ascendancy: 'juggernaut' }, context: { level: 92 }, ranks: Object.fromEntries(nodes.map((id) => [id, 1])), options };
+}
+
+test('a full-size build survives export and re-import', async () => {
+  const build = juggernaut();
+  expect(Object.keys(build.ranks)).toHaveLength(90);
+  expect(Object.keys(build.options).length).toBeGreaterThan(0);
 
   const { code } = await encodePobCode(build, tree);
   const again = await importCode(code);

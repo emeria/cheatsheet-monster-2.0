@@ -22,6 +22,9 @@ async function loadKit(file) {
 const LINKS = [
   // PoE1: a 13-tree-set leveling guide on 3.25 (pobb.in) and a Maxroll PoE1 planner.
   { link: 'https://pobb.in/Ktbt7ZvRs_hn' },
+  // Maxroll's Boneshatter Juggernaut guide (3.29). Its "Cluster" tree set paths through cluster
+  // jewel sub-trees, which arrive in milestone 3, so connectivity errors are expected there.
+  { link: 'https://pobb.in/4IE2ysIuCdPP', allow: ['connectivity'] },
   { link: 'https://maxroll.gg/poe/planner/yk0106jl' },
   // PoE2: community builds on 0.5 and 0.4. 8cxjdbzEgsyq uses a jewel that allows unconnected
   // nodes (milestone 3), so connectivity errors are expected there.
