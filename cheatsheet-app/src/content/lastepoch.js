@@ -78,6 +78,7 @@ const lastepoch = {
   id: 'lastepoch',
   name: 'Last Epoch',
   publisher: 'Eleventh Hour Games',
+  genre: 'Action RPG',
   tile: 'home/last-epoch-placeholder.webp',
   feedbackUrl:
     'https://www.reddit.com/r/LastEpoch/comments/1aug5ov/cheatsheet_monster_last_epoch_cheatsheet_of_sheets/',
