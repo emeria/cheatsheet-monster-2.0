@@ -11,13 +11,13 @@ const poe2 = {
   publisher: 'Grinding Gear Games',
   shortName: 'PoE 2',
   tile: 'home/poe-2-atlas-map.webp',
-  lastUpdated: 'Sun, Feb 18, 2024',
   feedbackUrl:
     'https://www.reddit.com/r/pathofexile/comments/sjx6wi/poe_cheat_sheet_collection_of_links_and_cheat/',
 
   cheatsheets: [
     {
       id: 'leveling',
+      updated: 'Sun, Feb 18, 2024',
       title: 'Leveling',
       open: true,
       intro: 'Twink Builds',
@@ -54,6 +54,7 @@ const poe2 = {
     },
     {
       id: 'rewards',
+      updated: 'Sun, Feb 18, 2024',
       title: 'Campaign Rewards',
       open: true,
       widget: 'poe2Rewards',
@@ -61,18 +62,21 @@ const poe2 = {
     },
     {
       id: 'crafting-options',
+      updated: 'Sun, Feb 18, 2024',
       title: 'Crafting',
       open: true,
       images: [{ src: 'poe2/pics/crafting-mechanics-v.2.webp', alt: 'Crafting Options', ...craftingSource }],
     },
     {
       id: 'crafting-endgame',
+      updated: 'Sun, Feb 18, 2024',
       title: 'Endgame Crafting',
       open: true,
       images: [{ src: 'poe2/pics/end-game-crafting-v.2.webp', alt: 'Endgame Crafting Options', ...craftingSource }],
     },
     {
       id: 'item-anatomy',
+      updated: 'Sun, Feb 18, 2024',
       title: 'Item Anatomy',
       open: true,
       images: [{ src: 'poe2/pics/item-anatomy-v.2.webp', alt: 'Item Anatomy', ...craftingSource }],

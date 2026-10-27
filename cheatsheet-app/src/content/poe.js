@@ -166,13 +166,13 @@ const poe = {
   name: 'Path of Exile',
   publisher: 'Grinding Gear Games',
   tile: 'home/path-of-exile-necropolis.webp',
-  lastUpdated: 'Sun, Feb 18, 2024',
   feedbackUrl:
     'https://www.reddit.com/r/pathofexile/comments/sjx6wi/poe_cheat_sheet_collection_of_links_and_cheat/',
 
   cheatsheets: [
     {
       id: 'leveling',
+      updated: 'Sun, Feb 18, 2024',
       title: 'Leveling',
       accent: 'leveling',
       widget: 'leveling',
@@ -180,6 +180,7 @@ const poe = {
     },
     {
       id: 'vendor-recipe',
+      updated: 'Sun, Feb 18, 2024',
       title: 'Vendor Recipes',
       accent: 'leveling',
       images: [
@@ -192,6 +193,7 @@ const poe = {
     },
     {
       id: 'betrayal',
+      updated: 'Sun, Feb 18, 2024',
       title: 'Betrayal',
       accent: 'betrayal',
       open: true,
@@ -205,6 +207,7 @@ const poe = {
     },
     {
       id: 'heist',
+      updated: 'Sun, Feb 18, 2024',
       title: 'Heist',
       accent: 'heist',
       open: true,
@@ -218,6 +221,7 @@ const poe = {
     },
     {
       id: 'incursion',
+      updated: 'Sun, Feb 18, 2024',
       title: 'Incursion',
       accent: 'incursion',
       open: true,
@@ -230,6 +234,7 @@ const poe = {
     },
     {
       id: 'tattoo',
+      updated: 'Sun, Feb 18, 2024',
       title: 'Tattoos',
       accent: 'essences',
       images: [
@@ -241,6 +246,7 @@ const poe = {
     },
     {
       id: 'essences',
+      updated: 'Sun, Feb 18, 2024',
       title: 'Essences',
       accent: 'essences',
       images: [
@@ -253,6 +259,7 @@ const poe = {
     },
     {
       id: 'strongbox',
+      updated: 'Sun, Feb 18, 2024',
       title: 'Strongboxes',
       accent: 'strongbox',
       images: [
@@ -266,6 +273,7 @@ const poe = {
     },
     {
       id: 'flask',
+      updated: 'Sun, Feb 18, 2024',
       title: 'Flasks',
       accent: 'flask',
       images: [
@@ -277,6 +285,7 @@ const poe = {
     },
     {
       id: 'kingsmarch',
+      updated: 'Sun, Feb 18, 2024',
       title: 'Kingsmarch',
       images: [
         {

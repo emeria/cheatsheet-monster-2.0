@@ -1,73 +1,138 @@
-/* Theme colours. ThemeSwitcher sets <html data-theme="dark|normal|light">; dark is the default. */
-:root,
-[data-theme='dark'] {
-  --bg: #000;
-  --text: #fff;
-  --muted: #bbb;
-  --link: #0f0;
-  --link-visited: #e52a01;
-  --chrome-bg: #333;
-  --chrome-text: #fff;
-  --collapsible-bg: #777;
-  --collapsible-hover-bg: #555;
-  --th-bg: #5d3b8e;
-  --tr-odd-bg: #412b58;
-  --tr-even-bg: #1a1a1a;
-  --tr-hover-bg: #302244;
-  --td-border: #333;
-  --selected-bg: #1f5f3a;
-  --button-bg: #302244;
-  --button-hover-bg: #45a049;
-  --button-text: #fff;
-  --overlay-bg: rgba(0, 0, 0, 0.85);
-  --top-btn-bg: red;
+/* Site skins. ThemeSwitcher sets <html data-skin="dusk|midnight|ember|frost|light|parchment|grimoire|contrast">.
+   Each skin only sets the base palette; the tokens app.css reads are derived from it below, so a
+   new skin is one block. Dusk is the default and the fallback when no data-skin is set. */
+:root {
+  --bg: #0f1016;
+  --bg-2: #171925; /* cards, bars */
+  --bg-3: #1f2232; /* hover, tags, table headers */
+  --fg: #e9e8f2;
+  --fg-2: #a6a4bb; /* secondary text */
+  --line: #2b2e42;
+  --accent: #8d6ad6;
+  --accent-2: #c9a24a; /* gold: pinned, favourites */
+  --link: #9d7cf0; /* accent, lightened where it fails 4.5:1 as text on the cards */
+  --on-accent: #0f1016; /* text on an accent fill */
+  --canvas-bg: #26262e; /* the tree canvas draws light-on-dark whatever the skin */
+
+  --display: 'Chakra Petch', 'Segoe UI', sans-serif;
+  --body: 'IBM Plex Sans', 'Segoe UI', sans-serif;
+  --mono: 'IBM Plex Mono', Consolas, monospace;
   color-scheme: dark;
 }
 
-[data-theme='normal'] {
-  --bg: #d6d6d6;
-  --text: #333;
-  --muted: #555;
-  --link: #1a0dab;
-  --link-visited: #6a3ab2;
-  --chrome-bg: #333;
-  --chrome-text: #fff;
-  --collapsible-bg: #999;
-  --collapsible-hover-bg: #808080;
-  --th-bg: #b8a0d1;
-  --tr-odd-bg: #f7f7f7;
-  --tr-even-bg: #fff;
-  --tr-hover-bg: #efefef;
-  --td-border: #d4d4d4;
-  --selected-bg: #d3f4ff;
-  --button-bg: #b8a0d1;
-  --button-hover-bg: #a4c2a8;
-  --button-text: #000;
-  --overlay-bg: rgba(240, 240, 240, 0.9);
-  --top-btn-bg: #cc4c4c;
+:root[data-skin='midnight'] {
+  --bg: #000;
+  --bg-2: #0b0b0f;
+  --bg-3: #16161d;
+  --fg: #f2f2f2;
+  --fg-2: #9a9aa8;
+  --line: #22222c;
+  --accent: #9d7cf0;
+  --accent-2: #d8b25a;
+  --link: #9d7cf0;
+  --canvas-bg: #16161d;
+}
+
+:root[data-skin='ember'] {
+  --bg: #140c0a;
+  --bg-2: #1e1210;
+  --bg-3: #2a1a16;
+  --fg: #f3e8e0;
+  --fg-2: #b59c90;
+  --line: #3a2621;
+  --accent: #e0683c;
+  --accent-2: #e2b15a;
+  --link: #e0683c;
+}
+
+:root[data-skin='frost'] {
+  --bg: #0b1218;
+  --bg-2: #111b24;
+  --bg-3: #182633;
+  --fg: #e6eef5;
+  --fg-2: #96abbd;
+  --line: #22364a;
+  --accent: #4fb3e8;
+  --accent-2: #e6c66a;
+  --link: #4fb3e8;
+}
+
+:root[data-skin='light'] {
+  --bg: #f3f2f7;
+  --bg-2: #fff;
+  --bg-3: #e9e7f1;
+  --fg: #1b1a26;
+  --fg-2: #5c5a70;
+  --line: #d8d6e4;
+  --accent: #5d3b8e;
+  --accent-2: #9a7420;
+  --link: #5d3b8e;
+  --on-accent: #fff;
   color-scheme: light;
 }
 
-[data-theme='light'] {
-  --bg: #f0f0f0;
-  --text: #000;
-  --muted: #444;
-  --link: #0000ee;
-  --link-visited: #551a8b;
-  --chrome-bg: #333;
-  --chrome-text: #fff;
-  --collapsible-bg: #777;
-  --collapsible-hover-bg: #555;
-  --th-bg: #c3a5ec;
-  --tr-odd-bg: #f7f7f7;
-  --tr-even-bg: #fff;
-  --tr-hover-bg: #efefef;
-  --td-border: #ddd;
-  --selected-bg: #d3f4ff;
-  --button-bg: #c3a5ec;
-  --button-hover-bg: #aae0ac;
-  --button-text: #000;
-  --overlay-bg: rgba(255, 255, 255, 0.9);
-  --top-btn-bg: red;
+:root[data-skin='parchment'] {
+  --bg: #efe6d2;
+  --bg-2: #f8f2e4;
+  --bg-3: #e4d8bd;
+  --fg: #2a211a;
+  --fg-2: #625546; /* a shade darker than the mockup so it passes 4.5:1 on --bg-3 */
+  --line: #d2c4a4;
+  --accent: #7a3e2a;
+  --accent-2: #8a6a1e;
+  --link: #7a3e2a;
+  --on-accent: #fff;
   color-scheme: light;
+}
+
+:root[data-skin='grimoire'] {
+  --bg: #16110c;
+  --bg-2: #201810;
+  --bg-3: #2c2218;
+  --fg: #ebdfc6;
+  --fg-2: #a8977c;
+  --line: #3c3022;
+  --accent: #d0893c;
+  --accent-2: #d9b560;
+  --link: #d0893c;
+}
+
+:root[data-skin='grimoire'] body {
+  background-image: radial-gradient(ellipse at 20% 0%, rgba(217, 181, 96, 0.06), transparent 55%);
+}
+
+:root[data-skin='contrast'] {
+  --bg: #000;
+  --bg-2: #000;
+  --bg-3: #1a1a1a;
+  --fg: #fff;
+  --fg-2: #e0e0e0;
+  --line: #fff;
+  --accent: #ffd400;
+  --accent-2: #ffd400;
+  --link: #ffd400;
+  --canvas-bg: #000;
+}
+
+/* Tokens app.css reads, derived from the palette above. Declared on :root, so they follow
+   whichever skin is set on the same element. */
+:root {
+  --text: var(--fg);
+  --muted: var(--fg-2);
+  --link-visited: color-mix(in srgb, var(--link) 60%, var(--fg-2));
+  --chrome-bg: var(--bg-2);
+  --chrome-text: var(--fg);
+  --collapsible-bg: var(--bg-2);
+  --collapsible-hover-bg: var(--bg-3);
+  --th-bg: color-mix(in srgb, var(--accent) 28%, var(--bg-3));
+  --tr-odd-bg: var(--bg-2);
+  --tr-even-bg: var(--bg);
+  --tr-hover-bg: var(--bg-3);
+  --td-border: var(--line);
+  --selected-bg: color-mix(in srgb, var(--accent) 25%, var(--bg-2));
+  --button-bg: var(--bg-3);
+  --button-hover-bg: color-mix(in srgb, var(--accent) 40%, var(--bg-3));
+  --button-text: var(--fg);
+  --overlay-bg: color-mix(in srgb, var(--bg) 88%, transparent);
+  --top-btn-bg: var(--accent);
 }

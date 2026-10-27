@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
 import Header from './Header';
-import ThemeSwitcher from './ThemeSwitcher';
 import BackToTopButton from './BackToTopButton';
 
 function Layout() {
@@ -16,7 +15,6 @@ function Layout() {
   return (
     <div className="app">
       <Header />
-      <ThemeSwitcher />
       <Outlet />
       <BackToTopButton />
     </div>

@@ -1,48 +1,64 @@
 import React, { useState } from 'react';
 
-// Colours for each theme live in styles/theme.css under [data-theme="..."].
-const THEMES = [
-  { id: 'light', label: '😇 Light' },
-  { id: 'normal', label: '🧌 Neutral' },
-  { id: 'dark', label: '👿 Dark' },
+// Colours for each skin live in styles/theme.css under [data-skin="..."].
+export const SKINS = [
+  { id: 'dusk', label: 'Dusk' },
+  { id: 'midnight', label: 'Midnight' },
+  { id: 'ember', label: 'Ember' },
+  { id: 'frost', label: 'Frost' },
+  { id: 'light', label: 'Light' },
+  { id: 'parchment', label: 'Parchment' },
+  { id: 'grimoire', label: 'Grimoire' },
+  { id: 'contrast', label: 'High contrast' },
 ];
-const STORAGE_KEY = 'theme';
+export const STORAGE_KEY = 'skin';
+const OLD_STORAGE_KEY = 'theme'; // dark | normal | light, before the eight skins
 
-export function savedTheme() {
+const isSkin = (id) => SKINS.some((s) => s.id === id);
+
+// The viewer's pick, else Light for a light OS, else Dusk. Keep the same logic in index.html,
+// which sets the skin before the first paint.
+export function savedSkin() {
   try {
-    const theme = localStorage.getItem(STORAGE_KEY);
-    return THEMES.some((t) => t.id === theme) ? theme : 'dark';
+    const skin = localStorage.getItem(STORAGE_KEY);
+    if (isSkin(skin)) return skin;
+    const old = localStorage.getItem(OLD_STORAGE_KEY);
+    if (old === 'light' || old === 'normal') return 'light';
+    if (old === 'dark') return 'dusk';
   } catch {
-    return 'dark';
+    // Blocked storage: fall through to the OS preference.
   }
+  return window.matchMedia?.('(prefers-color-scheme: light)').matches ? 'light' : 'dusk';
 }
 
-export function applyTheme(theme) {
-  document.documentElement.dataset.theme = theme;
+export function applySkin(skin) {
+  document.documentElement.dataset.skin = skin;
 }
 
 function ThemeSwitcher() {
-  const [theme, setTheme] = useState(savedTheme);
+  const [skin, setSkin] = useState(savedSkin);
 
   const choose = (id) => {
-    setTheme(id);
-    applyTheme(id);
+    setSkin(id);
+    applySkin(id);
     try {
       localStorage.setItem(STORAGE_KEY, id);
     } catch {
-      // Private mode or blocked storage: the theme still applies for this visit.
+      // Private mode or blocked storage: the skin still applies for this visit.
     }
   };
 
   return (
-    <div className="theme-switcher">
+    <label className="skin-picker">
       <span>Theme</span>
-      {THEMES.map(({ id, label }) => (
-        <button key={id} className="theme-button" aria-pressed={theme === id} onClick={() => choose(id)}>
-          {label}
-        </button>
-      ))}
-    </div>
+      <select value={skin} onChange={(e) => choose(e.target.value)}>
+        {SKINS.map(({ id, label }) => (
+          <option key={id} value={id}>
+            {label}
+          </option>
+        ))}
+      </select>
+    </label>
   );
 }
 
