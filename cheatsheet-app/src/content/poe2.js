@@ -60,12 +60,6 @@ const poe2 = {
       props: { csv: 'poe2/data/rewards.csv' },
     },
     {
-      id: 'passive-tree',
-      title: 'Passive Tree',
-      widget: 'talentTree',
-      props: { tree: 'poe2', importer: 'poe' },
-    },
-    {
       id: 'crafting-options',
       title: 'Crafting',
       open: true,
@@ -82,6 +76,17 @@ const poe2 = {
       title: 'Item Anatomy',
       open: true,
       images: [{ src: 'poe2/pics/item-anatomy-v.2.webp', alt: 'Item Anatomy', ...craftingSource }],
+    },
+  ],
+
+  // Trees and calculators: their own page at /poe2/tools.
+  tools: [
+    {
+      id: 'passive-tree',
+      title: 'Passive Tree',
+      open: true,
+      widget: 'talentTree',
+      props: { tree: 'poe2', importer: 'poe' },
     },
   ],
 

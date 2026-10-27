@@ -2,6 +2,8 @@ import React from 'react';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import TalentTree, { loadTree } from './TalentTree';
 import { encodeTreeUrl } from '../lib/poeTreeUrl';
+import { encodeBuild } from '../lib/buildCode';
+import GameContext from '../components/GameContext';
 import versions from '../data/trees/versions.json';
 
 // jsdom has no canvas, so these cover everything but the drawing (the kit tests that).
@@ -39,6 +41,35 @@ test('shows an import error instead of failing', async () => {
   fireEvent.change(screen.getByPlaceholderText(/Tree link, PoB code/), { target: { value: 'https://example.com/x' } });
   fireEvent.click(screen.getByRole('button', { name: 'Import' }));
   expect(await screen.findByRole('alert')).toHaveTextContent("isn't one this tool reads");
+});
+
+test('read-only opens the build in ?b= and hides every editing control', async () => {
+  const tree = await loadTree(versions.games.poe1.latest);
+  const duelist = tree.ext.poe1.classes.find((c) => c.name === 'Duelist');
+  const next = tree.edges.find((e) => e.from === duelist.start || e.to === duelist.start);
+  const node = next.from === duelist.start ? next.to : next.from;
+  window.history.pushState({}, '', `/?b=${encodeBuild({ tree: tree.id, start: duelist.start, picks: { ascendancy: 'slayer' }, ranks: { [node]: 1 } })}`);
+  try {
+    render(<TalentTree tree="poe1" importer="poe" readOnly />);
+    expect(await screen.findByText(/Passive skill points: 1 \/ 123/, {}, { timeout: 8000 })).toBeInTheDocument();
+    expect(screen.getByText('Duelist · Slayer')).toBeInTheDocument();
+    for (const name of ['Import', 'Reset', 'Copy tree link', 'Copy embed code']) expect(screen.queryByRole('button', { name })).toBeNull();
+    expect(screen.queryByLabelText(/Class/)).toBeNull();
+    expect(screen.getByRole('button', { name: 'Fit' })).toBeInTheDocument();
+  } finally {
+    window.history.pushState({}, '', '/');
+  }
+});
+
+test('on a game page the tree offers share and embed links', async () => {
+  render(
+    <GameContext.Provider value="wow">
+      <TalentTree tree="wow-classic-warrior" sectionId="warrior-talents" />
+    </GameContext.Provider>
+  );
+  await screen.findByText(/0 \//, {}, { timeout: 8000 });
+  expect(screen.getByRole('button', { name: 'Copy share link' })).toBeInTheDocument();
+  expect(screen.getByRole('button', { name: 'Copy embed code' })).toBeInTheDocument();
 });
 
 test('a hand-authored tree loads by id, with no import box or class picker', async () => {

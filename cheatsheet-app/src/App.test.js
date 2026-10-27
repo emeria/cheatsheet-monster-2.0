@@ -42,6 +42,36 @@ test.each(games.map((g) => [g.id, g]))('%s page renders every section', async (i
   expect(container.querySelector('.error')).toBeNull();
 });
 
+const withTools = games.filter((g) => g.tools?.length);
+
+test.each(withTools.map((g) => [g.id, g]))('%s trees and calculators have their own page', async (id, game) => {
+  const main = renderAt(`/${id}`);
+  expect(main.getAllByRole('link', { name: 'Trees & Calculators' })[0]).toHaveAttribute('href', `/${id}/tools`);
+  for (const section of game.tools) expect(main.container.querySelector(`#${section.id}`)).toBeNull();
+  main.unmount();
+
+  const { container } = renderAt(`/${id}/tools`);
+  for (const section of game.tools) expect(container.querySelector(`#${section.id}`)).not.toBeNull();
+  expect(container.querySelector('.site-footer .affiliation')).toHaveTextContent(game.publisher);
+});
+
+test.each(withTools.flatMap((g) => g.tools.filter((s) => s.widget === 'talentTree').map((s) => [`/${g.id}/embed/${s.id}`, g])))(
+  '%s is a read-only embed with no site chrome',
+  async (url, game) => {
+    const { container } = renderAt(url);
+    expect(container.querySelector('.talent-tree.read-only')).not.toBeNull();
+    expect(container.querySelector('.site-header, header')).toBeNull();
+    expect(screen.queryByText('Import a build')).toBeNull();
+    expect(container.querySelector('.embed-credit')).toHaveTextContent(`isn't affiliated with or endorsed by ${game.publisher}`);
+    expect(screen.getByRole('link', { name: /Open in/ })).toHaveAttribute('href', expect.stringContaining(`${game.id}/tools`));
+  }
+);
+
+test('an unknown embed says so', () => {
+  renderAt('/wow/embed/nope');
+  expect(screen.getByText(/No tree "nope"/)).toBeInTheDocument();
+});
+
 // Every image and CSV a content file mentions must exist under public/assets.
 test('content files only reference assets that exist', () => {
   const missing = [];
