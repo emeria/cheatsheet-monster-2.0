@@ -9,6 +9,7 @@ const poe2 = {
   id: 'poe2',
   name: 'Path of Exile 2',
   publisher: 'Grinding Gear Games',
+  genre: 'Action RPG',
   shortName: 'PoE 2',
   tile: 'home/poe-2-atlas-map.webp',
   lastUpdated: 'Sun, Feb 18, 2024',
