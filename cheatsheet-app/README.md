@@ -29,7 +29,7 @@ If you keep updating the original site, `npm run sync` copies its new or changed
 
 ### Section shapes
 
-Each game file has `cheatsheets` (the main list, shown in the cheat sheet nav) and `resources` (link sections, shown in the top nav). Every section has an `id` (used for `#links`) and a `title`, plus optional `open: true`, `navLabel`, `intro` and `accent` (coloured header band, defined in `src/styles/app.css`). The body is one of:
+Each game file has `cheatsheets` (the main list, shown in the cheat sheet nav), `resources` (link sections, shown in the top nav) and optionally `tools` (trees and calculators, on their own page at `/<game>/tools`, so tree data loads only there). Every section has an `id` (used for `#links`) and a `title`, plus optional `open: true`, `navLabel`, `intro` and `accent` (coloured header band, defined in `src/styles/app.css`). The body is one of:
 
 ```js
 // An image cheat sheet. Two or more images show as tabs, labelled with `label`.
@@ -48,14 +48,19 @@ Each game file has `cheatsheets` (the main list, shown in the cheat sheet nav) a
 { id: 'rewards', title: 'Campaign Rewards', widget: 'poe2Rewards', props: { csv: 'poe2/data/rewards.csv' } }
 ```
 
-Widgets: `leveling` (chapter/act maps + step tables, TLDR, campaign skip), `blessings`, `dungeons` (daily rotation; tune `cycle`/`start` in `lastepoch.js`), `supporterPacks`, `poe2Rewards`, `aldorScryer`, `cenarion`.
+Widgets: `leveling` (chapter/act maps + step tables, TLDR, campaign skip), `blessings`, `dungeons` (daily rotation; tune `cycle`/`start` in `lastepoch.js`), `supporterPacks`, `poe2Rewards`, `aldorScryer`, `cenarion`, `talentTree` (put it in `tools`).
 
 ## Skill trees
 
 Talent and passive tree data lives in `src/data/trees/`. How it's stored, and how to add a tree, is
 in [docs/skill-trees](docs/skill-trees/README.md).
 The renderer is a vendored copy of lmg-tree-kit, refreshed with `npm run sync:tree-kit`. After a sync, run
-`npm run test:e2e`: it opens the wow, poe and poe2 pages in Chromium and checks each tree still draws.
+`npm run test:e2e`: it opens the wow, poe and poe2 tools pages and tree embeds in Chromium and checks each tree still draws.
+
+Sharing and embedding: a tree's **Copy share link** gives `/<game>/tools?b=<code>`, and **Copy embed code**
+gives an iframe of `/<game>/embed/<section id>?b=<code>`: the same build, read-only (pan, zoom, search),
+with no site header and with the publisher note. The code is the site's own (`src/lib/buildCode.js`), so it
+works for every tree; PoE tree links and PoB codes still go through the import box.
 
 ## Deploying
 

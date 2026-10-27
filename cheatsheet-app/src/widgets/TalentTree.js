@@ -1,7 +1,9 @@
-import React, { useEffect, useMemo, useRef, useState } from 'react';
+import React, { useContext, useEffect, useMemo, useRef, useState } from 'react';
 import { budget, spent, validate } from '../vendor/lmg-tree-kit/tree-core.js';
 import { TreeView } from '../vendor/lmg-tree-kit/tree-render.js';
 import versions from '../data/trees/versions.json';
+import GameContext from '../components/GameContext';
+import { decodeBuild, encodeBuild } from '../lib/buildCode';
 import { importPoeBuild } from '../lib/poeImport';
 import { encodeTreeUrl } from '../lib/poeTreeUrl';
 
@@ -37,6 +39,19 @@ const withFlags = (build, json) => ({
   context: { level: json.context?.level?.max ?? 1, ...build.context, flags: (json.context?.flags || []).map((f) => f.id) },
 });
 
+// The build in the page's `?b=` share code, when it's for this tree.
+function sharedBuild(json) {
+  const code = new URLSearchParams(window.location.search).get('b');
+  return code ? decodeBuild(code, json) : null;
+}
+
+// Links to this tree's page and its read-only embed, both opening `build`.
+function shareUrls(game, sectionId, build) {
+  const base = `${window.location.origin}${import.meta.env.BASE_URL}${game}`;
+  const b = `?b=${encodeBuild(build)}`;
+  return { page: `${base}/tools${b}`, embed: `${base}/embed/${sectionId}${b}` };
+}
+
 function hasCanvas(canvas) {
   try {
     return !!canvas?.getContext?.('2d');
@@ -47,8 +62,10 @@ function hasCanvas(canvas) {
 
 // Interactive skill tree on lmg-tree-kit: click a node to take the path to it, right-click to
 // refund, drag to pan, wheel to zoom. PoE trees also take an import (tree link, PoB code or file,
-// build-site, poeplanner or Maxroll link).
-function TalentTree({ tree = 'poe1', importer }) {
+// build-site, poeplanner or Maxroll link). `readOnly` (embeds) shows the build without editing.
+// A `?b=` share code in the page URL opens that build.
+function TalentTree({ tree = 'poe1', importer, readOnly = false, sectionId }) {
+  const game = useContext(GameContext);
   const canvasRef = useRef(null);
   const viewRef = useRef(null);
   const [treeId, setTreeId] = useState(() => treeIdFor(tree));
@@ -71,7 +88,7 @@ function TalentTree({ tree = 'poe1', importer }) {
       .then(([json, layout]) => {
         if (!live) return;
         setData({ json, layout });
-        setBuild((b) => (b?.tree === json.id ? b : emptyBuild(json, (json.ext?.poe1 || json.ext?.poe2)?.classes[0]?.start)));
+        setBuild((b) => (b?.tree === json.id ? b : sharedBuild(json) ?? emptyBuild(json, (json.ext?.poe1 || json.ext?.poe2)?.classes[0]?.start)));
       })
       .catch((e) => live && setError(e.message));
     return () => {
@@ -86,7 +103,7 @@ function TalentTree({ tree = 'poe1', importer }) {
       setNoCanvas(true);
       return undefined;
     }
-    const view = new TreeView(canvasRef.current, { tree: data.json, layout: data.layout, build, onChange: setBuild });
+    const view = new TreeView(canvasRef.current, { tree: data.json, layout: data.layout, build, onChange: setBuild, readOnly });
     viewRef.current = view;
     const onResize = () => view.render();
     window.addEventListener('resize', onResize);
@@ -145,15 +162,18 @@ function TalentTree({ tree = 'poe1', importer }) {
   });
   const cls = classes?.find((c) => c.start === build?.start);
 
-  async function copyLink() {
-    await navigator.clipboard?.writeText(encodeTreeUrl(build, data.json));
-    setCopied(true);
+  // `copied` names the button whose text was just copied.
+  async function copy(which, text) {
+    await navigator.clipboard?.writeText(text);
+    setCopied(which);
     setTimeout(() => setCopied(false), 1500);
   }
+  const urls = game && sectionId && build && !readOnly ? shareUrls(game, sectionId, build) : null;
+  const embedCode = urls && `<iframe src="${urls.embed}" title="${data?.json.name ?? 'Skill tree'}" width="100%" height="640" style="border:0" loading="lazy"></iframe>`;
 
   return (
-    <div className="talent-tree">
-      {importer === 'poe' && (
+    <div className={`talent-tree${readOnly ? ' read-only' : ''}`}>
+      {importer === 'poe' && !readOnly && (
         <form
           className="tree-import"
           onSubmit={(e) => {
@@ -219,7 +239,14 @@ function TalentTree({ tree = 'poe1', importer }) {
         </ul>
       )}
 
-      {classes && build && (
+      {classes && build && readOnly && (
+        <p className="tree-summary">
+          {cls?.name}
+          {build.picks?.ascendancy && ` · ${data.json.sections.find((s) => s.id === build.picks.ascendancy)?.name ?? build.picks.ascendancy}`}
+        </p>
+      )}
+
+      {classes && build && !readOnly && (
         <div className="tree-controls">
           <label className="tree-field">
             Class{' '}
@@ -245,8 +272,8 @@ function TalentTree({ tree = 'poe1', importer }) {
             </label>
           )}
           {data.json.game === 'poe1' && (
-            <button className="styled-button" type="button" onClick={copyLink}>
-              {copied ? 'Copied' : 'Copy tree link'}
+            <button className="styled-button" type="button" onClick={() => copy('tree', encodeTreeUrl(build, data.json))}>
+              {copied === 'tree' ? 'Copied' : 'Copy tree link'}
             </button>
           )}
         </div>
@@ -258,9 +285,21 @@ function TalentTree({ tree = 'poe1', importer }) {
           <button className="styled-button" type="button" onClick={() => viewRef.current?.fit()}>
             Fit
           </button>
-          <button className="styled-button" type="button" onClick={() => setBuild(emptyBuild(data.json, build?.start))}>
-            Reset
-          </button>
+          {!readOnly && (
+            <button className="styled-button" type="button" onClick={() => setBuild(emptyBuild(data.json, build?.start))}>
+              Reset
+            </button>
+          )}
+          {urls && (
+            <>
+              <button className="styled-button" type="button" onClick={() => copy('page', urls.page)}>
+                {copied === 'page' ? 'Copied' : 'Copy share link'}
+              </button>
+              <button className="styled-button" type="button" onClick={() => copy('embed', embedCode)}>
+                {copied === 'embed' ? 'Copied' : 'Copy embed code'}
+              </button>
+            </>
+          )}
         </div>
       )}
 
@@ -275,9 +314,13 @@ function TalentTree({ tree = 'poe1', importer }) {
       {noCanvas ? (
         <p className="tree-help">This browser can't draw the tree.</p>
       ) : (
-        <canvas ref={canvasRef} className="tree-canvas" aria-label={`${data?.json.name ?? 'Skill tree'}: drag to pan, scroll to zoom, click a node to take it, right-click to refund`} />
+        <canvas
+          ref={canvasRef}
+          className="tree-canvas"
+          aria-label={`${data?.json.name ?? 'Skill tree'}: drag to pan, scroll to zoom${readOnly ? '' : ', click a node to take it, right-click to refund'}`}
+        />
       )}
-      <p className="tree-help">Click a node to take the path to it, right-click to refund. Drag to pan, scroll to zoom.</p>
+      <p className="tree-help">{readOnly ? 'Drag to pan, scroll to zoom.' : 'Click a node to take the path to it, right-click to refund. Drag to pan, scroll to zoom.'}</p>
     </div>
   );
 }

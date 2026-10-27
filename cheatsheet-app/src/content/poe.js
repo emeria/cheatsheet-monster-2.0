@@ -179,13 +179,6 @@ const poe = {
       props: { unit: 'Act', csv: 'poe/data/leveling.csv', chapters: acts },
     },
     {
-      id: 'passive-tree',
-      title: 'Passive Tree',
-      accent: 'leveling',
-      widget: 'talentTree',
-      props: { tree: 'poe1', importer: 'poe' },
-    },
-    {
       id: 'vendor-recipe',
       title: 'Vendor Recipes',
       accent: 'leveling',
@@ -292,6 +285,18 @@ const poe = {
             'https://www.reddit.com/r/pathofexile/comments/1eshj59/kingsmarch_harbour_shipment_cheatsheet/',
         },
       ],
+    },
+  ],
+
+  // Trees and calculators: their own page at /poe/tools.
+  tools: [
+    {
+      id: 'passive-tree',
+      title: 'Passive Tree',
+      accent: 'leveling',
+      open: true,
+      widget: 'talentTree',
+      props: { tree: 'poe1', importer: 'poe' },
     },
     {
       id: 'lifetime-calc',

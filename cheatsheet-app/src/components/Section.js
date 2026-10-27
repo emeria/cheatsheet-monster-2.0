@@ -21,7 +21,7 @@ function SectionBody({ section }) {
   if (section.widget) {
     const Widget = widgets[section.widget];
     if (!Widget) return <p className="error">Unknown widget "{section.widget}"</p>;
-    return <Widget {...section.props} />;
+    return <Widget sectionId={section.id} {...section.props} />;
   }
   return null;
 }

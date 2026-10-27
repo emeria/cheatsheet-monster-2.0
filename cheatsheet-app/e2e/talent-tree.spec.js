@@ -1,4 +1,5 @@
-// Opens each page with a talentTree section and checks the tree really draws. Run this after
+// Opens each game's tools page (/<game>/tools) and each tree's read-only embed, and checks the
+// tree really draws. Run this after
 // npm run sync:tree-kit: the Vitest suite covers the kit's maths, not what reaches the canvas.
 const { test, expect } = require('@playwright/test');
 
@@ -27,14 +28,26 @@ for (const { game, section } of trees) {
     const errors = [];
     page.on('pageerror', (e) => errors.push(e.message));
 
-    await page.goto(game);
+    await page.goto(`${game}/tools`);
     const details = page.locator(`details#${section}`);
-    await details.locator('summary').click();
+    if (!(await details.evaluate((d) => d.open))) await details.locator('summary').click();
     await expect(details).toHaveJSProperty('open', true);
 
     const canvas = details.locator('canvas.tree-canvas');
     await expect(canvas).toBeVisible();
     await expect(details.getByRole('alert')).toHaveCount(0);
+    await expect.poll(() => paintedPixels(canvas), { timeout: 15_000 }).toBeGreaterThan(MIN_PAINTED_PIXELS);
+    expect(errors).toEqual([]);
+  });
+
+  test(`${game}: ${section} embed draws read-only`, async ({ page }) => {
+    const errors = [];
+    page.on('pageerror', (e) => errors.push(e.message));
+
+    await page.goto(`${game}/embed/${section}`);
+    const canvas = page.locator('.talent-tree.read-only canvas.tree-canvas');
+    await expect(canvas).toBeVisible();
+    await expect(page.getByRole('button', { name: 'Reset' })).toHaveCount(0);
     await expect.poll(() => paintedPixels(canvas), { timeout: 15_000 }).toBeGreaterThan(MIN_PAINTED_PIXELS);
     expect(errors).toEqual([]);
   });

@@ -164,6 +164,40 @@ hr {
   font-size: 0.9em;
 }
 
+.tools-link {
+  text-align: center;
+}
+
+/* Embeds fill their iframe: the canvas takes whatever height the controls leave. */
+.embed-page {
+  box-sizing: border-box;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  margin: 0;
+  padding: 0.5rem;
+}
+
+.embed-page .talent-tree {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.embed-page .tree-canvas {
+  flex: 1;
+  height: auto;
+  min-height: 200px;
+}
+
+.embed-credit {
+  margin: 0;
+  font-size: 0.75em;
+  opacity: 0.8;
+}
+
 .site-footer .affiliation {
   max-width: 60rem;
   margin: 0.5rem auto 0;

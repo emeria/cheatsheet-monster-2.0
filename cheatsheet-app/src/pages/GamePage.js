@@ -4,18 +4,25 @@ import Section from '../components/Section';
 import JumpLink from '../components/JumpLink';
 import ExternalLink from '../components/ExternalLink';
 import Footer from '../components/Footer';
+import GameContext from '../components/GameContext';
 import site from '../content/site';
 import { revealSection, setAllOpen } from '../lib/reveal';
 
-// Renders one game from src/content: its cheat sheets, then its link sections.
-function GamePage({ game }) {
+export const TOOLS_TITLE = 'Trees & Calculators';
+
+// Renders one game from src/content: its cheat sheets, then its link sections. With `tools`,
+// it renders the game's trees and calculators instead, on their own page (/<id>/tools), so
+// the tree data loads only there.
+function GamePage({ game, tools = false }) {
   const { hash } = useLocation();
   const sheetsRef = useRef(null);
-  const resources = game.resources ?? [];
+  const resources = tools ? [] : game.resources ?? [];
+  const sheets = tools ? game.tools : game.cheatsheets;
+  const sheetsTitle = tools ? TOOLS_TITLE : 'Cheatsheets';
 
   useEffect(() => {
-    document.title = `${game.name} Cheat Sheet by ${site.author}`;
-  }, [game]);
+    document.title = `${game.name} ${tools ? TOOLS_TITLE : 'Cheat Sheet'} by ${site.author}`;
+  }, [game, tools]);
 
   // Deep links like /poe#heist open and scroll to that section.
   useEffect(() => {
@@ -46,8 +53,24 @@ function GamePage({ game }) {
 
         <nav className="page-nav">
           <Link to="/">Back Home</Link>
-          {' | '}
-          <JumpLink id="cheatsheets">Cheatsheets</JumpLink>
+          {tools && (
+            <>
+              {' | '}
+              <Link to={`/${game.id}`}>Cheatsheets</Link>
+            </>
+          )}
+          {!tools && game.cheatsheets.length > 0 && (
+            <>
+              {' | '}
+              <JumpLink id="cheatsheets">Cheatsheets</JumpLink>
+            </>
+          )}
+          {!tools && game.tools?.length > 0 && (
+            <>
+              {' | '}
+              <Link to={`/${game.id}/tools`}>{TOOLS_TITLE}</Link>
+            </>
+          )}
           {resources.map((r) => (
             <Fragment key={r.id}>
               {' | '}
@@ -57,30 +80,45 @@ function GamePage({ game }) {
         </nav>
         <hr />
 
-        <h2 id="cheatsheets">Cheatsheets</h2>
-        <p className="hint">Click an image to focus it</p>
-        <nav className="sheet-nav">
-          {game.cheatsheets.map((s, i) => (
-            <Fragment key={s.id}>
-              {i > 0 && ' | '}
-              <JumpLink id={s.id}>{s.navLabel ?? s.title}</JumpLink>
-            </Fragment>
-          ))}
-        </nav>
-        <div className="expand-buttons">
-          <button className="styled-button" onClick={() => setAllOpen(sheetsRef.current, false)}>
-            [-] Collapse All
-          </button>
-          <button className="styled-button" onClick={() => setAllOpen(sheetsRef.current, true)}>
-            [+] Expand All
-          </button>
-        </div>
+        {!tools && game.tools?.length > 0 && (
+          <p className="tools-link">
+            <Link className="styled-button" to={`/${game.id}/tools`}>
+              {TOOLS_TITLE}
+            </Link>{' '}
+            {game.tools.map((s) => s.navLabel ?? s.title).join(' · ')}
+          </p>
+        )}
 
-        <div ref={sheetsRef}>
-          {game.cheatsheets.map((section) => (
-            <Section key={section.id} section={section} />
-          ))}
-        </div>
+        {sheets.length > 0 && (
+          <>
+            <h2 id={tools ? 'tools' : 'cheatsheets'}>{sheetsTitle}</h2>
+            {!tools && <p className="hint">Click an image to focus it</p>}
+            <nav className="sheet-nav">
+              {sheets.map((s, i) => (
+                <Fragment key={s.id}>
+                  {i > 0 && ' | '}
+                  <JumpLink id={s.id}>{s.navLabel ?? s.title}</JumpLink>
+                </Fragment>
+              ))}
+            </nav>
+            <div className="expand-buttons">
+              <button className="styled-button" onClick={() => setAllOpen(sheetsRef.current, false)}>
+                [-] Collapse All
+              </button>
+              <button className="styled-button" onClick={() => setAllOpen(sheetsRef.current, true)}>
+                [+] Expand All
+              </button>
+            </div>
+
+            <GameContext.Provider value={game.id}>
+              <div ref={sheetsRef}>
+                {sheets.map((section) => (
+                  <Section key={section.id} section={section} />
+                ))}
+              </div>
+            </GameContext.Provider>
+          </>
+        )}
 
         {resources.length > 0 && <hr />}
         {resources.map((section) => (

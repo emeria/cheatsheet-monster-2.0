@@ -6,7 +6,10 @@ const wow = {
   publisher: 'Blizzard Entertainment',
   lastUpdated: 'Sun, Feb 18, 2024',
 
-  cheatsheets: [
+  cheatsheets: [],
+
+  // Trees and calculators: their own page at /wow/tools.
+  tools: [
     {
       id: 'tbc-scryer-aldor',
       title: 'Scryer/Aldor Calculator',
@@ -25,6 +28,7 @@ const wow = {
       id: 'warrior-talents',
       title: 'Warrior Talents',
       navLabel: 'Warrior Talents',
+      open: true,
       widget: 'talentTree',
       props: { tree: 'wow-classic-warrior' },
     },
