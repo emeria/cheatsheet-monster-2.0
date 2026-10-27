@@ -78,7 +78,7 @@ const lastepoch = {
   id: 'lastepoch',
   name: 'Last Epoch',
   publisher: 'Eleventh Hour Games',
-  tile: 'home/last-epoch-placeholder.webp',
+  tile: 'home/lastepoch-card.webp',
   lastUpdated: 'Sun, Feb 18, 2024',
   feedbackUrl:
     'https://www.reddit.com/r/LastEpoch/comments/1aug5ov/cheatsheet_monster_last_epoch_cheatsheet_of_sheets/',

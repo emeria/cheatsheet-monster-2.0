@@ -165,7 +165,7 @@ const poe = {
   id: 'poe',
   name: 'Path of Exile',
   publisher: 'Grinding Gear Games',
-  tile: 'home/path-of-exile-necropolis.webp',
+  tile: 'home/poe-card.webp',
   lastUpdated: 'Sun, Feb 18, 2024',
   feedbackUrl:
     'https://www.reddit.com/r/pathofexile/comments/sjx6wi/poe_cheat_sheet_collection_of_links_and_cheat/',
