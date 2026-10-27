@@ -16,6 +16,7 @@ beforeEach(() => {
     return Promise.resolve({ ok, status: ok ? 200 : 404, text: () => Promise.resolve(ok ? fs.readFileSync(file, 'utf8') : '') });
   });
   window.scrollTo = vi.fn();
+  Element.prototype.scrollIntoView = vi.fn();
 });
 
 const renderAt = (url) =>
@@ -94,4 +95,85 @@ test.each([['/', games], ...games.map((g) => [`/${g.id}`, [g]])])('%s footer say
     expect(note).toContain(`isn't affiliated with or endorsed by`);
     expect(note).toContain(game.publisher);
   }
+});
+
+const sheetGames = games.filter((g) => g.cheatsheets.length);
+const allSheets = sheetGames.flatMap((g) => g.cheatsheets.map((s) => [g.id, s.id, g, s]));
+
+describe('per-sheet pages', () => {
+  test.each(allSheets)('/%s/%s renders only that sheet, with a breadcrumb', async (gameId, sheetId, game, sheet) => {
+    const { container } = renderAt(`/${gameId}/${sheetId}`);
+    expect(container.querySelector(`#${sheetId}`)).not.toBeNull();
+    for (const other of game.cheatsheets.filter((s) => s.id !== sheetId)) {
+      expect(container.querySelector(`#${other.id}`)).toBeNull();
+    }
+    const crumbs = screen.getByRole('navigation', { name: 'Breadcrumb' });
+    expect(crumbs).toHaveTextContent(game.shortName ?? game.name);
+    expect(screen.getByRole('link', { name: game.shortName ?? game.name })).toHaveAttribute('href', `/${gameId}`);
+    expect(container.querySelector('.sheet-page > h1')).toHaveTextContent(sheet.title);
+    expect(container.querySelector('.site-footer .affiliation')).toHaveTextContent(game.publisher);
+    await act(() => new Promise((resolve) => setTimeout(resolve, 50)));
+    expect(container.querySelector('.error')).toBeNull();
+  });
+
+  test('prev and next link to the neighbouring sheets', () => {
+    const game = sheetGames.find((g) => g.cheatsheets.length >= 3);
+    const [a, b, c] = game.cheatsheets;
+    renderAt(`/${game.id}/${b.id}`);
+    const pager = screen.getByRole('navigation', { name: 'Other cheat sheets' });
+    expect(pager.querySelector('[rel=prev]')).toHaveAttribute('href', `/${game.id}/${a.id}`);
+    expect(pager.querySelector('[rel=next]')).toHaveAttribute('href', `/${game.id}/${c.id}`);
+  });
+
+  test('the first sheet has no prev and the last has no next', () => {
+    const game = sheetGames[0];
+    const first = renderAt(`/${game.id}/${game.cheatsheets[0].id}`);
+    expect(first.container.querySelector('[rel=prev]')).toBeNull();
+    expect(first.container.querySelector('[rel=next]')).not.toBeNull();
+    first.unmount();
+    const last = renderAt(`/${game.id}/${game.cheatsheets.at(-1).id}`);
+    expect(last.container.querySelector('[rel=next]')).toBeNull();
+  });
+
+  test('a sheet with a credit shows it as its source', async () => {
+    const { container } = renderAt('/lastepoch/leveling');
+    expect(container.querySelector('.source-credit')).toHaveTextContent('Thanks to Terek_LE and Zaerick');
+    await act(() => new Promise((resolve) => setTimeout(resolve, 50)));
+  });
+
+  test('an unknown sheet falls back to the game hub', () => {
+    const game = sheetGames[0];
+    const { container } = renderAt(`/${game.id}/nope`);
+    expect(container.querySelector('.game-page')).not.toBeNull();
+    expect(container.querySelector('.sheet-page')).toBeNull();
+  });
+
+  test('/tools is still the tools page, not a sheet', () => {
+    const { container } = renderAt('/wow/tools');
+    expect(container.querySelector('#warrior-talents')).not.toBeNull();
+    expect(container.querySelector('.sheet-page')).toBeNull();
+  });
+
+  test('the hub links each sheet to its own page', () => {
+    const game = sheetGames[0];
+    const { container } = renderAt(`/${game.id}`);
+    for (const sheet of game.cheatsheets) {
+      expect(container.querySelector(`a.sheet-permalink[href="/${game.id}/${sheet.id}"]`)).not.toBeNull();
+    }
+  });
+});
+
+describe('legacy /:game#id links', () => {
+  test.each(allSheets)('/%s#%s redirects to the sheet page', (gameId, sheetId) => {
+    const { container } = renderAt(`/${gameId}#${sheetId}`);
+    expect(container.querySelector('.sheet-page')).not.toBeNull();
+    expect(container.querySelector('.game-page')).toBeNull();
+  });
+
+  test('a link section hash stays on the hub', () => {
+    const game = sheetGames.find((g) => g.resources.length);
+    const { container } = renderAt(`/${game.id}#${game.resources[0].id}`);
+    expect(container.querySelector('.game-page')).not.toBeNull();
+    expect(container.querySelector(`#${game.resources[0].id}`)).not.toBeNull();
+  });
 });
