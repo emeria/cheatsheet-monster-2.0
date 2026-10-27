@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import site from '../content/site';
 import allGames from '../content/games';
+import ExternalLink from './ExternalLink';
 
 // "A, B and C"
 const joinNames = (names) => (names.length < 2 ? names.join('') : `${names.slice(0, -1).join(', ')} and ${names.at(-1)}`);
@@ -15,11 +16,29 @@ export function affiliationNote(games) {
   )} and all related names, art and data belong to their owners.`;
 }
 
-function Footer({ lastUpdated = site.lastUpdated, games = allGames }) {
+const LinkRow = ({ label, links }) => (
+  <p className="footer-links">
+    <span>{label}</span>
+    {links.map((l) => (
+      <Fragment key={l.url}>
+        {' '}
+        <ExternalLink href={l.url}>{l.label}</ExternalLink>
+      </Fragment>
+    ))}
+  </p>
+);
+
+// Per-sheet "updated" dates sit on each sheet, so the footer carries no date.
+function Footer({ games = allGames }) {
   const note = affiliationNote(games);
   return (
     <footer className="site-footer">
-      <span>Version 1.00, Last Updated {lastUpdated}.</span> <span>{site.copyright}</span>
+      <p className="footer-by">
+        By {site.author} · IGN: {site.ign}
+      </p>
+      <LinkRow label="Find me" links={site.socials} />
+      <LinkRow label="Support" links={site.support} />
+      <p>{site.copyright}</p>
       {note && <p className="affiliation">{note}</p>}
     </footer>
   );

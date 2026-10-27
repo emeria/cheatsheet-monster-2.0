@@ -10,6 +10,28 @@
     <link rel="manifest" href="%BASE_URL%manifest.json" />
     <title>Cheatsheet Monster by Thundersphinx</title>
 
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap"
+    />
+
+    <script>
+      // Set the saved skin before the first paint (same rules as savedSkin() in ThemeSwitcher.js).
+      (function () {
+        var skin = 'dusk';
+        try {
+          var saved = localStorage.getItem('skin');
+          var old = localStorage.getItem('theme');
+          if (/^(dusk|midnight|ember|frost|light|parchment|grimoire|contrast)$/.test(saved)) skin = saved;
+          else if (old === 'light' || old === 'normal') skin = 'light';
+          else if (old !== 'dark' && window.matchMedia('(prefers-color-scheme: light)').matches) skin = 'light';
+        } catch (e) {}
+        document.documentElement.setAttribute('data-skin', skin);
+      })();
+    </script>
+
     <script>
       // 404.html sends unknown paths here as ?p=/poe#heist; put the real path back before the app starts.
       (function () {

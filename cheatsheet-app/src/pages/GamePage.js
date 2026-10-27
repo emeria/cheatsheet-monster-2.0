@@ -37,24 +37,7 @@ function GamePage({ game, tools = false }) {
   return (
     <>
       <main className="game-page">
-        <p className="subtitle">
-          <b>
-            <i>{game.shortName ?? game.name}</i>
-          </b>{' '}
-          Cheatsheet of Cheatsheets
-        </p>
-        <p className="byline">
-          by{' '}
-          <i>
-            {site.author} | IGN: {site.ign}
-          </i>
-          {site.socials.map((s) => (
-            <Fragment key={s.url}>
-              {' | '}
-              <ExternalLink href={s.url}>{s.label}</ExternalLink>
-            </Fragment>
-          ))}
-        </p>
+        <h2 className="game-title">{game.name}</h2>
 
         <nav className="page-nav">
           <Link to="/">Back Home</Link>
@@ -97,7 +80,6 @@ function GamePage({ game, tools = false }) {
         {sheets.length > 0 && (
           <>
             <h2 id={tools ? 'tools' : 'cheatsheets'}>{sheetsTitle}</h2>
-            {!tools && <p className="hint">Click an image to focus it</p>}
             <nav className="sheet-nav">
               {sheets.map((s, i) => (
                 <Fragment key={s.id}>
@@ -145,7 +127,7 @@ function GamePage({ game, tools = false }) {
         )}
         {game.thanks && <p className="feedback">Thanks: {game.thanks}</p>}
       </main>
-      <Footer lastUpdated={game.lastUpdated} games={[game]} />
+      <Footer games={[game]} />
     </>
   );
 }

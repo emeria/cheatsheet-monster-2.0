@@ -101,7 +101,7 @@ function SheetPage({ game }) {
           )}
         </nav>
       </main>
-      <Footer lastUpdated={sheet.updated ?? game.lastUpdated} games={[game]} />
+      <Footer games={[game]} />
     </>
   );
 }

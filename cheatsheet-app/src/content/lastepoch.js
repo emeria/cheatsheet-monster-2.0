@@ -80,7 +80,6 @@ const lastepoch = {
   publisher: 'Eleventh Hour Games',
   genre: 'Action RPG',
   tile: 'home/lastepoch-card.webp',
-  lastUpdated: 'Sun, Feb 18, 2024',
   feedbackUrl:
     'https://www.reddit.com/r/LastEpoch/comments/1aug5ov/cheatsheet_monster_last_epoch_cheatsheet_of_sheets/',
   thanks: 'All of the developers of the various tools and sites that are included',
@@ -88,6 +87,7 @@ const lastepoch = {
   cheatsheets: [
     {
       id: 'leveling',
+      updated: 'Sun, Feb 18, 2024',
       title: 'Leveling',
       accent: 'leveling',
       open: true,
@@ -105,6 +105,7 @@ const lastepoch = {
     },
     {
       id: 'monolith',
+      updated: 'Sun, Feb 18, 2024',
       title: 'Monolith',
       accent: 'monolith',
       children: [
@@ -129,6 +130,7 @@ const lastepoch = {
     },
     {
       id: 'dungeons',
+      updated: 'Sun, Feb 18, 2024',
       title: 'Dungeon (updated daily)',
       navLabel: 'Dungeons',
       accent: 'dungeons',
@@ -137,12 +139,14 @@ const lastepoch = {
     },
     {
       id: 'exiledMages',
+      updated: 'Sun, Feb 18, 2024',
       title: 'Exiled Mages',
       accent: 'exiledmages',
       images: [{ src: 'lastepoch/pics/exiled-mage-drops.webp', alt: 'Exiled Mages Drops' }],
     },
     {
       id: 'factions',
+      updated: 'Sun, Feb 18, 2024',
       title: 'Factions',
       accent: 'factions',
       images: [{ src: 'lastepoch/pics/circle-of-fortune-cheatsheet.webp', alt: 'Circle of Fortune' }],
