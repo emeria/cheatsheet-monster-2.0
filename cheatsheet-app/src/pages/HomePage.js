@@ -20,6 +20,7 @@ const HomePage = () => {
             .map((game) => (
               <Link key={game.id} to={`/${game.id}`}>
                 <img src={asset(game.tile)} alt={game.name} />
+                <span className="game-name">{game.name}</span>
               </Link>
             ))}
         </div>
