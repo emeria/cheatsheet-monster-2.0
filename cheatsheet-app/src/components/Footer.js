@@ -2,6 +2,7 @@ import React, { Fragment } from 'react';
 import site from '../content/site';
 import allGames from '../content/games';
 import ExternalLink from './ExternalLink';
+import Mascot from './Mascot';
 
 // "A, B and C"
 const joinNames = (names) => (names.length < 2 ? names.join('') : `${names.slice(0, -1).join(', ')} and ${names.at(-1)}`);
@@ -33,6 +34,7 @@ function Footer({ games = allGames }) {
   const note = affiliationNote(games);
   return (
     <footer className="site-footer">
+      <Mascot animation="sit" still stillFrame="last" />
       <p className="footer-by">
         By {site.author} · IGN: {site.ign}
       </p>

@@ -177,3 +177,8 @@ describe('legacy /:game#id links', () => {
     expect(container.querySelector(`#${game.resources[0].id}`)).not.toBeNull();
   });
 });
+
+test('an unknown address shows the not-found page, not a redirect', () => {
+  renderAt('/nowhere/at-all');
+  expect(screen.getByRole('heading', { name: /isn't here/i })).toBeInTheDocument();
+});

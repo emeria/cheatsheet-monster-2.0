@@ -604,3 +604,35 @@ tr.clickable {
 .sheet-permalink {
   text-decoration: none;
 }
+
+/* ----- Mascot (scroll mummy, 32×40 frames from lmg-sprite-kit) ----- */
+.mascot {
+  image-rendering: pixelated;
+  flex: none;
+}
+
+.site-header .brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.site-footer .mascot {
+  display: block;
+  margin: 0 auto 0.25rem;
+}
+
+.mascot-note {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  color: var(--muted);
+}
+
+.not-found {
+  max-width: 480px;
+  margin: 3rem auto;
+  padding: 0 16px;
+  text-align: center;
+}

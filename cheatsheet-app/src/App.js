@@ -1,10 +1,11 @@
 import React from 'react';
-import { Navigate, Route, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import Layout from './components/Layout';
 import HomePage from './pages/HomePage';
 import GamePage from './pages/GamePage';
 import SheetPage from './pages/SheetPage';
 import EmbedPage from './pages/EmbedPage';
+import NotFoundPage from './pages/NotFoundPage';
 import games from './content/games';
 
 const withTools = games.filter((g) => g.tools?.length);
@@ -23,7 +24,7 @@ function App() {
         {games.map((game) => (
           <Route key={game.id} path={`${game.id}/:sheet`} element={<SheetPage game={game} />} />
         ))}
-        <Route path="*" element={<Navigate to="/" replace />} />
+        <Route path="*" element={<NotFoundPage />} />
       </Route>
       {/* Embeds sit outside the site layout: no header, theme switcher or analytics. */}
       {withTools.map((game) => (
