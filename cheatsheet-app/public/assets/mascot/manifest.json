@@ -1,0 +1,93 @@
+{
+ "kit": "lmg-sprite-kit@1",
+ "source": "sprite-goblin local",
+ "frame": {
+  "width": 32,
+  "height": 40
+ },
+ "columns": 44,
+ "directions": [
+  "down",
+  "left",
+  "right"
+ ],
+ "animations": {
+  "idle": {
+   "start": 0,
+   "frames": 8,
+   "frameRate": 5
+  },
+  "wave": {
+   "start": 8,
+   "frames": 8,
+   "frameRate": 10
+  },
+  "cast": {
+   "start": 16,
+   "frames": 8,
+   "frameRate": 8,
+   "loop": false
+  },
+  "hurt": {
+   "start": 24,
+   "frames": 6,
+   "frameRate": 10,
+   "loop": false
+  },
+  "sit": {
+   "start": 30,
+   "frames": 6,
+   "frameRate": 6,
+   "loop": false
+  },
+  "walk": {
+   "start": 36,
+   "frames": 8,
+   "frameRate": 10
+  }
+ },
+ "anchor": {
+  "x": 16,
+  "y": 40
+ },
+ "layers": [
+  "body"
+ ],
+ "ramps": {
+  "paper": [
+   "#3b2b36",
+   "#8f7b78",
+   "#d3c3a2",
+   "#efe5c8",
+   "#fffaf0"
+  ],
+  "ink": [
+   "#14132c",
+   "#2a2b5c",
+   "#4b55a8",
+   "#8190e6",
+   "#c9d0ff"
+  ],
+  "glow": [
+   "#0b3c41",
+   "#157b7d",
+   "#2fc9b4",
+   "#7ef2d2",
+   "#e4fff6"
+  ],
+  "wood": [
+   "#2b1b15",
+   "#5b3b27",
+   "#8c5b37",
+   "#b98651",
+   "#e2b97a"
+  ]
+ },
+ "sheets": [
+  {
+   "layer": "body",
+   "id": "cheatsheet-monster",
+   "file": "cheatsheet-monster.png"
+  }
+ ]
+}

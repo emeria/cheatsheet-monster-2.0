@@ -3,6 +3,7 @@ import { budget, spent, validate } from '../vendor/lmg-tree-kit/tree-core.js';
 import { TreeView } from '../vendor/lmg-tree-kit/tree-render.js';
 import versions from '../data/trees/versions.json';
 import GameContext from '../components/GameContext';
+import Loading from '../components/Loading';
 import { decodeBuild, encodeBuild } from '../lib/buildCode';
 import { importPoeBuild } from '../lib/poeImport';
 import { encodeTreeUrl } from '../lib/poeTreeUrl';
@@ -310,7 +311,7 @@ function TalentTree({ tree = 'poe1', importer, readOnly = false, sectionId }) {
         </p>
       )}
 
-      {!data && !error && <p>Loading the tree…</p>}
+      {!data && !error && <Loading>Loading the tree…</Loading>}
       {noCanvas ? (
         <p className="tree-help">This browser can't draw the tree.</p>
       ) : (

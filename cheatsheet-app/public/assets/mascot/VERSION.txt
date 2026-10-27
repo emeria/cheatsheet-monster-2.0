@@ -1,0 +1,3 @@
+sprite-goblin examples/cheatsheet-monster 9ceffdc
+commit 9ceffdca167c3ac4cbf9ab963bfc6b941a0c421f
+synced by scripts/sync-sprite-kit.js; don't edit these files by hand.

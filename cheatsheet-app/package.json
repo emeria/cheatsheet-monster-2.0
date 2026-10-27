@@ -16,6 +16,7 @@
     "sync": "node scripts/sync-from-v1.js",
     "import:poe-trees": "node scripts/import-poe-trees.js",
     "sync:tree-kit": "node scripts/sync-tree-kit.js",
+    "sync:sprite-kit": "node scripts/sync-sprite-kit.js",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
     "test:e2e": "playwright test"
