@@ -165,6 +165,7 @@ const poe = {
   id: 'poe',
   name: 'Path of Exile',
   publisher: 'Grinding Gear Games',
+  genre: 'Action RPG',
   tile: 'home/poe-card.webp',
   lastUpdated: 'Sun, Feb 18, 2024',
   feedbackUrl:

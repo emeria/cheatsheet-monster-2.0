@@ -3,6 +3,7 @@ import { Navigate, Route, Routes } from 'react-router-dom';
 import Layout from './components/Layout';
 import HomePage from './pages/HomePage';
 import GamePage from './pages/GamePage';
+import SheetPage from './pages/SheetPage';
 import EmbedPage from './pages/EmbedPage';
 import games from './content/games';
 
@@ -18,6 +19,9 @@ function App() {
         ))}
         {withTools.map((game) => (
           <Route key={game.id} path={`${game.id}/tools`} element={<GamePage game={game} tools />} />
+        ))}
+        {games.map((game) => (
+          <Route key={game.id} path={`${game.id}/:sheet`} element={<SheetPage game={game} />} />
         ))}
         <Route path="*" element={<Navigate to="/" replace />} />
       </Route>

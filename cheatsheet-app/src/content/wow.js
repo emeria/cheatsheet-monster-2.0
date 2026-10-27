@@ -4,6 +4,7 @@ const wow = {
   id: 'wow',
   name: 'WoW Classic',
   publisher: 'Blizzard Entertainment',
+  genre: 'MMORPG',
   lastUpdated: 'Sun, Feb 18, 2024',
 
   cheatsheets: [],

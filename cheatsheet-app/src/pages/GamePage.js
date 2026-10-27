@@ -1,5 +1,5 @@
 import React, { Fragment, useEffect, useRef } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, Navigate, useLocation } from 'react-router-dom';
 import Section from '../components/Section';
 import JumpLink from '../components/JumpLink';
 import ExternalLink from '../components/ExternalLink';
@@ -7,6 +7,7 @@ import Footer from '../components/Footer';
 import GameContext from '../components/GameContext';
 import site from '../content/site';
 import { revealSection, setAllOpen } from '../lib/reveal';
+import { legacyHashTarget, sheetPath } from '../lib/sheetRoutes';
 
 export const TOOLS_TITLE = 'Trees & Calculators';
 
@@ -28,6 +29,10 @@ function GamePage({ game, tools = false }) {
   useEffect(() => {
     if (hash) revealSection(decodeURIComponent(hash.slice(1)), 'auto');
   }, [game, hash]);
+
+  // Old /<game>#<sheet> links (shared on reddit) now live at /<game>/<sheet>.
+  const legacy = legacyHashTarget(game, hash);
+  if (legacy && !tools) return <Navigate to={legacy} replace />;
 
   return (
     <>
@@ -98,6 +103,14 @@ function GamePage({ game, tools = false }) {
                 <Fragment key={s.id}>
                   {i > 0 && ' | '}
                   <JumpLink id={s.id}>{s.navLabel ?? s.title}</JumpLink>
+                  {!tools && (
+                    <>
+                      {' '}
+                      <Link className="sheet-permalink" to={sheetPath(game, s)} aria-label={`Open ${s.title} on its own page`} title="Open on its own page">
+                        ↗
+                      </Link>
+                    </>
+                  )}
                 </Fragment>
               ))}
             </nav>

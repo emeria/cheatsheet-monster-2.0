@@ -78,6 +78,7 @@ const lastepoch = {
   id: 'lastepoch',
   name: 'Last Epoch',
   publisher: 'Eleventh Hour Games',
+  genre: 'Action RPG',
   tile: 'home/lastepoch-card.webp',
   lastUpdated: 'Sun, Feb 18, 2024',
   feedbackUrl:
